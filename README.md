@@ -1,6 +1,6 @@
-# ETH-TCR
+# DeconetRegistry
 
-Token Curated Registries implementation for Token Holders who participate in the network through voting and help curate the quality of the list
+Token Curated Registries implementation for Deconet Token Holders who participate in the network through voting and help curate the quality of the list of Best Modules
 
 ## Initialize
 The only environmental dependency needed is NodeJS.
