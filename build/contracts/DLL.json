@@ -1,0 +1,4163 @@
+{
+  "contractName": "DLL",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "self",
+          "type": "DLL.Data storage"
+        },
+        {
+          "name": "_curr",
+          "type": "uint256"
+        }
+      ],
+      "name": "getNext",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "self",
+          "type": "DLL.Data storage"
+        },
+        {
+          "name": "_curr",
+          "type": "uint256"
+        }
+      ],
+      "name": "getPrev",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "self",
+          "type": "DLL.Data storage"
+        },
+        {
+          "name": "_curr",
+          "type": "uint256"
+        }
+      ],
+      "name": "contains",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "self",
+          "type": "DLL.Data storage"
+        },
+        {
+          "name": "_curr",
+          "type": "uint256"
+        }
+      ],
+      "name": "remove",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "self",
+          "type": "DLL.Data storage"
+        }
+      ],
+      "name": "getEnd",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "self",
+          "type": "DLL.Data storage"
+        },
+        {
+          "name": "_prev",
+          "type": "uint256"
+        },
+        {
+          "name": "_curr",
+          "type": "uint256"
+        },
+        {
+          "name": "_next",
+          "type": "uint256"
+        }
+      ],
+      "name": "insert",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "self",
+          "type": "DLL.Data storage"
+        }
+      ],
+      "name": "isEmpty",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "self",
+          "type": "DLL.Data storage"
+        }
+      ],
+      "name": "getStart",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6060604052341561000f57600080fd5b6104a48061001e6000396000f30060606040526004361061008e576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806307d29ac91461009357806330fe0a0a146100c8578063366a5ba2146100fd5780636d900ed0146101365780637c11cf64146101575780639735c51b14610183578063c426b006146101b6578063ee4f1ac4146101e6575b600080fd5b6100b26004808035906020019091908035906020019091905050610212565b6040518082815260200191505060405180910390f35b6100e76004808035906020019091908035906020019091905050610235565b6040518082815260200191505060405180910390f35b61011c6004808035906020019091908035906020019091905050610258565b604051808215151515815260200191505060405180910390f35b61015560048080359060200190919080359060200190919050506102d8565b005b61016d6004808035906020019091905050610371565b6040518082815260200191505060405180910390f35b6101b46004808035906020019091908035906020019091908035906020019091908035906020019091905050610385565b005b6101cc6004808035906020019091905050610450565b604051808215151515815260200191505060405180910390f35b6101fc6004808035906020019091905050610464565b6040518082815260200191505060405180910390f35b600082600001600083815260200190815260200160002060000154905092915050565b600082600001600083815260200190815260200160002060010154905092915050565b600080600061026685610450565b806102715750600084145b1561027f57600092506102d0565b8361028986610464565b14801561029d57508361029b86610371565b145b915060006102ab8686610212565b1480156102c1575060006102bf8686610235565b145b905081806102cd575080155b92505b505092915050565b6000806102e58484610258565b15156102f05761036b565b6102fa8484610212565b91506103068484610235565b905080846000016000848152602001908152602001600020600101819055508184600001600083815260200190815260200160002060000181905550836000016000848152602001908152602001600020600080820160009055600182016000905550505b50505050565b600061037e826000610235565b9050919050565b6000821415151561039557600080fd5b60008314806103aa57506103a98484610258565b5b15156103b557600080fd5b6103bf84836102d8565b806103ca8585610212565b1415156103d657600080fd5b828460000160008481526020019081526020016000206001018190555080846000016000848152602001908152602001600020600001819055508184600001600085815260200190815260200160002060000181905550818460000160008381526020019081526020016000206001018190555050505050565b60008061045c83610464565b149050919050565b6000610471826000610212565b90509190505600a165627a7a72305820edccb4e108e5a2796ec934e63433cc3702ec9761fd02d9a7caf21561388ea2950029",
+  "deployedBytecode": "0x60606040526004361061008e576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff16806307d29ac91461009357806330fe0a0a146100c8578063366a5ba2146100fd5780636d900ed0146101365780637c11cf64146101575780639735c51b14610183578063c426b006146101b6578063ee4f1ac4146101e6575b600080fd5b6100b26004808035906020019091908035906020019091905050610212565b6040518082815260200191505060405180910390f35b6100e76004808035906020019091908035906020019091905050610235565b6040518082815260200191505060405180910390f35b61011c6004808035906020019091908035906020019091905050610258565b604051808215151515815260200191505060405180910390f35b61015560048080359060200190919080359060200190919050506102d8565b005b61016d6004808035906020019091905050610371565b6040518082815260200191505060405180910390f35b6101b46004808035906020019091908035906020019091908035906020019091908035906020019091905050610385565b005b6101cc6004808035906020019091905050610450565b604051808215151515815260200191505060405180910390f35b6101fc6004808035906020019091905050610464565b6040518082815260200191505060405180910390f35b600082600001600083815260200190815260200160002060000154905092915050565b600082600001600083815260200190815260200160002060010154905092915050565b600080600061026685610450565b806102715750600084145b1561027f57600092506102d0565b8361028986610464565b14801561029d57508361029b86610371565b145b915060006102ab8686610212565b1480156102c1575060006102bf8686610235565b145b905081806102cd575080155b92505b505092915050565b6000806102e58484610258565b15156102f05761036b565b6102fa8484610212565b91506103068484610235565b905080846000016000848152602001908152602001600020600101819055508184600001600083815260200190815260200160002060000181905550836000016000848152602001908152602001600020600080820160009055600182016000905550505b50505050565b600061037e826000610235565b9050919050565b6000821415151561039557600080fd5b60008314806103aa57506103a98484610258565b5b15156103b557600080fd5b6103bf84836102d8565b806103ca8585610212565b1415156103d657600080fd5b828460000160008481526020019081526020016000206001018190555080846000016000848152602001908152602001600020600001819055508184600001600085815260200190815260200160002060000181905550818460000160008381526020019081526020016000206001018190555050505050565b60008061045c83610464565b149050919050565b6000610471826000610212565b90509190505600a165627a7a72305820edccb4e108e5a2796ec934e63433cc3702ec9761fd02d9a7caf21561388ea2950029",
+  "sourceMap": "27:2212:8:-;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "27:2212:8:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;709:115;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;830;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;314:389;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1940:296;;;;;;;;;;;;;;;;;;;;;;;;;;1068:109;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;1532:402;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;195:113;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;951:111;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;709:115;778:4;798;:8;;:15;807:5;798:15;;;;;;;;;;;:20;;;791:27;;709:115;;;;:::o;830:::-;899:4;919;:8;;:15;928:5;919:15;;;;;;;;;;;:20;;;912:27;;830:115;;;;:::o;314:389::-;384:4;479:17;558:15;401:13;409:4;401:7;:13::i;:::-;:38;;;;75:1;418:5;:21;401:38;397:73;;;457:5;450:12;;;;397:73;518:5;500:14;509:4;500:8;:14::i;:::-;:23;499:52;;;;;545:5;529:12;536:4;529:6;:12::i;:::-;:21;499:52;479:72;;75:1;577:20;585:4;591:5;577:7;:20::i;:::-;:36;576:80;;;;;75:1;619:20;627:4;633:5;619:7;:20::i;:::-;:36;576:80;558:98;;670:12;:27;;;;687:10;686:11;670:27;663:34;;314:389;;;;;;;:::o;1940:296::-;2060:9;2099;2006:21;2015:4;2021:5;2006:8;:21::i;:::-;2005:22;2001:51;;;2038:7;;2001:51;2072:20;2080:4;2086:5;2072:7;:20::i;:::-;2060:32;;2111:20;2119:4;2125:5;2111:7;:20::i;:::-;2099:32;;2162:4;2140;:8;;:14;2149:4;2140:14;;;;;;;;;;;:19;;:26;;;;2195:4;2173;:8;;:14;2182:4;2173:14;;;;;;;;;;;:19;;:26;;;;2215:4;:8;;:15;2224:5;2215:15;;;;;;;;;;;;2208:22;;;;;;;;;;;;;;1940:296;;;;;:::o;1068:109::-;1124:4;1144:27;1152:4;75:1;1144:7;:27::i;:::-;1137:34;;1068:109;;;:::o;1532:402::-;75:1;1625:5;:21;;1617:30;;;;;;;;75:1;1662:5;:21;:46;;;;1687:21;1696:4;1702:5;1687:8;:21::i;:::-;1662:46;1654:55;;;;;;;;1718:19;1725:4;1731:5;1718:6;:19::i;:::-;1778:5;1754:20;1762:4;1768:5;1754:7;:20::i;:::-;:29;1746:38;;;;;;;;1816:5;1793:4;:8;;:15;1802:5;1793:15;;;;;;;;;;;:20;;:28;;;;1851:5;1828:4;:8;;:15;1837:5;1828:15;;;;;;;;;;;:20;;:28;;;;1888:5;1865:4;:8;;:15;1874:5;1865:15;;;;;;;;;;;:20;;:28;;;;1923:5;1900:4;:8;;:15;1909:5;1900:15;;;;;;;;;;;:20;;:28;;;;1532:402;;;;:::o;195:113::-;252:4;75:1;272:14;281:4;272:8;:14::i;:::-;:30;265:37;;195:113;;;:::o;951:111::-;1009:4;1029:27;1037:4;75:1;1029:7;:27::i;:::-;1022:34;;951:111;;;:::o",
+  "source": "pragma solidity^0.4.11;\r\n\r\nlibrary DLL {\r\n\r\n  uint constant NULL_NODE_ID = 0;\r\n\r\n  struct Node {\r\n    uint next;\r\n    uint prev;\r\n  }\r\n\r\n  struct Data {\r\n    mapping(uint => Node) dll;\r\n  }\r\n\r\n  function isEmpty(Data storage self) public view returns (bool) {\r\n    return getStart(self) == NULL_NODE_ID;\r\n  }\r\n\r\n  function contains(Data storage self, uint _curr) public view returns (bool) {\r\n    if (isEmpty(self) || _curr == NULL_NODE_ID) {\r\n      return false;\r\n    } \r\n\r\n    bool isSingleNode = (getStart(self) == _curr) && (getEnd(self) == _curr);\r\n    bool isNullNode = (getNext(self, _curr) == NULL_NODE_ID) && (getPrev(self, _curr) == NULL_NODE_ID);\r\n    return isSingleNode || !isNullNode;\r\n  }\r\n\r\n  function getNext(Data storage self, uint _curr) public view returns (uint) {\r\n    return self.dll[_curr].next;\r\n  }\r\n\r\n  function getPrev(Data storage self, uint _curr) public view returns (uint) {\r\n    return self.dll[_curr].prev;\r\n  }\r\n\r\n  function getStart(Data storage self) public view returns (uint) {\r\n    return getNext(self, NULL_NODE_ID);\r\n  }\r\n\r\n  function getEnd(Data storage self) public view returns (uint) {\r\n    return getPrev(self, NULL_NODE_ID);\r\n  }\r\n\r\n  /**\r\n  @dev Inserts a new node between _prev and _next. When inserting a node already existing in \r\n  the list it will be automatically removed from the old position.\r\n  @param _prev the node which _new will be inserted after\r\n  @param _curr the id of the new node being inserted\r\n  @param _next the node which _new will be inserted before\r\n  */\r\n  function insert(Data storage self, uint _prev, uint _curr, uint _next) public {\r\n    require(_curr != NULL_NODE_ID);\r\n    require(_prev == NULL_NODE_ID || contains(self, _prev));\r\n\r\n    remove(self, _curr);\r\n\r\n    require(getNext(self, _prev) == _next);\r\n\r\n    self.dll[_curr].prev = _prev;\r\n    self.dll[_curr].next = _next;\r\n\r\n    self.dll[_prev].next = _curr;\r\n    self.dll[_next].prev = _curr;\r\n  }\r\n\r\n  function remove(Data storage self, uint _curr) public {\r\n    if (!contains(self, _curr)) {\r\n      return;\r\n    }\r\n\r\n    uint next = getNext(self, _curr);\r\n    uint prev = getPrev(self, _curr);\r\n\r\n    self.dll[next].prev = prev;\r\n    self.dll[prev].next = next;\r\n\r\n    delete self.dll[_curr];\r\n  }\r\n}\r\n",
+  "sourcePath": "C:\\Users\\shach\\Documents\\Deco.Network\\DeconetRegistry\\contracts\\lib\\dll\\contracts\\DLL.sol",
+  "ast": {
+    "attributes": {
+      "absolutePath": "/C/Users/shach/Documents/Deco.Network/DeconetRegistry/contracts/lib/dll/contracts/DLL.sol",
+      "exportedSymbols": {
+        "DLL": [
+          7093
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.4",
+            ".11"
+          ]
+        },
+        "id": 6814,
+        "name": "PragmaDirective",
+        "src": "0:23:8"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "library",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            7093
+          ],
+          "name": "DLL",
+          "scope": 7094
+        },
+        "children": [
+          {
+            "attributes": {
+              "constant": true,
+              "name": "NULL_NODE_ID",
+              "scope": 7093,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "uint256",
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "name": "uint",
+                  "type": "uint256"
+                },
+                "id": 6815,
+                "name": "ElementaryTypeName",
+                "src": "46:4:8"
+              },
+              {
+                "attributes": {
+                  "argumentTypes": null,
+                  "hexvalue": "30",
+                  "isConstant": false,
+                  "isLValue": false,
+                  "isPure": true,
+                  "lValueRequested": false,
+                  "subdenomination": null,
+                  "token": "number",
+                  "type": "int_const 0",
+                  "value": "0"
+                },
+                "id": 6816,
+                "name": "Literal",
+                "src": "75:1:8"
+              }
+            ],
+            "id": 6817,
+            "name": "VariableDeclaration",
+            "src": "46:30:8"
+          },
+          {
+            "attributes": {
+              "canonicalName": "DLL.Node",
+              "name": "Node",
+              "scope": 7093,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "next",
+                  "scope": 6822,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint256",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint",
+                      "type": "uint256"
+                    },
+                    "id": 6818,
+                    "name": "ElementaryTypeName",
+                    "src": "102:4:8"
+                  }
+                ],
+                "id": 6819,
+                "name": "VariableDeclaration",
+                "src": "102:9:8"
+              },
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "prev",
+                  "scope": 6822,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "uint256",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "name": "uint",
+                      "type": "uint256"
+                    },
+                    "id": 6820,
+                    "name": "ElementaryTypeName",
+                    "src": "118:4:8"
+                  }
+                ],
+                "id": 6821,
+                "name": "VariableDeclaration",
+                "src": "118:9:8"
+              }
+            ],
+            "id": 6822,
+            "name": "StructDefinition",
+            "src": "83:50:8"
+          },
+          {
+            "attributes": {
+              "canonicalName": "DLL.Data",
+              "name": "Data",
+              "scope": 7093,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "constant": false,
+                  "name": "dll",
+                  "scope": 6827,
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "type": "mapping(uint256 => struct DLL.Node storage ref)",
+                  "value": null,
+                  "visibility": "internal"
+                },
+                "children": [
+                  {
+                    "attributes": {
+                      "type": "mapping(uint256 => struct DLL.Node storage ref)"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 6823,
+                        "name": "ElementaryTypeName",
+                        "src": "166:4:8"
+                      },
+                      {
+                        "attributes": {
+                          "contractScope": null,
+                          "name": "Node",
+                          "referencedDeclaration": 6822,
+                          "type": "struct DLL.Node storage pointer"
+                        },
+                        "id": 6824,
+                        "name": "UserDefinedTypeName",
+                        "src": "174:4:8"
+                      }
+                    ],
+                    "id": 6825,
+                    "name": "Mapping",
+                    "src": "158:21:8"
+                  }
+                ],
+                "id": 6826,
+                "name": "VariableDeclaration",
+                "src": "158:25:8"
+              }
+            ],
+            "id": 6827,
+            "name": "StructDefinition",
+            "src": "139:50:8"
+          },
+          {
+            "attributes": {
+              "constant": true,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "isEmpty",
+              "payable": false,
+              "scope": 7093,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "self",
+                      "scope": 6841,
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "type": "struct DLL.Data storage pointer",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "contractScope": null,
+                          "name": "Data",
+                          "referencedDeclaration": 6827,
+                          "type": "struct DLL.Data storage pointer"
+                        },
+                        "id": 6828,
+                        "name": "UserDefinedTypeName",
+                        "src": "212:4:8"
+                      }
+                    ],
+                    "id": 6829,
+                    "name": "VariableDeclaration",
+                    "src": "212:17:8"
+                  }
+                ],
+                "id": 6830,
+                "name": "ParameterList",
+                "src": "211:19:8"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 6841,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "bool",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bool",
+                          "type": "bool"
+                        },
+                        "id": 6831,
+                        "name": "ElementaryTypeName",
+                        "src": "252:4:8"
+                      }
+                    ],
+                    "id": 6832,
+                    "name": "VariableDeclaration",
+                    "src": "252:4:8"
+                  }
+                ],
+                "id": 6833,
+                "name": "ParameterList",
+                "src": "251:6:8"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 6833
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_uint256",
+                            "typeString": "uint256"
+                          },
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "==",
+                          "type": "bool"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "uint256",
+                              "type_conversion": false
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_struct$_Data_$6827_storage_ptr",
+                                      "typeString": "struct DLL.Data storage pointer"
+                                    }
+                                  ],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 6946,
+                                  "type": "function (struct DLL.Data storage pointer) view returns (uint256)",
+                                  "value": "getStart"
+                                },
+                                "id": 6834,
+                                "name": "Identifier",
+                                "src": "272:8:8"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 6829,
+                                  "type": "struct DLL.Data storage pointer",
+                                  "value": "self"
+                                },
+                                "id": 6835,
+                                "name": "Identifier",
+                                "src": "281:4:8"
+                              }
+                            ],
+                            "id": 6836,
+                            "name": "FunctionCall",
+                            "src": "272:14:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 6817,
+                              "type": "uint256",
+                              "value": "NULL_NODE_ID"
+                            },
+                            "id": 6837,
+                            "name": "Identifier",
+                            "src": "290:12:8"
+                          }
+                        ],
+                        "id": 6838,
+                        "name": "BinaryOperation",
+                        "src": "272:30:8"
+                      }
+                    ],
+                    "id": 6839,
+                    "name": "Return",
+                    "src": "265:37:8"
+                  }
+                ],
+                "id": 6840,
+                "name": "Block",
+                "src": "258:50:8"
+              }
+            ],
+            "id": 6841,
+            "name": "FunctionDefinition",
+            "src": "195:113:8"
+          },
+          {
+            "attributes": {
+              "constant": true,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "contains",
+              "payable": false,
+              "scope": 7093,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "self",
+                      "scope": 6901,
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "type": "struct DLL.Data storage pointer",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "contractScope": null,
+                          "name": "Data",
+                          "referencedDeclaration": 6827,
+                          "type": "struct DLL.Data storage pointer"
+                        },
+                        "id": 6842,
+                        "name": "UserDefinedTypeName",
+                        "src": "332:4:8"
+                      }
+                    ],
+                    "id": 6843,
+                    "name": "VariableDeclaration",
+                    "src": "332:17:8"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_curr",
+                      "scope": 6901,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 6844,
+                        "name": "ElementaryTypeName",
+                        "src": "351:4:8"
+                      }
+                    ],
+                    "id": 6845,
+                    "name": "VariableDeclaration",
+                    "src": "351:10:8"
+                  }
+                ],
+                "id": 6846,
+                "name": "ParameterList",
+                "src": "331:31:8"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 6901,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "bool",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bool",
+                          "type": "bool"
+                        },
+                        "id": 6847,
+                        "name": "ElementaryTypeName",
+                        "src": "384:4:8"
+                      }
+                    ],
+                    "id": 6848,
+                    "name": "VariableDeclaration",
+                    "src": "384:4:8"
+                  }
+                ],
+                "id": 6849,
+                "name": "ParameterList",
+                "src": "383:6:8"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "falseBody": null
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          },
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "||",
+                          "type": "bool"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "bool",
+                              "type_conversion": false
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_struct$_Data_$6827_storage_ptr",
+                                      "typeString": "struct DLL.Data storage pointer"
+                                    }
+                                  ],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 6841,
+                                  "type": "function (struct DLL.Data storage pointer) view returns (bool)",
+                                  "value": "isEmpty"
+                                },
+                                "id": 6850,
+                                "name": "Identifier",
+                                "src": "401:7:8"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 6843,
+                                  "type": "struct DLL.Data storage pointer",
+                                  "value": "self"
+                                },
+                                "id": 6851,
+                                "name": "Identifier",
+                                "src": "409:4:8"
+                              }
+                            ],
+                            "id": 6852,
+                            "name": "FunctionCall",
+                            "src": "401:13:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "commonType": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              },
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "operator": "==",
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 6845,
+                                  "type": "uint256",
+                                  "value": "_curr"
+                                },
+                                "id": 6853,
+                                "name": "Identifier",
+                                "src": "418:5:8"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 6817,
+                                  "type": "uint256",
+                                  "value": "NULL_NODE_ID"
+                                },
+                                "id": 6854,
+                                "name": "Identifier",
+                                "src": "427:12:8"
+                              }
+                            ],
+                            "id": 6855,
+                            "name": "BinaryOperation",
+                            "src": "418:21:8"
+                          }
+                        ],
+                        "id": 6856,
+                        "name": "BinaryOperation",
+                        "src": "401:38:8"
+                      },
+                      {
+                        "children": [
+                          {
+                            "attributes": {
+                              "functionReturnParameters": 6849
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "hexvalue": "66616c7365",
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": true,
+                                  "lValueRequested": false,
+                                  "subdenomination": null,
+                                  "token": "bool",
+                                  "type": "bool",
+                                  "value": "false"
+                                },
+                                "id": 6857,
+                                "name": "Literal",
+                                "src": "457:5:8"
+                              }
+                            ],
+                            "id": 6858,
+                            "name": "Return",
+                            "src": "450:12:8"
+                          }
+                        ],
+                        "id": 6859,
+                        "name": "Block",
+                        "src": "441:29:8"
+                      }
+                    ],
+                    "id": 6860,
+                    "name": "IfStatement",
+                    "src": "397:73:8"
+                  },
+                  {
+                    "attributes": {
+                      "assignments": [
+                        6862
+                      ]
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "constant": false,
+                          "name": "isSingleNode",
+                          "scope": 6901,
+                          "stateVariable": false,
+                          "storageLocation": "default",
+                          "type": "bool",
+                          "value": null,
+                          "visibility": "internal"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "name": "bool",
+                              "type": "bool"
+                            },
+                            "id": 6861,
+                            "name": "ElementaryTypeName",
+                            "src": "479:4:8"
+                          }
+                        ],
+                        "id": 6862,
+                        "name": "VariableDeclaration",
+                        "src": "479:17:8"
+                      },
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          },
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "&&",
+                          "type": "bool"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isInlineArray": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "commonType": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                  },
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "operator": "==",
+                                  "type": "bool"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "isStructConstructorCall": false,
+                                      "lValueRequested": false,
+                                      "names": [
+                                        null
+                                      ],
+                                      "type": "uint256",
+                                      "type_conversion": false
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": [
+                                            {
+                                              "typeIdentifier": "t_struct$_Data_$6827_storage_ptr",
+                                              "typeString": "struct DLL.Data storage pointer"
+                                            }
+                                          ],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6946,
+                                          "type": "function (struct DLL.Data storage pointer) view returns (uint256)",
+                                          "value": "getStart"
+                                        },
+                                        "id": 6863,
+                                        "name": "Identifier",
+                                        "src": "500:8:8"
+                                      },
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6843,
+                                          "type": "struct DLL.Data storage pointer",
+                                          "value": "self"
+                                        },
+                                        "id": 6864,
+                                        "name": "Identifier",
+                                        "src": "509:4:8"
+                                      }
+                                    ],
+                                    "id": 6865,
+                                    "name": "FunctionCall",
+                                    "src": "500:14:8"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 6845,
+                                      "type": "uint256",
+                                      "value": "_curr"
+                                    },
+                                    "id": 6866,
+                                    "name": "Identifier",
+                                    "src": "518:5:8"
+                                  }
+                                ],
+                                "id": 6867,
+                                "name": "BinaryOperation",
+                                "src": "500:23:8"
+                              }
+                            ],
+                            "id": 6868,
+                            "name": "TupleExpression",
+                            "src": "499:25:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isInlineArray": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "commonType": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                  },
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "operator": "==",
+                                  "type": "bool"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "isStructConstructorCall": false,
+                                      "lValueRequested": false,
+                                      "names": [
+                                        null
+                                      ],
+                                      "type": "uint256",
+                                      "type_conversion": false
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": [
+                                            {
+                                              "typeIdentifier": "t_struct$_Data_$6827_storage_ptr",
+                                              "typeString": "struct DLL.Data storage pointer"
+                                            }
+                                          ],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6959,
+                                          "type": "function (struct DLL.Data storage pointer) view returns (uint256)",
+                                          "value": "getEnd"
+                                        },
+                                        "id": 6869,
+                                        "name": "Identifier",
+                                        "src": "529:6:8"
+                                      },
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6843,
+                                          "type": "struct DLL.Data storage pointer",
+                                          "value": "self"
+                                        },
+                                        "id": 6870,
+                                        "name": "Identifier",
+                                        "src": "536:4:8"
+                                      }
+                                    ],
+                                    "id": 6871,
+                                    "name": "FunctionCall",
+                                    "src": "529:12:8"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 6845,
+                                      "type": "uint256",
+                                      "value": "_curr"
+                                    },
+                                    "id": 6872,
+                                    "name": "Identifier",
+                                    "src": "545:5:8"
+                                  }
+                                ],
+                                "id": 6873,
+                                "name": "BinaryOperation",
+                                "src": "529:21:8"
+                              }
+                            ],
+                            "id": 6874,
+                            "name": "TupleExpression",
+                            "src": "528:23:8"
+                          }
+                        ],
+                        "id": 6875,
+                        "name": "BinaryOperation",
+                        "src": "499:52:8"
+                      }
+                    ],
+                    "id": 6876,
+                    "name": "VariableDeclarationStatement",
+                    "src": "479:72:8"
+                  },
+                  {
+                    "attributes": {
+                      "assignments": [
+                        6878
+                      ]
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "constant": false,
+                          "name": "isNullNode",
+                          "scope": 6901,
+                          "stateVariable": false,
+                          "storageLocation": "default",
+                          "type": "bool",
+                          "value": null,
+                          "visibility": "internal"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "name": "bool",
+                              "type": "bool"
+                            },
+                            "id": 6877,
+                            "name": "ElementaryTypeName",
+                            "src": "558:4:8"
+                          }
+                        ],
+                        "id": 6878,
+                        "name": "VariableDeclaration",
+                        "src": "558:15:8"
+                      },
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          },
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "&&",
+                          "type": "bool"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isInlineArray": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "commonType": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                  },
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "operator": "==",
+                                  "type": "bool"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "isStructConstructorCall": false,
+                                      "lValueRequested": false,
+                                      "names": [
+                                        null
+                                      ],
+                                      "type": "uint256",
+                                      "type_conversion": false
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": [
+                                            {
+                                              "typeIdentifier": "t_struct$_Data_$6827_storage_ptr",
+                                              "typeString": "struct DLL.Data storage pointer"
+                                            },
+                                            {
+                                              "typeIdentifier": "t_uint256",
+                                              "typeString": "uint256"
+                                            }
+                                          ],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6917,
+                                          "type": "function (struct DLL.Data storage pointer,uint256) view returns (uint256)",
+                                          "value": "getNext"
+                                        },
+                                        "id": 6879,
+                                        "name": "Identifier",
+                                        "src": "577:7:8"
+                                      },
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6843,
+                                          "type": "struct DLL.Data storage pointer",
+                                          "value": "self"
+                                        },
+                                        "id": 6880,
+                                        "name": "Identifier",
+                                        "src": "585:4:8"
+                                      },
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6845,
+                                          "type": "uint256",
+                                          "value": "_curr"
+                                        },
+                                        "id": 6881,
+                                        "name": "Identifier",
+                                        "src": "591:5:8"
+                                      }
+                                    ],
+                                    "id": 6882,
+                                    "name": "FunctionCall",
+                                    "src": "577:20:8"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 6817,
+                                      "type": "uint256",
+                                      "value": "NULL_NODE_ID"
+                                    },
+                                    "id": 6883,
+                                    "name": "Identifier",
+                                    "src": "601:12:8"
+                                  }
+                                ],
+                                "id": 6884,
+                                "name": "BinaryOperation",
+                                "src": "577:36:8"
+                              }
+                            ],
+                            "id": 6885,
+                            "name": "TupleExpression",
+                            "src": "576:38:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isInlineArray": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "commonType": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                  },
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "operator": "==",
+                                  "type": "bool"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": false,
+                                      "isPure": false,
+                                      "isStructConstructorCall": false,
+                                      "lValueRequested": false,
+                                      "names": [
+                                        null
+                                      ],
+                                      "type": "uint256",
+                                      "type_conversion": false
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": [
+                                            {
+                                              "typeIdentifier": "t_struct$_Data_$6827_storage_ptr",
+                                              "typeString": "struct DLL.Data storage pointer"
+                                            },
+                                            {
+                                              "typeIdentifier": "t_uint256",
+                                              "typeString": "uint256"
+                                            }
+                                          ],
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6933,
+                                          "type": "function (struct DLL.Data storage pointer,uint256) view returns (uint256)",
+                                          "value": "getPrev"
+                                        },
+                                        "id": 6886,
+                                        "name": "Identifier",
+                                        "src": "619:7:8"
+                                      },
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6843,
+                                          "type": "struct DLL.Data storage pointer",
+                                          "value": "self"
+                                        },
+                                        "id": 6887,
+                                        "name": "Identifier",
+                                        "src": "627:4:8"
+                                      },
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6845,
+                                          "type": "uint256",
+                                          "value": "_curr"
+                                        },
+                                        "id": 6888,
+                                        "name": "Identifier",
+                                        "src": "633:5:8"
+                                      }
+                                    ],
+                                    "id": 6889,
+                                    "name": "FunctionCall",
+                                    "src": "619:20:8"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 6817,
+                                      "type": "uint256",
+                                      "value": "NULL_NODE_ID"
+                                    },
+                                    "id": 6890,
+                                    "name": "Identifier",
+                                    "src": "643:12:8"
+                                  }
+                                ],
+                                "id": 6891,
+                                "name": "BinaryOperation",
+                                "src": "619:36:8"
+                              }
+                            ],
+                            "id": 6892,
+                            "name": "TupleExpression",
+                            "src": "618:38:8"
+                          }
+                        ],
+                        "id": 6893,
+                        "name": "BinaryOperation",
+                        "src": "576:80:8"
+                      }
+                    ],
+                    "id": 6894,
+                    "name": "VariableDeclarationStatement",
+                    "src": "558:98:8"
+                  },
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 6849
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "commonType": {
+                            "typeIdentifier": "t_bool",
+                            "typeString": "bool"
+                          },
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "||",
+                          "type": "bool"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 6862,
+                              "type": "bool",
+                              "value": "isSingleNode"
+                            },
+                            "id": 6895,
+                            "name": "Identifier",
+                            "src": "670:12:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "operator": "!",
+                              "prefix": true,
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 6878,
+                                  "type": "bool",
+                                  "value": "isNullNode"
+                                },
+                                "id": 6896,
+                                "name": "Identifier",
+                                "src": "687:10:8"
+                              }
+                            ],
+                            "id": 6897,
+                            "name": "UnaryOperation",
+                            "src": "686:11:8"
+                          }
+                        ],
+                        "id": 6898,
+                        "name": "BinaryOperation",
+                        "src": "670:27:8"
+                      }
+                    ],
+                    "id": 6899,
+                    "name": "Return",
+                    "src": "663:34:8"
+                  }
+                ],
+                "id": 6900,
+                "name": "Block",
+                "src": "390:313:8"
+              }
+            ],
+            "id": 6901,
+            "name": "FunctionDefinition",
+            "src": "314:389:8"
+          },
+          {
+            "attributes": {
+              "constant": true,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "getNext",
+              "payable": false,
+              "scope": 7093,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "self",
+                      "scope": 6917,
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "type": "struct DLL.Data storage pointer",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "contractScope": null,
+                          "name": "Data",
+                          "referencedDeclaration": 6827,
+                          "type": "struct DLL.Data storage pointer"
+                        },
+                        "id": 6902,
+                        "name": "UserDefinedTypeName",
+                        "src": "726:4:8"
+                      }
+                    ],
+                    "id": 6903,
+                    "name": "VariableDeclaration",
+                    "src": "726:17:8"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_curr",
+                      "scope": 6917,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 6904,
+                        "name": "ElementaryTypeName",
+                        "src": "745:4:8"
+                      }
+                    ],
+                    "id": 6905,
+                    "name": "VariableDeclaration",
+                    "src": "745:10:8"
+                  }
+                ],
+                "id": 6906,
+                "name": "ParameterList",
+                "src": "725:31:8"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 6917,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 6907,
+                        "name": "ElementaryTypeName",
+                        "src": "778:4:8"
+                      }
+                    ],
+                    "id": 6908,
+                    "name": "VariableDeclaration",
+                    "src": "778:4:8"
+                  }
+                ],
+                "id": 6909,
+                "name": "ParameterList",
+                "src": "777:6:8"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 6909
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "member_name": "next",
+                          "referencedDeclaration": 6819,
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "type": "struct DLL.Node storage ref"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "dll",
+                                  "referencedDeclaration": 6826,
+                                  "type": "mapping(uint256 => struct DLL.Node storage ref)"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 6903,
+                                      "type": "struct DLL.Data storage pointer",
+                                      "value": "self"
+                                    },
+                                    "id": 6910,
+                                    "name": "Identifier",
+                                    "src": "798:4:8"
+                                  }
+                                ],
+                                "id": 6911,
+                                "name": "MemberAccess",
+                                "src": "798:8:8"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 6905,
+                                  "type": "uint256",
+                                  "value": "_curr"
+                                },
+                                "id": 6912,
+                                "name": "Identifier",
+                                "src": "807:5:8"
+                              }
+                            ],
+                            "id": 6913,
+                            "name": "IndexAccess",
+                            "src": "798:15:8"
+                          }
+                        ],
+                        "id": 6914,
+                        "name": "MemberAccess",
+                        "src": "798:20:8"
+                      }
+                    ],
+                    "id": 6915,
+                    "name": "Return",
+                    "src": "791:27:8"
+                  }
+                ],
+                "id": 6916,
+                "name": "Block",
+                "src": "784:40:8"
+              }
+            ],
+            "id": 6917,
+            "name": "FunctionDefinition",
+            "src": "709:115:8"
+          },
+          {
+            "attributes": {
+              "constant": true,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "getPrev",
+              "payable": false,
+              "scope": 7093,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "self",
+                      "scope": 6933,
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "type": "struct DLL.Data storage pointer",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "contractScope": null,
+                          "name": "Data",
+                          "referencedDeclaration": 6827,
+                          "type": "struct DLL.Data storage pointer"
+                        },
+                        "id": 6918,
+                        "name": "UserDefinedTypeName",
+                        "src": "847:4:8"
+                      }
+                    ],
+                    "id": 6919,
+                    "name": "VariableDeclaration",
+                    "src": "847:17:8"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_curr",
+                      "scope": 6933,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 6920,
+                        "name": "ElementaryTypeName",
+                        "src": "866:4:8"
+                      }
+                    ],
+                    "id": 6921,
+                    "name": "VariableDeclaration",
+                    "src": "866:10:8"
+                  }
+                ],
+                "id": 6922,
+                "name": "ParameterList",
+                "src": "846:31:8"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 6933,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 6923,
+                        "name": "ElementaryTypeName",
+                        "src": "899:4:8"
+                      }
+                    ],
+                    "id": 6924,
+                    "name": "VariableDeclaration",
+                    "src": "899:4:8"
+                  }
+                ],
+                "id": 6925,
+                "name": "ParameterList",
+                "src": "898:6:8"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 6925
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "member_name": "prev",
+                          "referencedDeclaration": 6821,
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "type": "struct DLL.Node storage ref"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "dll",
+                                  "referencedDeclaration": 6826,
+                                  "type": "mapping(uint256 => struct DLL.Node storage ref)"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 6919,
+                                      "type": "struct DLL.Data storage pointer",
+                                      "value": "self"
+                                    },
+                                    "id": 6926,
+                                    "name": "Identifier",
+                                    "src": "919:4:8"
+                                  }
+                                ],
+                                "id": 6927,
+                                "name": "MemberAccess",
+                                "src": "919:8:8"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 6921,
+                                  "type": "uint256",
+                                  "value": "_curr"
+                                },
+                                "id": 6928,
+                                "name": "Identifier",
+                                "src": "928:5:8"
+                              }
+                            ],
+                            "id": 6929,
+                            "name": "IndexAccess",
+                            "src": "919:15:8"
+                          }
+                        ],
+                        "id": 6930,
+                        "name": "MemberAccess",
+                        "src": "919:20:8"
+                      }
+                    ],
+                    "id": 6931,
+                    "name": "Return",
+                    "src": "912:27:8"
+                  }
+                ],
+                "id": 6932,
+                "name": "Block",
+                "src": "905:40:8"
+              }
+            ],
+            "id": 6933,
+            "name": "FunctionDefinition",
+            "src": "830:115:8"
+          },
+          {
+            "attributes": {
+              "constant": true,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "getStart",
+              "payable": false,
+              "scope": 7093,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "self",
+                      "scope": 6946,
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "type": "struct DLL.Data storage pointer",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "contractScope": null,
+                          "name": "Data",
+                          "referencedDeclaration": 6827,
+                          "type": "struct DLL.Data storage pointer"
+                        },
+                        "id": 6934,
+                        "name": "UserDefinedTypeName",
+                        "src": "969:4:8"
+                      }
+                    ],
+                    "id": 6935,
+                    "name": "VariableDeclaration",
+                    "src": "969:17:8"
+                  }
+                ],
+                "id": 6936,
+                "name": "ParameterList",
+                "src": "968:19:8"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 6946,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 6937,
+                        "name": "ElementaryTypeName",
+                        "src": "1009:4:8"
+                      }
+                    ],
+                    "id": 6938,
+                    "name": "VariableDeclaration",
+                    "src": "1009:4:8"
+                  }
+                ],
+                "id": 6939,
+                "name": "ParameterList",
+                "src": "1008:6:8"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 6939
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "uint256",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_struct$_Data_$6827_storage_ptr",
+                                  "typeString": "struct DLL.Data storage pointer"
+                                },
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 6917,
+                              "type": "function (struct DLL.Data storage pointer,uint256) view returns (uint256)",
+                              "value": "getNext"
+                            },
+                            "id": 6940,
+                            "name": "Identifier",
+                            "src": "1029:7:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 6935,
+                              "type": "struct DLL.Data storage pointer",
+                              "value": "self"
+                            },
+                            "id": 6941,
+                            "name": "Identifier",
+                            "src": "1037:4:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 6817,
+                              "type": "uint256",
+                              "value": "NULL_NODE_ID"
+                            },
+                            "id": 6942,
+                            "name": "Identifier",
+                            "src": "1043:12:8"
+                          }
+                        ],
+                        "id": 6943,
+                        "name": "FunctionCall",
+                        "src": "1029:27:8"
+                      }
+                    ],
+                    "id": 6944,
+                    "name": "Return",
+                    "src": "1022:34:8"
+                  }
+                ],
+                "id": 6945,
+                "name": "Block",
+                "src": "1015:47:8"
+              }
+            ],
+            "id": 6946,
+            "name": "FunctionDefinition",
+            "src": "951:111:8"
+          },
+          {
+            "attributes": {
+              "constant": true,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "getEnd",
+              "payable": false,
+              "scope": 7093,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "self",
+                      "scope": 6959,
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "type": "struct DLL.Data storage pointer",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "contractScope": null,
+                          "name": "Data",
+                          "referencedDeclaration": 6827,
+                          "type": "struct DLL.Data storage pointer"
+                        },
+                        "id": 6947,
+                        "name": "UserDefinedTypeName",
+                        "src": "1084:4:8"
+                      }
+                    ],
+                    "id": 6948,
+                    "name": "VariableDeclaration",
+                    "src": "1084:17:8"
+                  }
+                ],
+                "id": 6949,
+                "name": "ParameterList",
+                "src": "1083:19:8"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 6959,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 6950,
+                        "name": "ElementaryTypeName",
+                        "src": "1124:4:8"
+                      }
+                    ],
+                    "id": 6951,
+                    "name": "VariableDeclaration",
+                    "src": "1124:4:8"
+                  }
+                ],
+                "id": 6952,
+                "name": "ParameterList",
+                "src": "1123:6:8"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 6952
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "uint256",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_struct$_Data_$6827_storage_ptr",
+                                  "typeString": "struct DLL.Data storage pointer"
+                                },
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 6933,
+                              "type": "function (struct DLL.Data storage pointer,uint256) view returns (uint256)",
+                              "value": "getPrev"
+                            },
+                            "id": 6953,
+                            "name": "Identifier",
+                            "src": "1144:7:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 6948,
+                              "type": "struct DLL.Data storage pointer",
+                              "value": "self"
+                            },
+                            "id": 6954,
+                            "name": "Identifier",
+                            "src": "1152:4:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 6817,
+                              "type": "uint256",
+                              "value": "NULL_NODE_ID"
+                            },
+                            "id": 6955,
+                            "name": "Identifier",
+                            "src": "1158:12:8"
+                          }
+                        ],
+                        "id": 6956,
+                        "name": "FunctionCall",
+                        "src": "1144:27:8"
+                      }
+                    ],
+                    "id": 6957,
+                    "name": "Return",
+                    "src": "1137:34:8"
+                  }
+                ],
+                "id": 6958,
+                "name": "Block",
+                "src": "1130:47:8"
+              }
+            ],
+            "id": 6959,
+            "name": "FunctionDefinition",
+            "src": "1068:109:8"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "insert",
+              "payable": false,
+              "scope": 7093,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "self",
+                      "scope": 7038,
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "type": "struct DLL.Data storage pointer",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "contractScope": null,
+                          "name": "Data",
+                          "referencedDeclaration": 6827,
+                          "type": "struct DLL.Data storage pointer"
+                        },
+                        "id": 6960,
+                        "name": "UserDefinedTypeName",
+                        "src": "1548:4:8"
+                      }
+                    ],
+                    "id": 6961,
+                    "name": "VariableDeclaration",
+                    "src": "1548:17:8"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_prev",
+                      "scope": 7038,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 6962,
+                        "name": "ElementaryTypeName",
+                        "src": "1567:4:8"
+                      }
+                    ],
+                    "id": 6963,
+                    "name": "VariableDeclaration",
+                    "src": "1567:10:8"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_curr",
+                      "scope": 7038,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 6964,
+                        "name": "ElementaryTypeName",
+                        "src": "1579:4:8"
+                      }
+                    ],
+                    "id": 6965,
+                    "name": "VariableDeclaration",
+                    "src": "1579:10:8"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_next",
+                      "scope": 7038,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 6966,
+                        "name": "ElementaryTypeName",
+                        "src": "1591:4:8"
+                      }
+                    ],
+                    "id": 6967,
+                    "name": "VariableDeclaration",
+                    "src": "1591:10:8"
+                  }
+                ],
+                "id": 6968,
+                "name": "ParameterList",
+                "src": "1547:55:8"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 6969,
+                "name": "ParameterList",
+                "src": "1610:0:8"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bool",
+                                  "typeString": "bool"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 7459,
+                              "type": "function (bool) pure",
+                              "value": "require"
+                            },
+                            "id": 6970,
+                            "name": "Identifier",
+                            "src": "1617:7:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "commonType": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              },
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "operator": "!=",
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 6965,
+                                  "type": "uint256",
+                                  "value": "_curr"
+                                },
+                                "id": 6971,
+                                "name": "Identifier",
+                                "src": "1625:5:8"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 6817,
+                                  "type": "uint256",
+                                  "value": "NULL_NODE_ID"
+                                },
+                                "id": 6972,
+                                "name": "Identifier",
+                                "src": "1634:12:8"
+                              }
+                            ],
+                            "id": 6973,
+                            "name": "BinaryOperation",
+                            "src": "1625:21:8"
+                          }
+                        ],
+                        "id": 6974,
+                        "name": "FunctionCall",
+                        "src": "1617:30:8"
+                      }
+                    ],
+                    "id": 6975,
+                    "name": "ExpressionStatement",
+                    "src": "1617:30:8"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bool",
+                                  "typeString": "bool"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 7459,
+                              "type": "function (bool) pure",
+                              "value": "require"
+                            },
+                            "id": 6976,
+                            "name": "Identifier",
+                            "src": "1654:7:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "commonType": {
+                                "typeIdentifier": "t_bool",
+                                "typeString": "bool"
+                              },
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "operator": "||",
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "commonType": {
+                                    "typeIdentifier": "t_uint256",
+                                    "typeString": "uint256"
+                                  },
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "operator": "==",
+                                  "type": "bool"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 6963,
+                                      "type": "uint256",
+                                      "value": "_prev"
+                                    },
+                                    "id": 6977,
+                                    "name": "Identifier",
+                                    "src": "1662:5:8"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 6817,
+                                      "type": "uint256",
+                                      "value": "NULL_NODE_ID"
+                                    },
+                                    "id": 6978,
+                                    "name": "Identifier",
+                                    "src": "1671:12:8"
+                                  }
+                                ],
+                                "id": 6979,
+                                "name": "BinaryOperation",
+                                "src": "1662:21:8"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "isStructConstructorCall": false,
+                                  "lValueRequested": false,
+                                  "names": [
+                                    null
+                                  ],
+                                  "type": "bool",
+                                  "type_conversion": false
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": [
+                                        {
+                                          "typeIdentifier": "t_struct$_Data_$6827_storage_ptr",
+                                          "typeString": "struct DLL.Data storage pointer"
+                                        },
+                                        {
+                                          "typeIdentifier": "t_uint256",
+                                          "typeString": "uint256"
+                                        }
+                                      ],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 6901,
+                                      "type": "function (struct DLL.Data storage pointer,uint256) view returns (bool)",
+                                      "value": "contains"
+                                    },
+                                    "id": 6980,
+                                    "name": "Identifier",
+                                    "src": "1687:8:8"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 6961,
+                                      "type": "struct DLL.Data storage pointer",
+                                      "value": "self"
+                                    },
+                                    "id": 6981,
+                                    "name": "Identifier",
+                                    "src": "1696:4:8"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 6963,
+                                      "type": "uint256",
+                                      "value": "_prev"
+                                    },
+                                    "id": 6982,
+                                    "name": "Identifier",
+                                    "src": "1702:5:8"
+                                  }
+                                ],
+                                "id": 6983,
+                                "name": "FunctionCall",
+                                "src": "1687:21:8"
+                              }
+                            ],
+                            "id": 6984,
+                            "name": "BinaryOperation",
+                            "src": "1662:46:8"
+                          }
+                        ],
+                        "id": 6985,
+                        "name": "FunctionCall",
+                        "src": "1654:55:8"
+                      }
+                    ],
+                    "id": 6986,
+                    "name": "ExpressionStatement",
+                    "src": "1654:55:8"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_struct$_Data_$6827_storage_ptr",
+                                  "typeString": "struct DLL.Data storage pointer"
+                                },
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 7092,
+                              "type": "function (struct DLL.Data storage pointer,uint256)",
+                              "value": "remove"
+                            },
+                            "id": 6987,
+                            "name": "Identifier",
+                            "src": "1718:6:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 6961,
+                              "type": "struct DLL.Data storage pointer",
+                              "value": "self"
+                            },
+                            "id": 6988,
+                            "name": "Identifier",
+                            "src": "1725:4:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 6965,
+                              "type": "uint256",
+                              "value": "_curr"
+                            },
+                            "id": 6989,
+                            "name": "Identifier",
+                            "src": "1731:5:8"
+                          }
+                        ],
+                        "id": 6990,
+                        "name": "FunctionCall",
+                        "src": "1718:19:8"
+                      }
+                    ],
+                    "id": 6991,
+                    "name": "ExpressionStatement",
+                    "src": "1718:19:8"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_bool",
+                                  "typeString": "bool"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 7459,
+                              "type": "function (bool) pure",
+                              "value": "require"
+                            },
+                            "id": 6992,
+                            "name": "Identifier",
+                            "src": "1746:7:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "commonType": {
+                                "typeIdentifier": "t_uint256",
+                                "typeString": "uint256"
+                              },
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "operator": "==",
+                              "type": "bool"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": false,
+                                  "isPure": false,
+                                  "isStructConstructorCall": false,
+                                  "lValueRequested": false,
+                                  "names": [
+                                    null
+                                  ],
+                                  "type": "uint256",
+                                  "type_conversion": false
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": [
+                                        {
+                                          "typeIdentifier": "t_struct$_Data_$6827_storage_ptr",
+                                          "typeString": "struct DLL.Data storage pointer"
+                                        },
+                                        {
+                                          "typeIdentifier": "t_uint256",
+                                          "typeString": "uint256"
+                                        }
+                                      ],
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 6917,
+                                      "type": "function (struct DLL.Data storage pointer,uint256) view returns (uint256)",
+                                      "value": "getNext"
+                                    },
+                                    "id": 6993,
+                                    "name": "Identifier",
+                                    "src": "1754:7:8"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 6961,
+                                      "type": "struct DLL.Data storage pointer",
+                                      "value": "self"
+                                    },
+                                    "id": 6994,
+                                    "name": "Identifier",
+                                    "src": "1762:4:8"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 6963,
+                                      "type": "uint256",
+                                      "value": "_prev"
+                                    },
+                                    "id": 6995,
+                                    "name": "Identifier",
+                                    "src": "1768:5:8"
+                                  }
+                                ],
+                                "id": 6996,
+                                "name": "FunctionCall",
+                                "src": "1754:20:8"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 6967,
+                                  "type": "uint256",
+                                  "value": "_next"
+                                },
+                                "id": 6997,
+                                "name": "Identifier",
+                                "src": "1778:5:8"
+                              }
+                            ],
+                            "id": 6998,
+                            "name": "BinaryOperation",
+                            "src": "1754:29:8"
+                          }
+                        ],
+                        "id": 6999,
+                        "name": "FunctionCall",
+                        "src": "1746:38:8"
+                      }
+                    ],
+                    "id": 7000,
+                    "name": "ExpressionStatement",
+                    "src": "1746:38:8"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "member_name": "prev",
+                              "referencedDeclaration": 6821,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "type": "struct DLL.Node storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": true,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "dll",
+                                      "referencedDeclaration": 6826,
+                                      "type": "mapping(uint256 => struct DLL.Node storage ref)"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6961,
+                                          "type": "struct DLL.Data storage pointer",
+                                          "value": "self"
+                                        },
+                                        "id": 7001,
+                                        "name": "Identifier",
+                                        "src": "1793:4:8"
+                                      }
+                                    ],
+                                    "id": 7004,
+                                    "name": "MemberAccess",
+                                    "src": "1793:8:8"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 6965,
+                                      "type": "uint256",
+                                      "value": "_curr"
+                                    },
+                                    "id": 7003,
+                                    "name": "Identifier",
+                                    "src": "1802:5:8"
+                                  }
+                                ],
+                                "id": 7005,
+                                "name": "IndexAccess",
+                                "src": "1793:15:8"
+                              }
+                            ],
+                            "id": 7006,
+                            "name": "MemberAccess",
+                            "src": "1793:20:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 6963,
+                              "type": "uint256",
+                              "value": "_prev"
+                            },
+                            "id": 7007,
+                            "name": "Identifier",
+                            "src": "1816:5:8"
+                          }
+                        ],
+                        "id": 7008,
+                        "name": "Assignment",
+                        "src": "1793:28:8"
+                      }
+                    ],
+                    "id": 7009,
+                    "name": "ExpressionStatement",
+                    "src": "1793:28:8"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "member_name": "next",
+                              "referencedDeclaration": 6819,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "type": "struct DLL.Node storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": true,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "dll",
+                                      "referencedDeclaration": 6826,
+                                      "type": "mapping(uint256 => struct DLL.Node storage ref)"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6961,
+                                          "type": "struct DLL.Data storage pointer",
+                                          "value": "self"
+                                        },
+                                        "id": 7010,
+                                        "name": "Identifier",
+                                        "src": "1828:4:8"
+                                      }
+                                    ],
+                                    "id": 7013,
+                                    "name": "MemberAccess",
+                                    "src": "1828:8:8"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 6965,
+                                      "type": "uint256",
+                                      "value": "_curr"
+                                    },
+                                    "id": 7012,
+                                    "name": "Identifier",
+                                    "src": "1837:5:8"
+                                  }
+                                ],
+                                "id": 7014,
+                                "name": "IndexAccess",
+                                "src": "1828:15:8"
+                              }
+                            ],
+                            "id": 7015,
+                            "name": "MemberAccess",
+                            "src": "1828:20:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 6967,
+                              "type": "uint256",
+                              "value": "_next"
+                            },
+                            "id": 7016,
+                            "name": "Identifier",
+                            "src": "1851:5:8"
+                          }
+                        ],
+                        "id": 7017,
+                        "name": "Assignment",
+                        "src": "1828:28:8"
+                      }
+                    ],
+                    "id": 7018,
+                    "name": "ExpressionStatement",
+                    "src": "1828:28:8"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "member_name": "next",
+                              "referencedDeclaration": 6819,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "type": "struct DLL.Node storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": true,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "dll",
+                                      "referencedDeclaration": 6826,
+                                      "type": "mapping(uint256 => struct DLL.Node storage ref)"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6961,
+                                          "type": "struct DLL.Data storage pointer",
+                                          "value": "self"
+                                        },
+                                        "id": 7019,
+                                        "name": "Identifier",
+                                        "src": "1865:4:8"
+                                      }
+                                    ],
+                                    "id": 7022,
+                                    "name": "MemberAccess",
+                                    "src": "1865:8:8"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 6963,
+                                      "type": "uint256",
+                                      "value": "_prev"
+                                    },
+                                    "id": 7021,
+                                    "name": "Identifier",
+                                    "src": "1874:5:8"
+                                  }
+                                ],
+                                "id": 7023,
+                                "name": "IndexAccess",
+                                "src": "1865:15:8"
+                              }
+                            ],
+                            "id": 7024,
+                            "name": "MemberAccess",
+                            "src": "1865:20:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 6965,
+                              "type": "uint256",
+                              "value": "_curr"
+                            },
+                            "id": 7025,
+                            "name": "Identifier",
+                            "src": "1888:5:8"
+                          }
+                        ],
+                        "id": 7026,
+                        "name": "Assignment",
+                        "src": "1865:28:8"
+                      }
+                    ],
+                    "id": 7027,
+                    "name": "ExpressionStatement",
+                    "src": "1865:28:8"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "member_name": "prev",
+                              "referencedDeclaration": 6821,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "type": "struct DLL.Node storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": true,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "dll",
+                                      "referencedDeclaration": 6826,
+                                      "type": "mapping(uint256 => struct DLL.Node storage ref)"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 6961,
+                                          "type": "struct DLL.Data storage pointer",
+                                          "value": "self"
+                                        },
+                                        "id": 7028,
+                                        "name": "Identifier",
+                                        "src": "1900:4:8"
+                                      }
+                                    ],
+                                    "id": 7031,
+                                    "name": "MemberAccess",
+                                    "src": "1900:8:8"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 6967,
+                                      "type": "uint256",
+                                      "value": "_next"
+                                    },
+                                    "id": 7030,
+                                    "name": "Identifier",
+                                    "src": "1909:5:8"
+                                  }
+                                ],
+                                "id": 7032,
+                                "name": "IndexAccess",
+                                "src": "1900:15:8"
+                              }
+                            ],
+                            "id": 7033,
+                            "name": "MemberAccess",
+                            "src": "1900:20:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 6965,
+                              "type": "uint256",
+                              "value": "_curr"
+                            },
+                            "id": 7034,
+                            "name": "Identifier",
+                            "src": "1923:5:8"
+                          }
+                        ],
+                        "id": 7035,
+                        "name": "Assignment",
+                        "src": "1900:28:8"
+                      }
+                    ],
+                    "id": 7036,
+                    "name": "ExpressionStatement",
+                    "src": "1900:28:8"
+                  }
+                ],
+                "id": 7037,
+                "name": "Block",
+                "src": "1610:324:8"
+              }
+            ],
+            "id": 7038,
+            "name": "FunctionDefinition",
+            "src": "1532:402:8"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "remove",
+              "payable": false,
+              "scope": 7093,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "self",
+                      "scope": 7092,
+                      "stateVariable": false,
+                      "storageLocation": "storage",
+                      "type": "struct DLL.Data storage pointer",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "contractScope": null,
+                          "name": "Data",
+                          "referencedDeclaration": 6827,
+                          "type": "struct DLL.Data storage pointer"
+                        },
+                        "id": 7039,
+                        "name": "UserDefinedTypeName",
+                        "src": "1956:4:8"
+                      }
+                    ],
+                    "id": 7040,
+                    "name": "VariableDeclaration",
+                    "src": "1956:17:8"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_curr",
+                      "scope": 7092,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 7041,
+                        "name": "ElementaryTypeName",
+                        "src": "1975:4:8"
+                      }
+                    ],
+                    "id": 7042,
+                    "name": "VariableDeclaration",
+                    "src": "1975:10:8"
+                  }
+                ],
+                "id": 7043,
+                "name": "ParameterList",
+                "src": "1955:31:8"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 7044,
+                "name": "ParameterList",
+                "src": "1994:0:8"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "falseBody": null
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "!",
+                          "prefix": true,
+                          "type": "bool"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": false,
+                              "isStructConstructorCall": false,
+                              "lValueRequested": false,
+                              "names": [
+                                null
+                              ],
+                              "type": "bool",
+                              "type_conversion": false
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": [
+                                    {
+                                      "typeIdentifier": "t_struct$_Data_$6827_storage_ptr",
+                                      "typeString": "struct DLL.Data storage pointer"
+                                    },
+                                    {
+                                      "typeIdentifier": "t_uint256",
+                                      "typeString": "uint256"
+                                    }
+                                  ],
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 6901,
+                                  "type": "function (struct DLL.Data storage pointer,uint256) view returns (bool)",
+                                  "value": "contains"
+                                },
+                                "id": 7045,
+                                "name": "Identifier",
+                                "src": "2006:8:8"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 7040,
+                                  "type": "struct DLL.Data storage pointer",
+                                  "value": "self"
+                                },
+                                "id": 7046,
+                                "name": "Identifier",
+                                "src": "2015:4:8"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 7042,
+                                  "type": "uint256",
+                                  "value": "_curr"
+                                },
+                                "id": 7047,
+                                "name": "Identifier",
+                                "src": "2021:5:8"
+                              }
+                            ],
+                            "id": 7048,
+                            "name": "FunctionCall",
+                            "src": "2006:21:8"
+                          }
+                        ],
+                        "id": 7049,
+                        "name": "UnaryOperation",
+                        "src": "2005:22:8"
+                      },
+                      {
+                        "children": [
+                          {
+                            "attributes": {
+                              "expression": null,
+                              "functionReturnParameters": 7044
+                            },
+                            "id": 7050,
+                            "name": "Return",
+                            "src": "2038:7:8"
+                          }
+                        ],
+                        "id": 7051,
+                        "name": "Block",
+                        "src": "2029:23:8"
+                      }
+                    ],
+                    "id": 7052,
+                    "name": "IfStatement",
+                    "src": "2001:51:8"
+                  },
+                  {
+                    "attributes": {
+                      "assignments": [
+                        7054
+                      ]
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "constant": false,
+                          "name": "next",
+                          "scope": 7092,
+                          "stateVariable": false,
+                          "storageLocation": "default",
+                          "type": "uint256",
+                          "value": null,
+                          "visibility": "internal"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "name": "uint",
+                              "type": "uint256"
+                            },
+                            "id": 7053,
+                            "name": "ElementaryTypeName",
+                            "src": "2060:4:8"
+                          }
+                        ],
+                        "id": 7054,
+                        "name": "VariableDeclaration",
+                        "src": "2060:9:8"
+                      },
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "uint256",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_struct$_Data_$6827_storage_ptr",
+                                  "typeString": "struct DLL.Data storage pointer"
+                                },
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 6917,
+                              "type": "function (struct DLL.Data storage pointer,uint256) view returns (uint256)",
+                              "value": "getNext"
+                            },
+                            "id": 7055,
+                            "name": "Identifier",
+                            "src": "2072:7:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 7040,
+                              "type": "struct DLL.Data storage pointer",
+                              "value": "self"
+                            },
+                            "id": 7056,
+                            "name": "Identifier",
+                            "src": "2080:4:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 7042,
+                              "type": "uint256",
+                              "value": "_curr"
+                            },
+                            "id": 7057,
+                            "name": "Identifier",
+                            "src": "2086:5:8"
+                          }
+                        ],
+                        "id": 7058,
+                        "name": "FunctionCall",
+                        "src": "2072:20:8"
+                      }
+                    ],
+                    "id": 7059,
+                    "name": "VariableDeclarationStatement",
+                    "src": "2060:32:8"
+                  },
+                  {
+                    "attributes": {
+                      "assignments": [
+                        7061
+                      ]
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "constant": false,
+                          "name": "prev",
+                          "scope": 7092,
+                          "stateVariable": false,
+                          "storageLocation": "default",
+                          "type": "uint256",
+                          "value": null,
+                          "visibility": "internal"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "name": "uint",
+                              "type": "uint256"
+                            },
+                            "id": 7060,
+                            "name": "ElementaryTypeName",
+                            "src": "2099:4:8"
+                          }
+                        ],
+                        "id": 7061,
+                        "name": "VariableDeclaration",
+                        "src": "2099:9:8"
+                      },
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "uint256",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_struct$_Data_$6827_storage_ptr",
+                                  "typeString": "struct DLL.Data storage pointer"
+                                },
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 6933,
+                              "type": "function (struct DLL.Data storage pointer,uint256) view returns (uint256)",
+                              "value": "getPrev"
+                            },
+                            "id": 7062,
+                            "name": "Identifier",
+                            "src": "2111:7:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 7040,
+                              "type": "struct DLL.Data storage pointer",
+                              "value": "self"
+                            },
+                            "id": 7063,
+                            "name": "Identifier",
+                            "src": "2119:4:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 7042,
+                              "type": "uint256",
+                              "value": "_curr"
+                            },
+                            "id": 7064,
+                            "name": "Identifier",
+                            "src": "2125:5:8"
+                          }
+                        ],
+                        "id": 7065,
+                        "name": "FunctionCall",
+                        "src": "2111:20:8"
+                      }
+                    ],
+                    "id": 7066,
+                    "name": "VariableDeclarationStatement",
+                    "src": "2099:32:8"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "member_name": "prev",
+                              "referencedDeclaration": 6821,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "type": "struct DLL.Node storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": true,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "dll",
+                                      "referencedDeclaration": 6826,
+                                      "type": "mapping(uint256 => struct DLL.Node storage ref)"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 7040,
+                                          "type": "struct DLL.Data storage pointer",
+                                          "value": "self"
+                                        },
+                                        "id": 7067,
+                                        "name": "Identifier",
+                                        "src": "2140:4:8"
+                                      }
+                                    ],
+                                    "id": 7070,
+                                    "name": "MemberAccess",
+                                    "src": "2140:8:8"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 7054,
+                                      "type": "uint256",
+                                      "value": "next"
+                                    },
+                                    "id": 7069,
+                                    "name": "Identifier",
+                                    "src": "2149:4:8"
+                                  }
+                                ],
+                                "id": 7071,
+                                "name": "IndexAccess",
+                                "src": "2140:14:8"
+                              }
+                            ],
+                            "id": 7072,
+                            "name": "MemberAccess",
+                            "src": "2140:19:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 7061,
+                              "type": "uint256",
+                              "value": "prev"
+                            },
+                            "id": 7073,
+                            "name": "Identifier",
+                            "src": "2162:4:8"
+                          }
+                        ],
+                        "id": 7074,
+                        "name": "Assignment",
+                        "src": "2140:26:8"
+                      }
+                    ],
+                    "id": 7075,
+                    "name": "ExpressionStatement",
+                    "src": "2140:26:8"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "=",
+                          "type": "uint256"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "member_name": "next",
+                              "referencedDeclaration": 6819,
+                              "type": "uint256"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "type": "struct DLL.Node storage ref"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "isConstant": false,
+                                      "isLValue": true,
+                                      "isPure": false,
+                                      "lValueRequested": false,
+                                      "member_name": "dll",
+                                      "referencedDeclaration": 6826,
+                                      "type": "mapping(uint256 => struct DLL.Node storage ref)"
+                                    },
+                                    "children": [
+                                      {
+                                        "attributes": {
+                                          "argumentTypes": null,
+                                          "overloadedDeclarations": [
+                                            null
+                                          ],
+                                          "referencedDeclaration": 7040,
+                                          "type": "struct DLL.Data storage pointer",
+                                          "value": "self"
+                                        },
+                                        "id": 7076,
+                                        "name": "Identifier",
+                                        "src": "2173:4:8"
+                                      }
+                                    ],
+                                    "id": 7079,
+                                    "name": "MemberAccess",
+                                    "src": "2173:8:8"
+                                  },
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 7061,
+                                      "type": "uint256",
+                                      "value": "prev"
+                                    },
+                                    "id": 7078,
+                                    "name": "Identifier",
+                                    "src": "2182:4:8"
+                                  }
+                                ],
+                                "id": 7080,
+                                "name": "IndexAccess",
+                                "src": "2173:14:8"
+                              }
+                            ],
+                            "id": 7081,
+                            "name": "MemberAccess",
+                            "src": "2173:19:8"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 7054,
+                              "type": "uint256",
+                              "value": "next"
+                            },
+                            "id": 7082,
+                            "name": "Identifier",
+                            "src": "2195:4:8"
+                          }
+                        ],
+                        "id": 7083,
+                        "name": "Assignment",
+                        "src": "2173:26:8"
+                      }
+                    ],
+                    "id": 7084,
+                    "name": "ExpressionStatement",
+                    "src": "2173:26:8"
+                  },
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "operator": "delete",
+                          "prefix": true,
+                          "type": "tuple()"
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": true,
+                              "type": "struct DLL.Node storage ref"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "isConstant": false,
+                                  "isLValue": true,
+                                  "isPure": false,
+                                  "lValueRequested": false,
+                                  "member_name": "dll",
+                                  "referencedDeclaration": 6826,
+                                  "type": "mapping(uint256 => struct DLL.Node storage ref)"
+                                },
+                                "children": [
+                                  {
+                                    "attributes": {
+                                      "argumentTypes": null,
+                                      "overloadedDeclarations": [
+                                        null
+                                      ],
+                                      "referencedDeclaration": 7040,
+                                      "type": "struct DLL.Data storage pointer",
+                                      "value": "self"
+                                    },
+                                    "id": 7085,
+                                    "name": "Identifier",
+                                    "src": "2215:4:8"
+                                  }
+                                ],
+                                "id": 7086,
+                                "name": "MemberAccess",
+                                "src": "2215:8:8"
+                              },
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 7042,
+                                  "type": "uint256",
+                                  "value": "_curr"
+                                },
+                                "id": 7087,
+                                "name": "Identifier",
+                                "src": "2224:5:8"
+                              }
+                            ],
+                            "id": 7088,
+                            "name": "IndexAccess",
+                            "src": "2215:15:8"
+                          }
+                        ],
+                        "id": 7089,
+                        "name": "UnaryOperation",
+                        "src": "2208:22:8"
+                      }
+                    ],
+                    "id": 7090,
+                    "name": "ExpressionStatement",
+                    "src": "2208:22:8"
+                  }
+                ],
+                "id": 7091,
+                "name": "Block",
+                "src": "1994:242:8"
+              }
+            ],
+            "id": 7092,
+            "name": "FunctionDefinition",
+            "src": "1940:296:8"
+          }
+        ],
+        "id": 7093,
+        "name": "ContractDefinition",
+        "src": "27:2212:8"
+      }
+    ],
+    "id": 7094,
+    "name": "SourceUnit",
+    "src": "0:2241:8"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.18+commit.9cf6e910.Emscripten.clang"
+  },
+  "networks": {
+    "3": {
+      "events": {},
+      "links": {},
+      "address": "0x7d865c48a4073cadb600179225d9be4837e6d300"
+    }
+  },
+  "schemaVersion": "1.0.1",
+  "updatedAt": "2018-02-07T19:05:09.444Z"
+}

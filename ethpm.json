@@ -1,0 +1,27 @@
+{
+  "package_name": "eth-tcr",
+  "version": "0.0.1",
+  "description": "Token Curated Registries implementation for Token Holders who participate in the network through voting and help curate the quality of the list",
+  "authors": [
+    "Mike Goldin",
+    "Isaac Kang",
+    "Terry Li",
+    "Irene Lin",
+    "Cem Ozer",
+    "Aspyn Palatnick",
+    "Yorke Rhodes",
+    "Mira Zeitlin"
+  ],
+  "keywords": [
+    "consensys",
+    "plcr",
+    "tokens",
+    "tcr"
+  ],
+  "dependencies": {
+    "tokens": "1.0.0",
+    "dll": "1.0.3",
+    "attrstore": "1.0.0"
+  },
+  "license": "Apache 2.0"
+}

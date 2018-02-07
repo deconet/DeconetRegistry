@@ -1,0 +1,35 @@
+{
+    "name": "eth-tcr",
+    "version": "0.0.1",
+    "description": "Token Curated Registries implementation for Token Holders who participate in the network through voting and help curate the quality of the list",
+    "scripts": {
+        "setup": "truffle install",
+        "compile": "truffle compile",
+        "deploy-rinkeby": "truffle migrate --network rinkeby",
+        "deploy-mainnet": "truffle migrate --network mainnet",
+        "test": "npm run lint ./ && truffle test",
+        "fix": "eslint --fix",
+        "lint": "eslint"
+    },
+    "author": "Shachindra",
+    "license": "MIT",
+    "dependencies": {
+        "bignumber.js": "5.0.0",
+        "bip39": "2.5.0",
+        "bn.js": "4.11.8",
+        "ethereumjs-abi": "0.6.5",
+        "ethereumjs-wallet": "0.6.0",
+        "ethjs": "0.3.1",
+        "ethjs-provider-http": "0.1.6",
+        "ethjs-query": "0.3.2",
+        "ethjs-rpc": "0.1.8",
+        "ethjs-util": "0.1.4",
+        "truffle": "4.0.6",
+        "truffle-hdwallet-provider": "0.0.3"
+    },
+    "devDependencies": {
+        "eslint": "4.15.0",
+        "eslint-config-airbnb-base": "12.1.0",
+        "eslint-plugin-import": "2.8.0"
+    }
+}

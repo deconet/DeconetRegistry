@@ -1,0 +1,1598 @@
+{
+  "contractName": "TestDLL",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_curr",
+          "type": "uint256"
+        }
+      ],
+      "name": "getNext",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_curr",
+          "type": "uint256"
+        }
+      ],
+      "name": "getPrev",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_prev",
+          "type": "uint256"
+        },
+        {
+          "name": "_curr",
+          "type": "uint256"
+        },
+        {
+          "name": "_next",
+          "type": "uint256"
+        }
+      ],
+      "name": "insert",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "_curr",
+          "type": "uint256"
+        }
+      ],
+      "name": "remove",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "isEmpty",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getEnd",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "_curr",
+          "type": "uint256"
+        }
+      ],
+      "name": "contains",
+      "outputs": [
+        {
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [],
+      "name": "getStart",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "bytecode": "0x6060604052341561000f57600080fd5b6104cc8061001e6000396000f3006060604052600436106100745763ffffffff60e060020a60003504166307aba33d81146100795780631037a5f4146100a15780634a803387146100b75780634cc82215146100d5578063681fe70c146100eb5780639f05a36d14610112578063c34052e014610125578063c5292c671461013b575b600080fd5b341561008457600080fd5b61008f60043561014e565b60405190815260200160405180910390f35b34156100ac57600080fd5b61008f6004356101cd565b34156100c257600080fd5b6100d360043560243560443561022c565b005b34156100e057600080fd5b6100d36004356102aa565b34156100f657600080fd5b6100fe610317565b604051901515815260200160405180910390f35b341561011d57600080fd5b61008f61038f565b341561013057600080fd5b6100fe6004356103e8565b341561014657600080fd5b61008f610447565b600073__DLL___________________________________6307d29ac98284816040516020015260405160e060020a63ffffffff85160281526004810192909252602482015260440160206040518083038186803b15156101ad57600080fd5b6102c65a03f415156101be57600080fd5b50505060405180519392505050565b600073__DLL___________________________________6330fe0a0a8284816040516020015260405160e060020a63ffffffff85160281526004810192909252602482015260440160206040518083038186803b15156101ad57600080fd5b73__DLL___________________________________639735c51b600085858560405160e060020a63ffffffff8716028152600481019490945260248401929092526044830152606482015260840160006040518083038186803b151561029157600080fd5b6102c65a03f415156102a257600080fd5b505050505050565b73__DLL___________________________________636d900ed060008360405160e060020a63ffffffff85160281526004810192909252602482015260440160006040518083038186803b151561030057600080fd5b6102c65a03f4151561031157600080fd5b50505050565b600073__DLL___________________________________63c426b00682806040516020015260405160e060020a63ffffffff8416028152600481019190915260240160206040518083038186803b151561037057600080fd5b6102c65a03f4151561038157600080fd5b505050604051805191505090565b600073__DLL___________________________________637c11cf6482806040516020015260405160e060020a63ffffffff8416028152600481019190915260240160206040518083038186803b151561037057600080fd5b600073__DLL___________________________________63366a5ba28284816040516020015260405160e060020a63ffffffff85160281526004810192909252602482015260440160206040518083038186803b15156101ad57600080fd5b600073__DLL___________________________________63ee4f1ac482806040516020015260405160e060020a63ffffffff8416028152600481019190915260240160206040518083038186803b151561037057600080fd00a165627a7a723058200cb597c6ea0a1f9e8389ff8bec32a05cc3cc771bcd14aa19d1dbfb2759e2d0ab0029",
+  "deployedBytecode": "0x6060604052600436106100745763ffffffff60e060020a60003504166307aba33d81146100795780631037a5f4146100a15780634a803387146100b75780634cc82215146100d5578063681fe70c146100eb5780639f05a36d14610112578063c34052e014610125578063c5292c671461013b575b600080fd5b341561008457600080fd5b61008f60043561014e565b60405190815260200160405180910390f35b34156100ac57600080fd5b61008f6004356101cd565b34156100c257600080fd5b6100d360043560243560443561022c565b005b34156100e057600080fd5b6100d36004356102aa565b34156100f657600080fd5b6100fe610317565b604051901515815260200160405180910390f35b341561011d57600080fd5b61008f61038f565b341561013057600080fd5b6100fe6004356103e8565b341561014657600080fd5b61008f610447565b600073__DLL___________________________________6307d29ac98284816040516020015260405160e060020a63ffffffff85160281526004810192909252602482015260440160206040518083038186803b15156101ad57600080fd5b6102c65a03f415156101be57600080fd5b50505060405180519392505050565b600073__DLL___________________________________6330fe0a0a8284816040516020015260405160e060020a63ffffffff85160281526004810192909252602482015260440160206040518083038186803b15156101ad57600080fd5b73__DLL___________________________________639735c51b600085858560405160e060020a63ffffffff8716028152600481019490945260248401929092526044830152606482015260840160006040518083038186803b151561029157600080fd5b6102c65a03f415156102a257600080fd5b505050505050565b73__DLL___________________________________636d900ed060008360405160e060020a63ffffffff85160281526004810192909252602482015260440160006040518083038186803b151561030057600080fd5b6102c65a03f4151561031157600080fd5b50505050565b600073__DLL___________________________________63c426b00682806040516020015260405160e060020a63ffffffff8416028152600481019190915260240160206040518083038186803b151561037057600080fd5b6102c65a03f4151561038157600080fd5b505050604051805191505090565b600073__DLL___________________________________637c11cf6482806040516020015260405160e060020a63ffffffff8416028152600481019190915260240160206040518083038186803b151561037057600080fd5b600073__DLL___________________________________63366a5ba28284816040516020015260405160e060020a63ffffffff85160281526004810192909252602482015260440160206040518083038186803b15156101ad57600080fd5b600073__DLL___________________________________63ee4f1ac482806040516020015260405160e060020a63ffffffff8416028152600481019190915260240160206040518083038186803b151561037057600080fd00a165627a7a723058200cb597c6ea0a1f9e8389ff8bec32a05cc3cc771bcd14aa19d1dbfb2759e2d0ab0029",
+  "sourceMap": "49:774:11:-;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "49:774:11:-;;;;;;;;;-1:-1:-1;;;49:774:11;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;296:91;;;;;;;;;;;;;;;;;;;;;;;;;;;;;393;;;;;;;;;;;;;;653:100;;;;;;;;;;;;;;;;;;;;758:62;;;;;;;;;;;;;;116:76;;;;;;;;;;;;;;;;;;;;;;;;;;;;;574:74;;;;;;;;;;;;198:93;;;;;;;;;;;;;;490:78;;;;;;;;;;;;296:91;346:4;364:11;;346:4;376:5;346:4;364:18;;;;;;;-1:-1:-1;;;364:18:11;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;296:91;-1:-1:-1;;;296:91:11:o;393:::-;443:4;461:11;;443:4;473:5;443:4;461:18;;;;;;;-1:-1:-1;;;461:18:11;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;653:100;717:10;;:3;728:5;735;742;717:31;;-1:-1:-1;;;717:31:11;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;717:31:11;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;653:100;;;:::o;758:62::-;798:10;;:3;809:5;798:17;;-1:-1:-1;;;798:17:11;;;;;;;;;;;;;;;;;;;-1:-1:-1;798:17:11;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;758:62;:::o;116:76::-;156:4;174:11;;156:4;;174:13;;;;;;;-1:-1:-1;;;174:13:11;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;-1:-1:-1;;116:76:11;:::o;574:74::-;613:4;631:10;;613:4;;631:12;;;;;;;-1:-1:-1;;;631:12:11;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;198:93;249:4;267:12;;249:4;280:5;249:4;267:19;;;;;;;-1:-1:-1;;;267:19:11;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;490:78;531:4;549:12;;531:4;;549:14;;;;;;;-1:-1:-1;;;549:14:11;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;",
+  "source": "pragma solidity^0.4.0;\r\n\r\nimport \"./DLL.sol\";\r\n\r\ncontract TestDLL {\r\n\r\n\tusing DLL for DLL.Data;\r\n\tDLL.Data dll;\r\n\r\n\tfunction isEmpty() public view returns (bool) {\r\n\t\treturn dll.isEmpty();\r\n\t}\r\n\t\r\n\tfunction contains(uint _curr) public view returns (bool) {\r\n\t\treturn dll.contains(_curr);\r\n\t}\r\n\r\n\tfunction getNext(uint _curr) public view returns (uint) {\r\n\t\treturn dll.getNext(_curr);\r\n\t}\r\n\t\r\n\tfunction getPrev(uint _curr) public view returns (uint) {\r\n\t\treturn dll.getPrev(_curr);\r\n\t}\r\n\t\r\n\tfunction getStart() public view returns (uint) {\r\n\t\treturn dll.getStart();\r\n\t}\r\n\t\r\n\tfunction getEnd() public view returns (uint) {\r\n\t\treturn dll.getEnd();\r\n\t}\r\n\r\n\tfunction insert(uint _prev, uint _curr, uint _next) public {\r\n\t\tdll.insert(_prev, _curr, _next);\r\n\t}\r\n\r\n\tfunction remove(uint _curr) public {\r\n\t\tdll.remove(_curr);\r\n\t}\r\n}\r\n",
+  "sourcePath": "C:\\Users\\shach\\Documents\\Deco.Network\\DeconetRegistry\\contracts\\lib\\dll\\contracts\\TestDLL.sol",
+  "ast": {
+    "attributes": {
+      "absolutePath": "/C/Users/shach/Documents/Deco.Network/DeconetRegistry/contracts/lib/dll/contracts/TestDLL.sol",
+      "exportedSymbols": {
+        "TestDLL": [
+          10601
+        ]
+      }
+    },
+    "children": [
+      {
+        "attributes": {
+          "literals": [
+            "solidity",
+            "^",
+            "0.4",
+            ".0"
+          ]
+        },
+        "id": 10495,
+        "name": "PragmaDirective",
+        "src": "0:22:11"
+      },
+      {
+        "attributes": {
+          "SourceUnit": 10437,
+          "absolutePath": "/C/Users/shach/Documents/Deco.Network/DeconetRegistry/contracts/lib/dll/contracts/DLL.sol",
+          "file": "./DLL.sol",
+          "scope": 10602,
+          "symbolAliases": [
+            null
+          ],
+          "unitAlias": ""
+        },
+        "id": 10496,
+        "name": "ImportDirective",
+        "src": "26:19:11"
+      },
+      {
+        "attributes": {
+          "baseContracts": [
+            null
+          ],
+          "contractDependencies": [
+            null
+          ],
+          "contractKind": "contract",
+          "documentation": null,
+          "fullyImplemented": true,
+          "linearizedBaseContracts": [
+            10601
+          ],
+          "name": "TestDLL",
+          "scope": 10602
+        },
+        "children": [
+          {
+            "children": [
+              {
+                "attributes": {
+                  "contractScope": null,
+                  "name": "DLL",
+                  "referencedDeclaration": 10436,
+                  "type": "library DLL"
+                },
+                "id": 10497,
+                "name": "UserDefinedTypeName",
+                "src": "78:3:11"
+              },
+              {
+                "attributes": {
+                  "contractScope": null,
+                  "name": "DLL.Data",
+                  "referencedDeclaration": 10170,
+                  "type": "struct DLL.Data storage pointer"
+                },
+                "id": 10498,
+                "name": "UserDefinedTypeName",
+                "src": "86:8:11"
+              }
+            ],
+            "id": 10499,
+            "name": "UsingForDirective",
+            "src": "72:23:11"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "name": "dll",
+              "scope": 10601,
+              "stateVariable": true,
+              "storageLocation": "default",
+              "type": "struct DLL.Data storage ref",
+              "value": null,
+              "visibility": "internal"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "contractScope": null,
+                  "name": "DLL.Data",
+                  "referencedDeclaration": 10170,
+                  "type": "struct DLL.Data storage pointer"
+                },
+                "id": 10500,
+                "name": "UserDefinedTypeName",
+                "src": "98:8:11"
+              }
+            ],
+            "id": 10501,
+            "name": "VariableDeclaration",
+            "src": "98:12:11"
+          },
+          {
+            "attributes": {
+              "constant": true,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "isEmpty",
+              "payable": false,
+              "scope": 10601,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 10502,
+                "name": "ParameterList",
+                "src": "132:2:11"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 10511,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "bool",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bool",
+                          "type": "bool"
+                        },
+                        "id": 10503,
+                        "name": "ElementaryTypeName",
+                        "src": "156:4:11"
+                      }
+                    ],
+                    "id": 10504,
+                    "name": "VariableDeclaration",
+                    "src": "156:4:11"
+                  }
+                ],
+                "id": 10505,
+                "name": "ParameterList",
+                "src": "155:6:11"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 10505
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            null
+                          ],
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "bool",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                null
+                              ],
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "isEmpty",
+                              "referencedDeclaration": 10184,
+                              "type": "function (struct DLL.Data storage pointer) view returns (bool)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 10501,
+                                  "type": "struct DLL.Data storage ref",
+                                  "value": "dll"
+                                },
+                                "id": 10506,
+                                "name": "Identifier",
+                                "src": "174:3:11"
+                              }
+                            ],
+                            "id": 10507,
+                            "name": "MemberAccess",
+                            "src": "174:11:11"
+                          }
+                        ],
+                        "id": 10508,
+                        "name": "FunctionCall",
+                        "src": "174:13:11"
+                      }
+                    ],
+                    "id": 10509,
+                    "name": "Return",
+                    "src": "167:20:11"
+                  }
+                ],
+                "id": 10510,
+                "name": "Block",
+                "src": "162:30:11"
+              }
+            ],
+            "id": 10511,
+            "name": "FunctionDefinition",
+            "src": "116:76:11"
+          },
+          {
+            "attributes": {
+              "constant": true,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "contains",
+              "payable": false,
+              "scope": 10601,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_curr",
+                      "scope": 10524,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 10512,
+                        "name": "ElementaryTypeName",
+                        "src": "216:4:11"
+                      }
+                    ],
+                    "id": 10513,
+                    "name": "VariableDeclaration",
+                    "src": "216:10:11"
+                  }
+                ],
+                "id": 10514,
+                "name": "ParameterList",
+                "src": "215:12:11"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 10524,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "bool",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "bool",
+                          "type": "bool"
+                        },
+                        "id": 10515,
+                        "name": "ElementaryTypeName",
+                        "src": "249:4:11"
+                      }
+                    ],
+                    "id": 10516,
+                    "name": "VariableDeclaration",
+                    "src": "249:4:11"
+                  }
+                ],
+                "id": 10517,
+                "name": "ParameterList",
+                "src": "248:6:11"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 10517
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "bool",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "contains",
+                              "referencedDeclaration": 10244,
+                              "type": "function (struct DLL.Data storage pointer,uint256) view returns (bool)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 10501,
+                                  "type": "struct DLL.Data storage ref",
+                                  "value": "dll"
+                                },
+                                "id": 10518,
+                                "name": "Identifier",
+                                "src": "267:3:11"
+                              }
+                            ],
+                            "id": 10519,
+                            "name": "MemberAccess",
+                            "src": "267:12:11"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 10513,
+                              "type": "uint256",
+                              "value": "_curr"
+                            },
+                            "id": 10520,
+                            "name": "Identifier",
+                            "src": "280:5:11"
+                          }
+                        ],
+                        "id": 10521,
+                        "name": "FunctionCall",
+                        "src": "267:19:11"
+                      }
+                    ],
+                    "id": 10522,
+                    "name": "Return",
+                    "src": "260:26:11"
+                  }
+                ],
+                "id": 10523,
+                "name": "Block",
+                "src": "255:36:11"
+              }
+            ],
+            "id": 10524,
+            "name": "FunctionDefinition",
+            "src": "198:93:11"
+          },
+          {
+            "attributes": {
+              "constant": true,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "getNext",
+              "payable": false,
+              "scope": 10601,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_curr",
+                      "scope": 10537,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 10525,
+                        "name": "ElementaryTypeName",
+                        "src": "313:4:11"
+                      }
+                    ],
+                    "id": 10526,
+                    "name": "VariableDeclaration",
+                    "src": "313:10:11"
+                  }
+                ],
+                "id": 10527,
+                "name": "ParameterList",
+                "src": "312:12:11"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 10537,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 10528,
+                        "name": "ElementaryTypeName",
+                        "src": "346:4:11"
+                      }
+                    ],
+                    "id": 10529,
+                    "name": "VariableDeclaration",
+                    "src": "346:4:11"
+                  }
+                ],
+                "id": 10530,
+                "name": "ParameterList",
+                "src": "345:6:11"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 10530
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "uint256",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "getNext",
+                              "referencedDeclaration": 10260,
+                              "type": "function (struct DLL.Data storage pointer,uint256) view returns (uint256)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 10501,
+                                  "type": "struct DLL.Data storage ref",
+                                  "value": "dll"
+                                },
+                                "id": 10531,
+                                "name": "Identifier",
+                                "src": "364:3:11"
+                              }
+                            ],
+                            "id": 10532,
+                            "name": "MemberAccess",
+                            "src": "364:11:11"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 10526,
+                              "type": "uint256",
+                              "value": "_curr"
+                            },
+                            "id": 10533,
+                            "name": "Identifier",
+                            "src": "376:5:11"
+                          }
+                        ],
+                        "id": 10534,
+                        "name": "FunctionCall",
+                        "src": "364:18:11"
+                      }
+                    ],
+                    "id": 10535,
+                    "name": "Return",
+                    "src": "357:25:11"
+                  }
+                ],
+                "id": 10536,
+                "name": "Block",
+                "src": "352:35:11"
+              }
+            ],
+            "id": 10537,
+            "name": "FunctionDefinition",
+            "src": "296:91:11"
+          },
+          {
+            "attributes": {
+              "constant": true,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "getPrev",
+              "payable": false,
+              "scope": 10601,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_curr",
+                      "scope": 10550,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 10538,
+                        "name": "ElementaryTypeName",
+                        "src": "410:4:11"
+                      }
+                    ],
+                    "id": 10539,
+                    "name": "VariableDeclaration",
+                    "src": "410:10:11"
+                  }
+                ],
+                "id": 10540,
+                "name": "ParameterList",
+                "src": "409:12:11"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 10550,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 10541,
+                        "name": "ElementaryTypeName",
+                        "src": "443:4:11"
+                      }
+                    ],
+                    "id": 10542,
+                    "name": "VariableDeclaration",
+                    "src": "443:4:11"
+                  }
+                ],
+                "id": 10543,
+                "name": "ParameterList",
+                "src": "442:6:11"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 10543
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "uint256",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "getPrev",
+                              "referencedDeclaration": 10276,
+                              "type": "function (struct DLL.Data storage pointer,uint256) view returns (uint256)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 10501,
+                                  "type": "struct DLL.Data storage ref",
+                                  "value": "dll"
+                                },
+                                "id": 10544,
+                                "name": "Identifier",
+                                "src": "461:3:11"
+                              }
+                            ],
+                            "id": 10545,
+                            "name": "MemberAccess",
+                            "src": "461:11:11"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 10539,
+                              "type": "uint256",
+                              "value": "_curr"
+                            },
+                            "id": 10546,
+                            "name": "Identifier",
+                            "src": "473:5:11"
+                          }
+                        ],
+                        "id": 10547,
+                        "name": "FunctionCall",
+                        "src": "461:18:11"
+                      }
+                    ],
+                    "id": 10548,
+                    "name": "Return",
+                    "src": "454:25:11"
+                  }
+                ],
+                "id": 10549,
+                "name": "Block",
+                "src": "449:35:11"
+              }
+            ],
+            "id": 10550,
+            "name": "FunctionDefinition",
+            "src": "393:91:11"
+          },
+          {
+            "attributes": {
+              "constant": true,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "getStart",
+              "payable": false,
+              "scope": 10601,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 10551,
+                "name": "ParameterList",
+                "src": "507:2:11"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 10560,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 10552,
+                        "name": "ElementaryTypeName",
+                        "src": "531:4:11"
+                      }
+                    ],
+                    "id": 10553,
+                    "name": "VariableDeclaration",
+                    "src": "531:4:11"
+                  }
+                ],
+                "id": 10554,
+                "name": "ParameterList",
+                "src": "530:6:11"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 10554
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            null
+                          ],
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "uint256",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                null
+                              ],
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "getStart",
+                              "referencedDeclaration": 10289,
+                              "type": "function (struct DLL.Data storage pointer) view returns (uint256)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 10501,
+                                  "type": "struct DLL.Data storage ref",
+                                  "value": "dll"
+                                },
+                                "id": 10555,
+                                "name": "Identifier",
+                                "src": "549:3:11"
+                              }
+                            ],
+                            "id": 10556,
+                            "name": "MemberAccess",
+                            "src": "549:12:11"
+                          }
+                        ],
+                        "id": 10557,
+                        "name": "FunctionCall",
+                        "src": "549:14:11"
+                      }
+                    ],
+                    "id": 10558,
+                    "name": "Return",
+                    "src": "542:21:11"
+                  }
+                ],
+                "id": 10559,
+                "name": "Block",
+                "src": "537:31:11"
+              }
+            ],
+            "id": 10560,
+            "name": "FunctionDefinition",
+            "src": "490:78:11"
+          },
+          {
+            "attributes": {
+              "constant": true,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "getEnd",
+              "payable": false,
+              "scope": 10601,
+              "stateMutability": "view",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 10561,
+                "name": "ParameterList",
+                "src": "589:2:11"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "",
+                      "scope": 10570,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 10562,
+                        "name": "ElementaryTypeName",
+                        "src": "613:4:11"
+                      }
+                    ],
+                    "id": 10563,
+                    "name": "VariableDeclaration",
+                    "src": "613:4:11"
+                  }
+                ],
+                "id": 10564,
+                "name": "ParameterList",
+                "src": "612:6:11"
+              },
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "functionReturnParameters": 10564
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            null
+                          ],
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "uint256",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                null
+                              ],
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "getEnd",
+                              "referencedDeclaration": 10302,
+                              "type": "function (struct DLL.Data storage pointer) view returns (uint256)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 10501,
+                                  "type": "struct DLL.Data storage ref",
+                                  "value": "dll"
+                                },
+                                "id": 10565,
+                                "name": "Identifier",
+                                "src": "631:3:11"
+                              }
+                            ],
+                            "id": 10566,
+                            "name": "MemberAccess",
+                            "src": "631:10:11"
+                          }
+                        ],
+                        "id": 10567,
+                        "name": "FunctionCall",
+                        "src": "631:12:11"
+                      }
+                    ],
+                    "id": 10568,
+                    "name": "Return",
+                    "src": "624:19:11"
+                  }
+                ],
+                "id": 10569,
+                "name": "Block",
+                "src": "619:29:11"
+              }
+            ],
+            "id": 10570,
+            "name": "FunctionDefinition",
+            "src": "574:74:11"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "insert",
+              "payable": false,
+              "scope": 10601,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_prev",
+                      "scope": 10588,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 10571,
+                        "name": "ElementaryTypeName",
+                        "src": "669:4:11"
+                      }
+                    ],
+                    "id": 10572,
+                    "name": "VariableDeclaration",
+                    "src": "669:10:11"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_curr",
+                      "scope": 10588,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 10573,
+                        "name": "ElementaryTypeName",
+                        "src": "681:4:11"
+                      }
+                    ],
+                    "id": 10574,
+                    "name": "VariableDeclaration",
+                    "src": "681:10:11"
+                  },
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_next",
+                      "scope": 10588,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 10575,
+                        "name": "ElementaryTypeName",
+                        "src": "693:4:11"
+                      }
+                    ],
+                    "id": 10576,
+                    "name": "VariableDeclaration",
+                    "src": "693:10:11"
+                  }
+                ],
+                "id": 10577,
+                "name": "ParameterList",
+                "src": "668:36:11"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 10578,
+                "name": "ParameterList",
+                "src": "712:0:11"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                },
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                },
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "insert",
+                              "referencedDeclaration": 10381,
+                              "type": "function (struct DLL.Data storage pointer,uint256,uint256,uint256)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 10501,
+                                  "type": "struct DLL.Data storage ref",
+                                  "value": "dll"
+                                },
+                                "id": 10579,
+                                "name": "Identifier",
+                                "src": "717:3:11"
+                              }
+                            ],
+                            "id": 10581,
+                            "name": "MemberAccess",
+                            "src": "717:10:11"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 10572,
+                              "type": "uint256",
+                              "value": "_prev"
+                            },
+                            "id": 10582,
+                            "name": "Identifier",
+                            "src": "728:5:11"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 10574,
+                              "type": "uint256",
+                              "value": "_curr"
+                            },
+                            "id": 10583,
+                            "name": "Identifier",
+                            "src": "735:5:11"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 10576,
+                              "type": "uint256",
+                              "value": "_next"
+                            },
+                            "id": 10584,
+                            "name": "Identifier",
+                            "src": "742:5:11"
+                          }
+                        ],
+                        "id": 10585,
+                        "name": "FunctionCall",
+                        "src": "717:31:11"
+                      }
+                    ],
+                    "id": 10586,
+                    "name": "ExpressionStatement",
+                    "src": "717:31:11"
+                  }
+                ],
+                "id": 10587,
+                "name": "Block",
+                "src": "712:41:11"
+              }
+            ],
+            "id": 10588,
+            "name": "FunctionDefinition",
+            "src": "653:100:11"
+          },
+          {
+            "attributes": {
+              "constant": false,
+              "implemented": true,
+              "isConstructor": false,
+              "modifiers": [
+                null
+              ],
+              "name": "remove",
+              "payable": false,
+              "scope": 10601,
+              "stateMutability": "nonpayable",
+              "superFunction": null,
+              "visibility": "public"
+            },
+            "children": [
+              {
+                "children": [
+                  {
+                    "attributes": {
+                      "constant": false,
+                      "name": "_curr",
+                      "scope": 10600,
+                      "stateVariable": false,
+                      "storageLocation": "default",
+                      "type": "uint256",
+                      "value": null,
+                      "visibility": "internal"
+                    },
+                    "children": [
+                      {
+                        "attributes": {
+                          "name": "uint",
+                          "type": "uint256"
+                        },
+                        "id": 10589,
+                        "name": "ElementaryTypeName",
+                        "src": "774:4:11"
+                      }
+                    ],
+                    "id": 10590,
+                    "name": "VariableDeclaration",
+                    "src": "774:10:11"
+                  }
+                ],
+                "id": 10591,
+                "name": "ParameterList",
+                "src": "773:12:11"
+              },
+              {
+                "attributes": {
+                  "parameters": [
+                    null
+                  ]
+                },
+                "children": [],
+                "id": 10592,
+                "name": "ParameterList",
+                "src": "793:0:11"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "attributes": {
+                          "argumentTypes": null,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": false,
+                          "isStructConstructorCall": false,
+                          "lValueRequested": false,
+                          "names": [
+                            null
+                          ],
+                          "type": "tuple()",
+                          "type_conversion": false
+                        },
+                        "children": [
+                          {
+                            "attributes": {
+                              "argumentTypes": [
+                                {
+                                  "typeIdentifier": "t_uint256",
+                                  "typeString": "uint256"
+                                }
+                              ],
+                              "isConstant": false,
+                              "isLValue": true,
+                              "isPure": false,
+                              "lValueRequested": false,
+                              "member_name": "remove",
+                              "referencedDeclaration": 10435,
+                              "type": "function (struct DLL.Data storage pointer,uint256)"
+                            },
+                            "children": [
+                              {
+                                "attributes": {
+                                  "argumentTypes": null,
+                                  "overloadedDeclarations": [
+                                    null
+                                  ],
+                                  "referencedDeclaration": 10501,
+                                  "type": "struct DLL.Data storage ref",
+                                  "value": "dll"
+                                },
+                                "id": 10593,
+                                "name": "Identifier",
+                                "src": "798:3:11"
+                              }
+                            ],
+                            "id": 10595,
+                            "name": "MemberAccess",
+                            "src": "798:10:11"
+                          },
+                          {
+                            "attributes": {
+                              "argumentTypes": null,
+                              "overloadedDeclarations": [
+                                null
+                              ],
+                              "referencedDeclaration": 10590,
+                              "type": "uint256",
+                              "value": "_curr"
+                            },
+                            "id": 10596,
+                            "name": "Identifier",
+                            "src": "809:5:11"
+                          }
+                        ],
+                        "id": 10597,
+                        "name": "FunctionCall",
+                        "src": "798:17:11"
+                      }
+                    ],
+                    "id": 10598,
+                    "name": "ExpressionStatement",
+                    "src": "798:17:11"
+                  }
+                ],
+                "id": 10599,
+                "name": "Block",
+                "src": "793:27:11"
+              }
+            ],
+            "id": 10600,
+            "name": "FunctionDefinition",
+            "src": "758:62:11"
+          }
+        ],
+        "id": 10601,
+        "name": "ContractDefinition",
+        "src": "49:774:11"
+      }
+    ],
+    "id": 10602,
+    "name": "SourceUnit",
+    "src": "0:825:11"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.4.18+commit.9cf6e910.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "1.0.1",
+  "updatedAt": "2018-02-07T18:41:12.075Z"
+}
