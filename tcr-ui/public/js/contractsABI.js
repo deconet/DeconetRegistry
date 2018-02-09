@@ -1,5 +1,483 @@
 // Contract ABIs
 
+var DCOTokenContractAddress = '0xd7cf6f49a404129d4291a79ac2ea13df3ef516ec';
+
+var DCOTokenContractABI = [
+  {
+    constant: true,
+    inputs: [],
+    name: "name",
+    outputs: [
+      {
+        name: "",
+        type: "string"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "spender",
+        type: "address"
+      },
+      {
+        name: "tokens",
+        type: "uint256"
+      }
+    ],
+    name: "approve",
+    outputs: [
+      {
+        name: "success",
+        type: "bool"
+      }
+    ],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: "saleFee",
+    outputs: [
+      {
+        name: "",
+        type: "uint256"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: "totalSupply",
+    outputs: [
+      {
+        name: "",
+        type: "uint256"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "from",
+        type: "address"
+      },
+      {
+        name: "to",
+        type: "address"
+      },
+      {
+        name: "tokens",
+        type: "uint256"
+      }
+    ],
+    name: "transferFrom",
+    outputs: [
+      {
+        name: "success",
+        type: "bool"
+      }
+    ],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: "decimals",
+    outputs: [
+      {
+        name: "",
+        type: "uint8"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: "_totalSupply",
+    outputs: [
+      {
+        name: "",
+        type: "uint256"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "projectName",
+        type: "string"
+      },
+      {
+        name: "sellerUsername",
+        type: "string"
+      },
+      {
+        name: "sellerAddress",
+        type: "address"
+      },
+      {
+        name: "licenseId",
+        type: "bytes4"
+      }
+    ],
+    name: "makeSale",
+    outputs: [],
+    payable: true,
+    stateMutability: "payable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "newReward",
+        type: "uint256"
+      }
+    ],
+    name: "setTokenReward",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: "tokenReward",
+    outputs: [
+      {
+        name: "",
+        type: "uint256"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [
+      {
+        name: "tokenOwner",
+        type: "address"
+      }
+    ],
+    name: "balanceOf",
+    outputs: [
+      {
+        name: "balance",
+        type: "uint256"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [],
+    name: "acceptOwnership",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: "owner",
+    outputs: [
+      {
+        name: "",
+        type: "address"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: "symbol",
+    outputs: [
+      {
+        name: "",
+        type: "string"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "to",
+        type: "address"
+      },
+      {
+        name: "tokens",
+        type: "uint256"
+      }
+    ],
+    name: "transfer",
+    outputs: [
+      {
+        name: "success",
+        type: "bool"
+      }
+    ],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "spender",
+        type: "address"
+      },
+      {
+        name: "tokens",
+        type: "uint256"
+      },
+      {
+        name: "data",
+        type: "bytes"
+      }
+    ],
+    name: "approveAndCall",
+    outputs: [
+      {
+        name: "success",
+        type: "bool"
+      }
+    ],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [],
+    name: "newOwner",
+    outputs: [
+      {
+        name: "",
+        type: "address"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "tokenAddress",
+        type: "address"
+      },
+      {
+        name: "tokens",
+        type: "uint256"
+      }
+    ],
+    name: "transferAnyERC20Token",
+    outputs: [
+      {
+        name: "success",
+        type: "bool"
+      }
+    ],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    constant: true,
+    inputs: [
+      {
+        name: "tokenOwner",
+        type: "address"
+      },
+      {
+        name: "spender",
+        type: "address"
+      }
+    ],
+    name: "allowance",
+    outputs: [
+      {
+        name: "remaining",
+        type: "uint256"
+      }
+    ],
+    payable: false,
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    constant: false,
+    inputs: [
+      {
+        name: "_newOwner",
+        type: "address"
+      }
+    ],
+    name: "transferOwnership",
+    outputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [],
+    payable: false,
+    stateMutability: "nonpayable",
+    type: "constructor"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        name: "projectName",
+        type: "string"
+      },
+      {
+        indexed: false,
+        name: "sellerUsername",
+        type: "string"
+      },
+      {
+        indexed: true,
+        name: "sellerAddress",
+        type: "address"
+      },
+      {
+        indexed: true,
+        name: "buyerAddress",
+        type: "address"
+      },
+      {
+        indexed: false,
+        name: "price",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        name: "soldAt",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        name: "rewardedTokens",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        name: "networkFee",
+        type: "uint256"
+      },
+      {
+        indexed: false,
+        name: "licenseId",
+        type: "bytes4"
+      }
+    ],
+    name: "LicenseSale",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: "_from",
+        type: "address"
+      },
+      {
+        indexed: true,
+        name: "_to",
+        type: "address"
+      }
+    ],
+    name: "OwnershipTransferred",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: "from",
+        type: "address"
+      },
+      {
+        indexed: true,
+        name: "to",
+        type: "address"
+      },
+      {
+        indexed: false,
+        name: "tokens",
+        type: "uint256"
+      }
+    ],
+    name: "Transfer",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        name: "tokenOwner",
+        type: "address"
+      },
+      {
+        indexed: true,
+        name: "spender",
+        type: "address"
+      },
+      {
+        indexed: false,
+        name: "tokens",
+        type: "uint256"
+      }
+    ],
+    name: "Approval",
+    type: "event"
+  }
+];
+
 var PLCRVotingContractAddress = '0xddb0fc61636251b4c4450cdaec8a1b7007c14dbd';
 var PLCRVotingContractABI = [{"constant":true,"inputs":[{"name":"_pollID","type":"uint256"}],"name":"getTotalNumberOfTokensForWinningOption","outputs":[{"name":"numTokens","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"INITIAL_POLL_NONCE","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_voteQuorum","type":"uint256"},{"name":"_commitDuration","type":"uint256"},{"name":"_revealDuration","type":"uint256"}],"name":"startPoll","outputs":[{"name":"pollID","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"","type":"address"}],"name":"voteTokenBalance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_voter","type":"address"}],"name":"getLastNode","outputs":[{"name":"pollID","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_pollID","type":"uint256"}],"name":"revealPeriodActive","outputs":[{"name":"active","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_pollID","type":"uint256"}],"name":"isPassed","outputs":[{"name":"passed","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"","type":"uint256"}],"name":"pollMap","outputs":[{"name":"commitEndDate","type":"uint256"},{"name":"revealEndDate","type":"uint256"},{"name":"voteQuorum","type":"uint256"},{"name":"votesFor","type":"uint256"},{"name":"votesAgainst","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_voter","type":"address"}],"name":"getLockedTokens","outputs":[{"name":"numTokens","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_pollID","type":"uint256"},{"name":"_secretHash","type":"bytes32"},{"name":"_numTokens","type":"uint256"},{"name":"_prevPollID","type":"uint256"}],"name":"commitVote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_voter","type":"address"},{"name":"_pollID","type":"uint256"}],"name":"hasBeenRevealed","outputs":[{"name":"revealed","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_prevID","type":"uint256"},{"name":"_nextID","type":"uint256"},{"name":"_voter","type":"address"},{"name":"_numTokens","type":"uint256"}],"name":"validPosition","outputs":[{"name":"valid","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_pollID","type":"uint256"}],"name":"pollExists","outputs":[{"name":"exists","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"pollNonce","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_pollID","type":"uint256"}],"name":"rescueTokens","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_user","type":"address"},{"name":"_pollID","type":"uint256"}],"name":"attrUUID","outputs":[{"name":"UUID","type":"bytes32"}],"payable":false,"stateMutability":"pure","type":"function"},{"constant":false,"inputs":[{"name":"_numTokens","type":"uint256"}],"name":"requestVotingRights","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_pollID","type":"uint256"}],"name":"commitPeriodActive","outputs":[{"name":"active","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_pollID","type":"uint256"},{"name":"_voteOption","type":"uint256"},{"name":"_salt","type":"uint256"}],"name":"revealVote","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_voter","type":"address"},{"name":"_pollID","type":"uint256"},{"name":"_salt","type":"uint256"}],"name":"getNumPassingTokens","outputs":[{"name":"correctVotes","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_voter","type":"address"},{"name":"_numTokens","type":"uint256"}],"name":"getInsertPointForNumTokens","outputs":[{"name":"prevNode","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_voter","type":"address"},{"name":"_pollID","type":"uint256"}],"name":"getNumTokens","outputs":[{"name":"numTokens","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_voter","type":"address"},{"name":"_pollID","type":"uint256"}],"name":"getCommitHash","outputs":[{"name":"commitHash","type":"bytes32"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[{"name":"_terminationDate","type":"uint256"}],"name":"isExpired","outputs":[{"name":"expired","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_numTokens","type":"uint256"}],"name":"withdrawVotingRights","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_pollID","type":"uint256"}],"name":"pollEnded","outputs":[{"name":"ended","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"token","outputs":[{"name":"","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"inputs":[{"name":"_tokenAddr","type":"address"}],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":false,"name":"voter","type":"address"},{"indexed":false,"name":"pollID","type":"uint256"},{"indexed":false,"name":"numTokens","type":"uint256"}],"name":"VoteCommitted","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"voter","type":"address"},{"indexed":false,"name":"pollID","type":"uint256"},{"indexed":false,"name":"numTokens","type":"uint256"},{"indexed":false,"name":"choice","type":"uint256"}],"name":"VoteRevealed","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"voteQuorum","type":"uint256"},{"indexed":false,"name":"commitDuration","type":"uint256"},{"indexed":false,"name":"revealDuration","type":"uint256"},{"indexed":false,"name":"pollID","type":"uint256"}],"name":"PollCreated","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"voter","type":"address"},{"indexed":false,"name":"numTokens","type":"uint256"}],"name":"VotingRightsGranted","type":"event"},{"anonymous":false,"inputs":[{"indexed":false,"name":"voter","type":"address"},{"indexed":false,"name":"numTokens","type":"uint256"}],"name":"VotingRightsWithdrawn","type":"event"}];
 
