@@ -6,18 +6,20 @@ import "./PLCRVoting.sol";
 
 contract Registry {
 
+    // ------
     // EVENTS
+    // ------
 
-    event _Application(bytes32 listingHash, uint deposit, string data);
-    event _Challenge(bytes32 listingHash, uint deposit, uint pollID, string data);
-    event _Deposit(bytes32 listingHash, uint added, uint newTotal);
-    event _Withdrawal(bytes32 listingHash, uint withdrew, uint newTotal);
-    event _NewListingWhitelisted(bytes32 listingHash);
-    event _ApplicationRemoved(bytes32 listingHash);
-    event _ListingRemoved(bytes32 listingHash);
-    event _ChallengeFailed(uint challengeID);
-    event _ChallengeSucceeded(uint challengeID);
-    event _RewardClaimed(address voter, uint challengeID, uint reward);
+    event _Application(string  indexed moduleName, uint indexed deposit, string data);
+    event _Challenge(string  indexed moduleName, uint indexed deposit, uint indexed pollID, string data);
+    event _Deposit(string  indexed moduleName, uint indexed added, uint indexed newTotal);
+    event _Withdrawal(string  indexed moduleName, uint indexed withdrew, uint indexed newTotal);
+    event _NewListingWhitelisted(string  indexed moduleName);
+    event _ApplicationRemoved(string  indexed moduleName);
+    event _ListingRemoved(string  indexed moduleName);
+    event _ChallengeFailed(uint indexed challengeID);
+    event _ChallengeSucceeded(uint indexed challengeID);
+    event _RewardClaimed(address indexed voter, uint indexed challengeID, uint indexed reward);
 
     struct Listing {
         uint applicationExpiry; // Expiration date of apply stage
@@ -39,7 +41,7 @@ contract Registry {
     // Maps challengeIDs to associated challenge data
     mapping(uint => Challenge) public challenges;
 
-    // Maps listingHashes to associated listingHash data
+    // Maps moduleNamees to associated moduleName data
     mapping(bytes32 => Listing) public listings;
 
     // Global Variables
@@ -48,7 +50,9 @@ contract Registry {
     Parameterizer public parameterizer;
     string public version = "1";
 
+    // ------------
     // CONSTRUCTOR:
+    // ------------
 
     /**
     @dev Contructor         Sets the addresses for token, voting, and parameterizer
@@ -62,21 +66,24 @@ contract Registry {
         parameterizer = Parameterizer(_paramsAddr);
     }
 
+    // --------------------
     // PUBLISHER INTERFACE:
+    // --------------------
 
     /**
     @dev                Allows a user to start an application. Takes tokens from user and sets apply stage end time.
-    @param _listingHash The hash of a potential listing a user is applying to add to the registry
+    @param _moduleName  The moduleName of a potential listing a user is applying to add to the registry
     @param _amount      The number of ERC20 tokens a user is willing to potentially stake
     @param _data        Extra data relevant to the application. Think IPFS hashes.
     */
-    function apply(bytes32 _listingHash, uint _amount, string _data) external {
-        require(!isWhitelisted(_listingHash));
-        require(!appWasMade(_listingHash));
+    function apply(string _moduleName, uint _amount, string _data) external {
+        require(token.balanceOf(msg.sender) >= _amount);
+        require(!isWhitelisted(_moduleName));
+        require(!appWasMade(_moduleName));
         require(_amount >= parameterizer.get("minDeposit"));
 
         // Sets owner
-        Listing storage listing = listings[_listingHash];
+        Listing storage listing = listings[keccak256(_moduleName)];
         listing.owner = msg.sender;
 
         // Transfers tokens from user to Registry contract
@@ -86,32 +93,32 @@ contract Registry {
         listing.applicationExpiry = block.timestamp + parameterizer.get("applyStageLen");
         listing.unstakedDeposit = _amount;
 
-        _Application(_listingHash, _amount, _data);
+        _Application(_moduleName, _amount, _data);
     }
 
     /**
-    @dev                Allows the owner of a listingHash to increase their unstaked deposit.
-    @param _listingHash A listingHash msg.sender is the owner of
+    @dev                Allows the owner of a moduleName to increase their unstaked deposit.
+    @param _moduleName  A moduleName msg.sender is the owner of
     @param _amount      The number of ERC20 tokens to increase a user's unstaked deposit
     */
-    function deposit(bytes32 _listingHash, uint _amount) external {
-        Listing storage listing = listings[_listingHash];
+    function deposit(string _moduleName, uint _amount) external {
+        Listing storage listing = listings[keccak256(_moduleName)];
 
         require(listing.owner == msg.sender);
         require(token.transferFrom(msg.sender, this, _amount));
 
         listing.unstakedDeposit += _amount;
 
-        _Deposit(_listingHash, _amount, listing.unstakedDeposit);
+        _Deposit(_moduleName, _amount, listing.unstakedDeposit);
     }
 
     /**
-    @dev                Allows the owner of a listingHash to decrease their unstaked deposit.
-    @param _listingHash A listingHash msg.sender is the owner of.
+    @dev                Allows the owner of a moduleName to decrease their unstaked deposit.
+    @param _moduleName  A moduleName msg.sender is the owner of.
     @param _amount      The number of ERC20 tokens to withdraw from the unstaked deposit.
     */
-    function withdraw(bytes32 _listingHash, uint _amount) external {
-        Listing storage listing = listings[_listingHash];
+    function withdraw(string _moduleName, uint _amount) external {
+        Listing storage listing = listings[keccak256(_moduleName)];
 
         require(listing.owner == msg.sender);
         require(_amount <= listing.unstakedDeposit);
@@ -121,48 +128,50 @@ contract Registry {
 
         listing.unstakedDeposit -= _amount;
 
-        _Withdrawal(_listingHash, _amount, listing.unstakedDeposit);
+        _Withdrawal(_moduleName, _amount, listing.unstakedDeposit);
     }
 
     /**
-    @dev                Allows the owner of a listingHash to remove the listingHash from the whitelist
-                        Returns all tokens to the owner of the listingHash
-    @param _listingHash A listingHash msg.sender is the owner of.
+    @dev                Allows the owner of a moduleName to remove the moduleName from the whitelist
+                        Returns all tokens to the owner of the moduleName
+    @param _moduleName  A moduleName msg.sender is the owner of.
     */
-    function exit(bytes32 _listingHash) external {
-        Listing storage listing = listings[_listingHash];
+    function exit(string _moduleName) external {
+        Listing storage listing = listings[keccak256(_moduleName)];
 
         require(msg.sender == listing.owner);
-        require(isWhitelisted(_listingHash));
+        require(isWhitelisted(_moduleName));
 
         // Cannot exit during ongoing challenge
         require(listing.challengeID == 0 || challenges[listing.challengeID].resolved);
 
-        // Remove listingHash & return tokens
-        resetListing(_listingHash);
+        // Remove moduleName & return tokens
+        resetListing(_moduleName);
     }
 
+    // -----------------------
     // TOKEN HOLDER INTERFACE:
+    // -----------------------
 
     /**
-    @dev                Starts a poll for a listingHash which is either in the apply stage or
+    @dev                Starts a poll for a moduleName which is either in the apply stage or
                         already in the whitelist. Tokens are taken from the challenger and the
                         applicant's deposits are locked.
-    @param _listingHash The listingHash being challenged, whether listed or in application
+    @param _moduleName  The moduleName being challenged, whether listed or in application
     @param _data        Extra data relevant to the challenge. Think IPFS hashes.
     */
-    function challenge(bytes32 _listingHash, string _data) external returns (uint challengeID) {
-        Listing storage listing = listings[_listingHash];
+    function challenge(string _moduleName, string _data) external returns (uint challengeID) {
+        Listing storage listing = listings[keccak256(_moduleName)];
         uint deposit = parameterizer.get("minDeposit");
 
         // Listing must be in apply stage or already on the whitelist
-        require(appWasMade(_listingHash) || listing.whitelisted);
+        require(appWasMade(_moduleName) || listing.whitelisted);
         // Prevent multiple challenges
         require(listing.challengeID == 0 || challenges[listing.challengeID].resolved);
 
         if (listing.unstakedDeposit < deposit) {
-            // Not enough tokens, listingHash auto-delisted
-            resetListing(_listingHash);
+            // Not enough tokens, moduleName auto-delisted
+            resetListing(_moduleName);
             return 0;
         }
 
@@ -177,44 +186,44 @@ contract Registry {
         );
 
         challenges[pollID] = Challenge({
-            challenger: msg.sender, 
-            rewardPool: ((100 - parameterizer.get("dispensationPct")) * deposit) / 100, 
-            stake: deposit, 
-            resolved: false, 
+            challenger: msg.sender,
+            rewardPool: ((100 - parameterizer.get("dispensationPct")) * deposit) / 100,
+            stake: deposit,
+            resolved: false,
             totalTokens: 0
         });
 
-        // Updates listingHash to store most recent challenge
+        // Updates moduleName to store most recent challenge
         listing.challengeID = pollID;
 
-        // Locks tokens for listingHash during challenge
+        // Locks tokens for moduleName during challenge
         listing.unstakedDeposit -= deposit;
 
-        _Challenge(_listingHash, deposit, pollID, _data);
+        _Challenge(_moduleName, deposit, pollID, _data);
         return pollID;
     }
 
     /**
-    @dev                Updates a listingHash's status from 'application' to 'listing' or resolves
-                        a challenge if one exists.
-    @param _listingHash The listingHash whose status is being updated
+    @dev                Updates a moduleName's status from 'application' to 'listing' or resolves a challenge if one exists.
+    @param _moduleName  The moduleName whose status is being updated
     */
-    function updateStatus(bytes32 _listingHash) public {
-        if (canBeWhitelisted(_listingHash)) {
-          whitelistApplication(_listingHash);
-          _NewListingWhitelisted(_listingHash);
-        } else if (challengeCanBeResolved(_listingHash)) {
-          resolveChallenge(_listingHash);
+    function updateStatus(string _moduleName) public {
+        if (canBeWhitelisted(_moduleName)) {
+            whitelistApplication(_moduleName);
+            _NewListingWhitelisted(_moduleName);
+        } else if (challengeCanBeResolved(_moduleName)) {
+            resolveChallenge(_moduleName);
         } else {
-          revert();
+            revert();
         }
     }
 
+    // ----------------
     // TOKEN FUNCTIONS:
+    // ----------------
 
     /**
-    @dev                Called by a voter to claim their reward for each completed vote. Someone
-                        must call updateStatus() before this can be called.
+    @dev                Called by a voter to claim their reward for each completed vote. Someone must call updateStatus() before this can be called.
     @param _challengeID The PLCR pollID of the challenge a reward is being claimed for
     @param _salt        The salt of a voter's commit hash in the given poll
     */
@@ -239,7 +248,9 @@ contract Registry {
         _RewardClaimed(msg.sender, _challengeID, reward);
     }
 
+    // --------
     // GETTERS:
+    // --------
 
     /**
     @dev                Calculates the provided voter's token reward for the given poll.
@@ -256,17 +267,18 @@ contract Registry {
     }
 
     /**
-    @dev                Determines whether the given listingHash be whitelisted.
-    @param _listingHash The listingHash whose status is to be examined
+    @dev                Determines whether the given moduleName be whitelisted.
+    @param _moduleName  The moduleName whose status is to be examined
     */
-    function canBeWhitelisted(bytes32 _listingHash) view public returns (bool) {
-        uint challengeID = listings[_listingHash].challengeID;
+    function canBeWhitelisted(string _moduleName) view public returns (bool) {
+        bytes32 moduleNameHash = keccak256(_moduleName);
+        uint challengeID = listings[moduleNameHash].challengeID;
 
         // Ensures that the application was made,
         // the application period has ended,
-        // the listingHash can be whitelisted,
+        // the moduleName can be whitelisted,
         // and either: the challengeID == 0, or the challenge has been resolved.
-        if (appWasMade(_listingHash) && listings[_listingHash].applicationExpiry < now && !isWhitelisted(_listingHash) && (challengeID == 0 || challenges[challengeID].resolved == true)) {
+        if (appWasMade(_moduleName) && listings[moduleNameHash].applicationExpiry < now && !isWhitelisted(_moduleName) && (challengeID == 0 || challenges[challengeID].resolved == true)) { 
             return true;
         }
 
@@ -274,40 +286,37 @@ contract Registry {
     }
 
     /**
-    @dev                Returns true if the provided listingHash is whitelisted
-    @param _listingHash The listingHash whose status is to be examined
+    @dev                Returns true if the provided moduleName is whitelisted
+    @param _moduleName  The moduleName whose status is to be examined
     */
-    function isWhitelisted(bytes32 _listingHash) view public returns (bool whitelisted) {
-        return listings[_listingHash].whitelisted;
+    function isWhitelisted(string _moduleName) view public returns (bool whitelisted) {
+        return listings[keccak256(_moduleName)].whitelisted;
     }
 
     /**
-    @dev                Returns true if apply was called for this listingHash
-    @param _listingHash The listingHash whose status is to be examined
+    @dev                Returns true if apply was called for this moduleName
+    @param _moduleName  The moduleName whose status is to be examined
     */
-    function appWasMade(bytes32 _listingHash) view public returns (bool exists) {
-        return listings[_listingHash].applicationExpiry > 0;
+    function appWasMade(string _moduleName) view public returns (bool exists) {
+        return listings[keccak256(_moduleName)].applicationExpiry > 0;
     }
 
     /**
-    @dev                Returns true if the application/listingHash has an unresolved challenge
-    @param _listingHash The listingHash whose status is to be examined
+    @dev                Returns true if the application/moduleName has an unresolved challenge
+    @param _moduleName  The moduleName whose status is to be examined
     */
-    function challengeExists(bytes32 _listingHash) view public returns (bool) {
-        uint challengeID = listings[_listingHash].challengeID;
-
-        return (listings[_listingHash].challengeID > 0 && !challenges[challengeID].resolved);
+    function challengeExists(string _moduleName) view public returns (bool) {
+        uint challengeID = listings[keccak256(_moduleName)].challengeID;
+        return (listings[keccak256(_moduleName)].challengeID > 0 && !challenges[challengeID].resolved);
     }
 
     /**
-    @dev   Determines whether voting has concluded in a challenge for a given listingHash. Throws if no challenge exists.
-    @param _listingHash A listingHash with an unresolved challenge
+    @dev                Determines whether voting has concluded in a challenge for a given moduleName. Throws if no challenge exists.
+    @param _moduleName  A moduleName with an unresolved challenge
     */
-    function challengeCanBeResolved(bytes32 _listingHash) view public returns (bool) {
-        uint challengeID = listings[_listingHash].challengeID;
-
-        require(challengeExists(_listingHash));
-
+    function challengeCanBeResolved(string _moduleName) view public returns (bool) {
+        uint challengeID = listings[keccak256(_moduleName)].challengeID;
+        require(challengeExists(_moduleName));
         return voting.pollEnded(challengeID);
     }
 
@@ -332,47 +341,49 @@ contract Registry {
     @param _voter       The voter whose claim status to query for the provided challengeID
     */
     function tokenClaims(uint _challengeID, address _voter) public view returns (bool) {
-      return challenges[_challengeID].tokenClaims[_voter];
+        return challenges[_challengeID].tokenClaims[_voter];
     }
 
+    // ----------------
     // PRIVATE FUNCTIONS:
+    // ----------------
 
     /**
     @dev                Determines the winner in a challenge. Rewards the winner tokens and
-                        either whitelists or de-whitelists the listingHash.
-    @param _listingHash A listingHash with a challenge that is to be resolved
+                        either whitelists or de-whitelists the moduleName.
+    @param _moduleName A moduleName with a challenge that is to be resolved
     */
-    function resolveChallenge(bytes32 _listingHash) private {
-        uint challengeID = listings[_listingHash].challengeID;
+    function resolveChallenge(string _moduleName) private {
+        uint challengeID = listings[keccak256(_moduleName)].challengeID;
 
-        // Calculates the winner's reward,
-        // which is: (winner's full stake) + (dispensationPct * loser's stake)
+        // Calculates the winner's reward, which is:
+        // (winner's full stake) + (dispensationPct * loser's stake)
         uint reward = determineReward(challengeID);
 
-        // Records whether the listingHash is a listingHash or an application
-        bool wasWhitelisted = isWhitelisted(_listingHash);
+        // Records whether the moduleName is a moduleName or an application
+        bool wasWhitelisted = isWhitelisted(_moduleName);
 
         // Case: challenge failed
         if (voting.isPassed(challengeID)) {
-            whitelistApplication(_listingHash);
+            whitelistApplication(_moduleName);
             // Unlock stake so that it can be retrieved by the applicant
-            listings[_listingHash].unstakedDeposit += reward;
+            listings[keccak256(_moduleName)].unstakedDeposit += reward;
 
             _ChallengeFailed(challengeID);
             if (!wasWhitelisted) {
-                _NewListingWhitelisted(_listingHash);
+                _NewListingWhitelisted(_moduleName);
             }
         } else {
             // Case: challenge succeeded
-            resetListing(_listingHash);
+            resetListing(_moduleName);
             // Transfer the reward to the challenger
             require(token.transfer(challenges[challengeID].challenger, reward));
 
             _ChallengeSucceeded(challengeID);
             if (wasWhitelisted) {
-                _ListingRemoved(_listingHash);
-            } else {
-                _ApplicationRemoved(_listingHash);
+                _ListingRemoved(_moduleName);
+            } else { 
+                _ApplicationRemoved(_moduleName);
             }
         }
 
@@ -387,23 +398,23 @@ contract Registry {
     @dev                Called by updateStatus() if the applicationExpiry date passed without a
                         challenge being made. Called by resolveChallenge() if an
                         application/listing beat a challenge.
-    @param _listingHash The listingHash of an application/listingHash to be whitelisted
+    @param _moduleName  The moduleName of an application/moduleName to be whitelisted
     */
-    function whitelistApplication(bytes32 _listingHash) private {
-        listings[_listingHash].whitelisted = true;
+    function whitelistApplication(string _moduleName) private {
+        listings[keccak256(_moduleName)].whitelisted = true;
     }
 
     /**
-    @dev                Deletes a listingHash from the whitelist and transfers tokens back to owner
-    @param _listingHash The listing hash to delete
+    @dev                Deletes a moduleName from the whitelist and transfers tokens back to owner
+    @param _moduleName  The listing hash to delete
     */
-    function resetListing(bytes32 _listingHash) private {
-        Listing storage listing = listings[_listingHash];
+    function resetListing(string _moduleName) private {
+        Listing storage listing = listings[keccak256(_moduleName)];
 
         // Transfers any remaining balance back to the owner
         if (listing.unstakedDeposit > 0)
             require(token.transfer(listing.owner, listing.unstakedDeposit));
 
-        delete listings[_listingHash];
+        delete listings[keccak256(_moduleName)];
     }
 }

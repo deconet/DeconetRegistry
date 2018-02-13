@@ -1,18 +1,18 @@
 {
     "paramDefaults": {
-      "minDeposit": 10,
-      "pMinDeposit": 100,
-      "applyStageLength": 6000,
-      "pApplyStageLength": 12000,
-      "commitStageLength": 6000,
-      "pCommitStageLength": 12000,
-      "revealStageLength": 6000,
-      "pRevealStageLength": 12000,
+      "minDeposit": 10000000000000000000,
+      "pMinDeposit": 100000000000000000000,
+      "applyStageLength": 86400,
+      "pApplyStageLength": 172800,
+      "commitStageLength": 86400,
+      "pCommitStageLength": 172800,
+      "revealStageLength": 86400,
+      "pRevealStageLength": 172800,
       "dispensationPct": 50,
       "pDispensationPct": 50,
       "voteQuorum": 50,
       "pVoteQuorum": 50
-      },
+    },
     "token": {
       "address": "0xd7cf6f49a404129d4291a79ac2ea13df3ef516ec",
       "deployToken": false,

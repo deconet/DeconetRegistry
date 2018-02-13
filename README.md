@@ -37,11 +37,11 @@ The repo consumes several EPM packages. `dll` and `attrstore` are libraries used
 ## Current Setup - Ropsten Testnet
 ```
 DCO Token         :               0xd7cf6f49a404129d4291a79ac2ea13df3ef516ec
-DLL               :               0x7d865c48a4073cadb600179225d9be4837e6d300
-AttributeStore    :               0x2f3ab5ed4ce1377744064c9c9aa22c18c40403e2
-PLCRVoting        :               0xddb0fc61636251b4c4450cdaec8a1b7007c14dbd
-Parameterizer     :               0xc6c1742174fc3b7244e15ab7bd9385333960dfd1
-Registry          :               0xbf1b087ebf88da435a87c8d2ffc9ea206fa34a7e
+DLL               :               0xdd441375ecced4715ba5a715302b057733710630
+AttributeStore    :               0x673241c1468ed3ef52f330eaa963d04b45f35e59
+PLCRVoting        :               0xc0f25a15cd926d101f9a3b749958677fd543d730
+Parameterizer     :               0x8fc87e9dbcfce9f2709653fc6ed7c8da29580718
+Registry          :               0xfe48bbb9a3af03145ee67ec849c282a42025cbdc
 ```
 
 Reference Doc: https://docs.google.com/document/d/13c_xj_HZv8HtcCttZtVS_wmK7R_34TuVXQEK9ZQYdk8

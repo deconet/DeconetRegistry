@@ -7,6 +7,8 @@ let mnemonic = '';
 if (fs.existsSync('secrets.json')) {
   secrets = JSON.parse(fs.readFileSync('secrets.json', 'utf8'));
   ({ mnemonic } = secrets);
+} else {
+  mnemonic = 'control entry across rose cover clip enjoy okay congress bus idle lady';
 }
 
 module.exports = {
@@ -14,20 +16,26 @@ module.exports = {
   // to customize your Truffle configuration!
   networks: {
     mainnet: {
-      provider: new HDWalletProvider(mnemonic, 'https://mainnet.infura.io'),
+      provider: new HDWalletProvider(mnemonic, 'https://mainnet.infura.io/NGCFzmhFCfPHVp5h4Umf'),
       network_id: '1',
       gas: 4500000,
       gasPrice: 10000000000,
     },
     ropsten: {
-      provider: new HDWalletProvider(mnemonic, 'https://ropsten.infura.io'),
-      network_id: '*',
+      provider: new HDWalletProvider(mnemonic, 'https://ropsten.infura.io/NGCFzmhFCfPHVp5h4Umf'),
+      network_id: '3',
       gas: 4500000,
       gasPrice: 25000000000,
     },
     rinkeby: {
-      provider: new HDWalletProvider(mnemonic, 'https://rinkeby.infura.io'),
-      network_id: '*',
+      provider: new HDWalletProvider(mnemonic, 'https://rinkeby.infura.io/NGCFzmhFCfPHVp5h4Umf'),
+      network_id: '4',
+      gas: 4500000,
+      gasPrice: 25000000000,
+    },
+    kovan: {
+      provider: new HDWalletProvider(mnemonic, 'https://rinkeby.infura.io/NGCFzmhFCfPHVp5h4Umf'),
+      network_id: '42',
       gas: 4500000,
       gasPrice: 25000000000,
     },
