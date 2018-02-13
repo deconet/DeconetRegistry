@@ -41,7 +41,7 @@ contract Registry {
     // Maps challengeIDs to associated challenge data
     mapping(uint => Challenge) public challenges;
 
-    // Maps moduleNamees to associated moduleName data
+    // Maps moduleHash to associated moduleName data
     mapping(bytes32 => Listing) public listings;
 
     // Global Variables
