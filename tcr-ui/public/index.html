@@ -141,21 +141,38 @@
                     <h2>Apply to the Module Registry Listing</h2>
                 </div>
                 <div class="large-4 medium-4 cell">
-                    <label>Transfer To</label>
-                    <input type="text" id="transferAddress" placeholder="0x12B974EFB65C98c830107fCbbE27c5b85E7359f8" />
+                    <label>Module Name</label>
+                    <input type="text" id="moduleName" placeholder="My Awsesome Module" />
                 </div>
                 <div class="large-4 medium-4 cell">
-                    <label>Token Amount</label>
-                    <input type="number" id="transferAmount" placeholder="4700" />
+                    <label>Tokens</label>
+                    <input type="number" id="tokensPledged" placeholder="20" />
+                </div>
+                <div class="large-4 medium-4 cell">
+                    <label>Module Details</label>
+                    <input type="text" id="moduleDetails" placeholder="IPFS Hash, URL etc." />
                 </div>
                 <div class="large-4 medium-4 cell">
                     <br />
-                    <a id="transferTokens" class="button">Transfer Tokens</a>
+                    <a id="applyToRegistry" class="button" onclick="applyToRegistry()">Apply</a>
+                </div>
+                <div id="applicationResponse"></div>
+            </div>
+            <div class="grid-x grid-padding-x">
+                <div class="large-12 cell">
+                    <h2>Check Module Whitelist Status</h2>
+                </div>
+                <div class="large-4 medium-4 cell">
+                    <label>Module Name</label>
+                    <input type="text" id="moduleName" placeholder="My Awsesome Module" />
+                </div>
+                <div class="large-4 medium-4 cell">
+                    <br />
+                    <a id="checkWhitelistStatus" class="button" onclick="checkWhitelistStatus()">Check</a>
                 </div>
             </div>
         </div>
     </div>
-
 </body>
 
 </html>

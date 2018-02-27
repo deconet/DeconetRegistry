@@ -89,31 +89,6 @@ async function fetchAccountDetails() {
     document.getElementById('tokenBalance').innerHTML = walletDCOBalance;
 }
 
-function createTransaction(fn) {
-    var txID = '';
-    web3.eth.sendTransaction({
-        from: web3.eth.coinbase,
-        to: '0x3F8a5A444431b61067f8581332826937FE89E9b3',
-        value: web3.toWei(document.getElementById("amount").value, 'ether'),
-        data: ''
-    }, function(error, result) {
-        if (!error) {
-            //document.getElementById('response').innerHTML = 'Success: <a href="https://rinkeby.etherscan.io/tx/' + result + '"> View Transaction </a>'
-            fn(result);
-        } else {
-            //document.getElementById('response').innerHTML = '<pre>' + error + '</pre>'
-            fn(error);
-        }
-    });
-}
-
-function uploadToBlockchain() {
-    createTransaction(function(txID) {
-        document.getElementById('response').innerHTML = 'Success: <a href="https://rinkeby.etherscan.io/tx/' + txID + '"> View Transaction </a>';
-        alert("This is your Transaction ID:" +txID);
-    });
-}
-
 function startApp() {
     // Check For correct Network
     checkNetwork();
@@ -124,4 +99,26 @@ async function checkTokenBalance() {
     let balanceAddress = document.getElementById('balanceAddress').value;
     let walletDCOBalance = await getDCOBalance(balanceAddress);
     document.getElementById('balanceResponse').innerHTML = walletDCOBalance;
+}
+
+function applyForListing(moduleName, tokenPledged, moduleDetails) {
+    return new Promise(resolve => {
+        let tokensInDecoWei = web3.fromWei(tokenPledged, "ether");
+        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).apply(moduleName, tokensInDecoWei, moduleDetails, (error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
+async function applyToRegistry() {
+    let moduleName = document.getElementById('moduleName').value;
+    let tokenPledged = document.getElementById('tokenPledged').value;
+    let moduleDetails = document.getElementById('moduleDetails').value;
+    let applyResponse = await applyForListing(moduleName, tokenPledged, moduleDetails);
+    document.getElementById('applicationResponse').innerHTML = applyResponse;
 }
