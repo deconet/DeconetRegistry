@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en" dir="ltr">
+
+<head>
+    <title>Deconet Registry ÐApp</title>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width">
+    <meta property="og:title" content="Deconet Registry ÐApp">
+    <meta property="og:description" content="Deconet Registry Dapp for listing Your Modules">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="css/foundation.css">
+    <link rel="stylesheet" href="css/dapp.css">
+
+    <script src="/js/DecoNetToken.js"></script>
+    <script src="/js/Parameterizer.js"></script>
+    <script src="/js/PLCRVoting.js"></script>
+    <script src="/js/Registry.js"></script>
+    <script src="/js/vendor/jquery.js"></script>
+    <script src="/js/vendor/what-input.js"></script>
+    <script src="/js/vendor/foundation.js"></script>
+    <script src="/js/dapp.js"></script>
+</head>
+
+<body>
+    <div class="grid-container">
+        <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+                <h1>Welcome to Deconet Modules Registry DApp</h1>
+            </div>
+        </div>
+
+        <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+                <div class="callout">
+                    <h3>We&rsquo;re stoked that you came to try Deconet Modules Registry! </h3>
+                    <p>To get going, First check if you do hold the Decnet Tokens to continue with Deconet DApp .</p>
+                    <p>In order to List a module in Deconet Registry, You need to:</p>
+                    <div class="grid-x grid-padding-x">
+                        <div class="large-4 medium-4 cell">
+                            <p>1. Have Sufficient Deconet Tokens to Stake while the Application is made for Listing.</p>
+                        </div>
+                        <div class="large-4 medium-4 cell">
+                            <p>2. Before you start your Application, You need to Approve the token withdrawal from the 
+                                Deconet Token Contract.</p>
+                        </div>
+                        <div class="large-4 medium-4 cell">
+                            <p>3. Finally, Provide the details required to continue with the Application Process.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid-container">
+        <div class="primary callout">
+            <div class="grid-x grid-padding-x">
+                <div class="large-12 cell">
+                    <h1>Deconet Wallet</h1>
+                </div>
+                <div class="large-2 medium-2 cell">
+                    <label>Account Address</label>
+                    <blockquote>
+                        <p><em id="accountAddress">Loading..</em></p>
+                    </blockquote>
+                </div>
+            </div>
+
+            <div class="grid-x grid-padding-x" id="Wallet Details">
+                <div class="large-4 medium-4 cell">
+                    <label>ETH Balance</label>
+                    <blockquote>
+                        <p><em id="etherBalance">0</em> (<span class="etherSymbol">ETH</span>)</p>
+                    </blockquote>
+                </div>
+                <div class="large-4 medium-4 cell">
+                    <label>DCO Token Balance</label>
+                    <blockquote>
+                        <p><em id="tokenBalance">0</em> (<span class="tokenSymbol">DCO</span>)</p>
+                    </blockquote>
+                </div>
+                <div class="large-4 medium-4 cell">
+                    <label>Token Name</label>
+                    <blockquote>
+                        <p><em id="tokenName">DecoNet Token</em></p>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-x grid-padding-x">
+            <div class="large-4 medium-4 cell">
+                <label>Transfer To</label>
+                <input type="text" id="transferAddress" placeholder="0x12B974EFB65C98c830107fCbbE27c5b85E7359f8" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Token Amount</label>
+                <input type="number" id="transferAmount" placeholder="4700" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <br />
+                <a id="transferTokens" class="button">Transfer Tokens</a>
+            </div>
+        </div>
+
+        <div id="transferResponse"></div>
+
+        <div class="grid-x grid-padding-x">
+            <div class="large-4 medium-4 cell">
+                <label>Address</label>
+                <input type="text" id="balanceAddress" placeholder="0x12B974EFB65C98c830107fCbbE27c5b85E7359f8" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <br />
+                <a id="balanceOf" class="button" onclick="checkTokenBalance()">Get Balance</a>
+            </div>
+        </div>
+
+        <div id="balanceResponse"></div>
+    </div>
+
+    <hr />
+
+    <div class="grid-container">
+            <div class="primary callout">
+                <div class="grid-x grid-padding-x">
+                    <div class="large-12 cell">
+                        <h1>Deco.Network Modules Registry</h1>
+                    </div>
+                    <div class="large-2 medium-2 cell">
+                        <label>Registry Address</label>
+                        <blockquote>
+                            <p><em id="registryAddress">0xfe48bbb9a3af03145ee67ec849c282a42025cbdc</em></p>
+                        </blockquote>
+                    </div>
+                </div>
+            </div>
+            <div class="grid-x grid-padding-x">
+                <div class="large-12 cell">
+                    <h2>Apply to the Module Registry Listing</h2>
+                </div>
+                <div class="large-4 medium-4 cell">
+                    <label>Transfer To</label>
+                    <input type="text" id="transferAddress" placeholder="0x12B974EFB65C98c830107fCbbE27c5b85E7359f8" />
+                </div>
+                <div class="large-4 medium-4 cell">
+                    <label>Token Amount</label>
+                    <input type="number" id="transferAmount" placeholder="4700" />
+                </div>
+                <div class="large-4 medium-4 cell">
+                    <br />
+                    <a id="transferTokens" class="button">Transfer Tokens</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
