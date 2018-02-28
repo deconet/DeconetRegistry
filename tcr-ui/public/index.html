@@ -167,7 +167,7 @@
                 </div>
                 <div class="large-4 medium-4 cell">
                     <label>Module Name</label>
-                    <input type="text" id="moduleName" placeholder="My Awsesome Module" />
+                    <input type="text" id="moduleNameToCheckWhitelistStatus" placeholder="My Awsesome Module" />
                 </div>
                 <div class="large-4 medium-4 cell">
                     <br />
@@ -192,6 +192,40 @@
                 </div>
             </div>
             <div id="ifAppliedForListingResponse"></div>
+
+            <hr />
+
+            <div class="grid-x grid-padding-x">
+                <div class="large-12 cell">
+                    <h2>Check if application/Module Name has an Unresolved Challenge</h2>
+                </div>
+                <div class="large-4 medium-4 cell">
+                    <label>Module Name</label>
+                    <input type="text" id="moduleNameToCheckExistingChallenge" placeholder="My Awsesome Module" />
+                </div>
+                <div class="large-4 medium-4 cell">
+                    <br />
+                    <a id="ifChallengeExists" class="button" onclick="checkIfChallengeExists()">Check</a>
+                </div>
+            </div>
+            <div id="ifChallengeExistsResponse"></div>
+
+            <hr />
+
+            <div class="grid-x grid-padding-x">
+                <div class="large-12 cell">
+                    <h2>Check if Challenge Can Be Resolved Exists for the Module</h2>
+                </div>
+                <div class="large-4 medium-4 cell">
+                    <label>Module Name</label>
+                    <input type="text" id="moduleNameToCheckChallengeResolution" placeholder="My Awsesome Module" />
+                </div>
+                <div class="large-4 medium-4 cell">
+                    <br />
+                    <a id="ifChallengeCanBeResolved" class="button" onclick="checkIfChallengeCanBeResolved()">Check</a>
+                </div>
+            </div>
+            <div id="ifChallengeCanBeResolvedResponse"></div>
 
             <hr />
         </div>

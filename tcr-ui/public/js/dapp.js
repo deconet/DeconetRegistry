@@ -167,8 +167,8 @@ function checkForWhitelistStatus(moduleName) {
 }
 
 async function checkWhitelistStatus() {
-    let moduleName = document.getElementById('moduleName').value;
-    let whitelistStatus = await checkForWhitelistStatus(moduleName);
+    let moduleNameToCheckWhitelistStatus = document.getElementById('moduleNameToCheckWhitelistStatus').value;
+    let whitelistStatus = await checkForWhitelistStatus(moduleNameToCheckWhitelistStatus);
     document.getElementById('isWhitelistedResponse').innerHTML = whitelistStatus;
 }
 
@@ -189,4 +189,46 @@ async function checkIfAppliedForListing() {
     let moduleName = document.getElementById('moduleNameToCheckAppListing').value;
     let ifAppliedForListingResponse = await ifAppliedForListing(moduleName);
     document.getElementById('ifAppliedForListingResponse').innerHTML = ifAppliedForListingResponse;
+}
+
+// Returns true if the application/moduleName has an unresolved challenge
+
+function checkExistingChallenge(moduleName) {
+    return new Promise(resolve => {
+        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).challengeExists(moduleName, (error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
+async function checkIfChallengeExists() {
+    let moduleNameToCheckExistingChallenge = document.getElementById('moduleNameToCheckExistingChallenge').value;
+    let ifChallengeExistsResponse = await checkExistingChallenge(moduleNameToCheckExistingChallenge);
+    document.getElementById('ifChallengeExistsResponse').innerHTML = ifChallengeExistsResponse;
+}
+
+// Determines whether voting has concluded in a challenge for a given moduleName. Throws if no challenge exists.
+
+function ifChallengeCanBeResolved(moduleName) {
+    return new Promise(resolve => {
+        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).challengeCanBeResolved(moduleName, (error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
+async function checkIfChallengeCanBeResolved() {
+    let moduleNameToCheckChallengeResolution = document.getElementById('moduleNameToCheckChallengeResolution').value;
+    let ifChallengeCanBeResolvedResponse = await ifChallengeCanBeResolved(moduleNameToCheckChallengeResolution);
+    document.getElementById('ifChallengeCanBeResolvedResponse').innerHTML = ifChallengeCanBeResolvedResponse;
 }
