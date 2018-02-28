@@ -26,7 +26,7 @@
     <div class="grid-container">
         <div class="grid-x grid-padding-x">
             <div class="large-12 cell">
-                <h1>Welcome to Deconet Modules Registry DApp</h1>
+                <h1>Welcome to Deconet Modules Registry ÐApp</h1>
             </div>
         </div>
 
@@ -34,11 +34,11 @@
             <div class="large-12 cell">
                 <div class="callout">
                     <h3>We&rsquo;re stoked that you came to try Deconet Modules Registry! </h3>
-                    <p>To get going, First check if you do hold the Decnet Tokens to continue with Deconet DApp .</p>
+                    <p>To get going, First check if you do hold the DCO Tokens to continue with Deconet ÐApp .</p>
                     <p>In order to List a module in Deconet Registry, You need to:</p>
                     <div class="grid-x grid-padding-x">
                         <div class="large-4 medium-4 cell">
-                            <p>1. Have Sufficient Deconet Tokens to Stake while the Application is made for Listing.</p>
+                            <p>1. Have Sufficient DCO Tokens to Stake while the Application is made for Listing.</p>
                         </div>
                         <div class="large-4 medium-4 cell">
                             <p>2. Before you start your Application, You need to Approve the token withdrawal from the 
@@ -156,8 +156,11 @@
                     <br />
                     <a id="applyToRegistry" class="button" onclick="applyToRegistry()">Apply</a>
                 </div>
-                <div id="applicationResponse"></div>
             </div>
+            <div id="applicationResponse"></div>
+
+            <hr />
+
             <div class="grid-x grid-padding-x">
                 <div class="large-12 cell">
                     <h2>Check Module Whitelist Status</h2>
@@ -171,6 +174,26 @@
                     <a id="checkWhitelistStatus" class="button" onclick="checkWhitelistStatus()">Check</a>
                 </div>
             </div>
+            <div id="isWhitelistedResponse"></div>
+
+            <hr />
+            
+            <div class="grid-x grid-padding-x">
+                <div class="large-12 cell">
+                    <h2>Check if Module was Applied for Listing</h2>
+                </div>
+                <div class="large-4 medium-4 cell">
+                    <label>Module Name</label>
+                    <input type="text" id="moduleNameToCheckAppListing" placeholder="My Awsesome Module" />
+                </div>
+                <div class="large-4 medium-4 cell">
+                    <br />
+                    <a id="ifAppliedForListing" class="button" onclick="checkIfAppliedForListing()">Check</a>
+                </div>
+            </div>
+            <div id="ifAppliedForListingResponse"></div>
+
+            <hr />
         </div>
     </div>
 </body>

@@ -79,6 +79,19 @@ function getDCOBalance(walletAddress) {
     });
 }
 
+function checkDCOSpendAllowance() {
+    return new Promise(resolve => {
+        web3.eth.contract(DeconetTokenContractABI).at(DeconetTokenContractAddress).allowance(web3.eth.coinbase, RegistryContractAddress, (error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
 async function fetchAccountDetails() {
     // Fetch the Account Details
     let walletAddress = web3.eth.coinbase;
@@ -87,6 +100,8 @@ async function fetchAccountDetails() {
     document.getElementById('etherBalance').innerHTML = walletETHBalance;
     let walletDCOBalance = await getDCOBalance(walletAddress);
     document.getElementById('tokenBalance').innerHTML = walletDCOBalance;
+    let allowanceValue = await checkDCOSpendAllowance();
+    console.log("Allowance Value: " + web3.fromWei(allowanceValue, "ether"));
 }
 
 function startApp() {
@@ -101,10 +116,22 @@ async function checkTokenBalance() {
     document.getElementById('balanceResponse').innerHTML = walletDCOBalance;
 }
 
+function doDCOSpendApproval(tokenValue) {
+    return new Promise(resolve => {
+        web3.eth.contract(DeconetTokenContractABI).at(DeconetTokenContractAddress).approve(RegistryContractAddress, tokenValue, (error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
 function applyForListing(moduleName, tokenPledged, moduleDetails) {
     return new Promise(resolve => {
-        let tokensInDecoWei = web3.fromWei(tokenPledged, "ether");
-        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).apply(moduleName, tokensInDecoWei, moduleDetails, (error, result) => {
+        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).apply(moduleName, tokenPledged, moduleDetails, (error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -117,8 +144,49 @@ function applyForListing(moduleName, tokenPledged, moduleDetails) {
 
 async function applyToRegistry() {
     let moduleName = document.getElementById('moduleName').value;
-    let tokenPledged = document.getElementById('tokenPledged').value;
+    let tokensPledged = document.getElementById('tokensPledged').value;
     let moduleDetails = document.getElementById('moduleDetails').value;
-    let applyResponse = await applyForListing(moduleName, tokenPledged, moduleDetails);
+    let tokensPledgedInDecoWei = web3.toWei(tokensPledged, "ether");
+    console.log(tokensPledgedInDecoWei);
+    let tokenSpendApproval = await doDCOSpendApproval(tokensPledgedInDecoWei);
+    let applyResponse = await applyForListing(moduleName, tokensPledgedInDecoWei, moduleDetails);
     document.getElementById('applicationResponse').innerHTML = applyResponse;
+}
+
+function checkForWhitelistStatus(moduleName) {
+    return new Promise(resolve => {
+        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).isWhitelisted(moduleName, (error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
+async function checkWhitelistStatus() {
+    let moduleName = document.getElementById('moduleName').value;
+    let whitelistStatus = await checkForWhitelistStatus(moduleName);
+    document.getElementById('isWhitelistedResponse').innerHTML = whitelistStatus;
+}
+
+function ifAppliedForListing(moduleName) {
+    return new Promise(resolve => {
+        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).appWasMade(moduleName, (error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
+async function checkIfAppliedForListing() {
+    let moduleName = document.getElementById('moduleNameToCheckAppListing').value;
+    let ifAppliedForListingResponse = await ifAppliedForListing(moduleName);
+    document.getElementById('ifAppliedForListingResponse').innerHTML = ifAppliedForListingResponse;
 }
