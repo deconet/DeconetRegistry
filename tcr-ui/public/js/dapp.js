@@ -232,3 +232,25 @@ async function checkIfChallengeCanBeResolved() {
     let ifChallengeCanBeResolvedResponse = await ifChallengeCanBeResolved(moduleNameToCheckChallengeResolution);
     document.getElementById('ifChallengeCanBeResolvedResponse').innerHTML = ifChallengeCanBeResolvedResponse;
 }
+
+// Get Listing Details
+
+function checkListingDetailsForModule(moduleName) {
+    return new Promise(resolve => {
+        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).listings(moduleName, (error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
+async function checkListingDetails() {
+    let moduleNameToListingDetails = document.getElementById('moduleNameToListingDetails').value;
+    let moduleNameHash = web3.sha3(moduleNameToListingDetails);
+    let checkListingDetailsForModuleResponse = await checkListingDetailsForModule(moduleNameHash);
+    document.getElementById('checkListingDetailsForModuleResponse').innerHTML = checkListingDetailsForModuleResponse;
+}
