@@ -153,6 +153,117 @@ async function applyToRegistry() {
     document.getElementById('applicationResponse').innerHTML = applyResponse;
 }
 
+// Create a challenge for a given moduleName
+
+function checkMinimumTokensRequiredToChallenge() {
+    return new Promise(resolve => {
+        web3.eth.contract(ParameterizerContractABI).at(ParameterizerContractAddress).get("minDeposit", (error, result) => {
+            if (!error) {
+                console.log(result.toString());
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
+function doChallenge(moduleName, challengeData) {
+    return new Promise(resolve => {
+        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).challenge(moduleName, challengeData, (error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
+async function createChallenge() {
+    let moduleNameToChallenge = document.getElementById('moduleNameToChallenge').value;
+    let moduleDataToChallenge = document.getElementById('moduleDataToChallenge').value;
+    let requiredTokensToChallengeInDecoWei = await checkMinimumTokensRequiredToChallenge();
+    let tokenSpendApproval = await doDCOSpendApproval(requiredTokensToChallengeInDecoWei);
+    let doChallengeResponse = await doChallenge(moduleNameToChallenge, moduleDataToChallenge);
+    document.getElementById('doChallengeResponse').innerHTML = doChallengeResponse;
+}
+
+// Deposit
+
+function doDeposit(moduleName, tokenAmount) {
+    return new Promise(resolve => {
+        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).deposit(moduleName, tokenAmount, (error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
+async function increaseUnstakedDeposit() {
+    let moduleNameToIncreaseUnstakedDeposit = document.getElementById('moduleNameToIncreaseDeposit').value;
+    let tokenAmountToDeposit = document.getElementById('tokenAmountToIncreaseDeposit').value;
+    let tokenAmountToDepositInDecoWei = web3.toWei(tokenAmountToDeposit, "ether");
+    let tokenSpendApproval = await doDCOSpendApproval(tokenAmountToDepositInDecoWei);
+    console.log("Token Spend Approval Response: "+ tokenSpendApproval);
+    let increaseUnstakedDepositResponse = await doDeposit(moduleNameToIncreaseUnstakedDeposit, tokenAmountToDepositInDecoWei);
+    document.getElementById('increaseUnstakedDepositResponse').innerHTML = increaseUnstakedDepositResponse;
+}
+
+// Withdraw
+
+function doWithdraw(moduleName, tokenAmount) {
+    return new Promise(resolve => {
+        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).withdraw(moduleName, tokenAmount, (error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
+async function withdrawDeposit() {
+    let moduleNameToWithdrawDeposit = document.getElementById('moduleNameToWithdrawDeposit').value;
+    let tokenAmountToWithdraw = document.getElementById('tokenAmountToWithdraw').value;
+    let tokenAmountToWithdrawInDecoWei = web3.toWei(tokenAmountToWithdraw, "ether");
+    // Check Parameterizer MinDeposit
+    // console.log("Token Spend Approval Response: "+ tokenSpendApproval);
+    let withdrawDepositResponse = await doWithdraw(moduleNameToWithdrawDeposit, tokenAmountToWithdrawInDecoWei);
+    document.getElementById('withdrawDepositResponse').innerHTML = withdrawDepositResponse;
+}
+
+// Exit
+
+function doExit(moduleName) {
+    return new Promise(resolve => {
+        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).exit(moduleName, (error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
+async function exitWhitelist() {
+    let moduleNameToExitWhitelist = document.getElementById('moduleNameToExitWhitelist').value;
+    // Check if module application owner
+    let exitWhitelistResponse = await doExit(moduleNameToExitWhitelist);
+    document.getElementById('exitWhitelistResponse').innerHTML = exitWhitelistResponse;
+}
+
+// check ForWhitelistStatus
+
 function checkForWhitelistStatus(moduleName) {
     return new Promise(resolve => {
         web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).isWhitelisted(moduleName, (error, result) => {
@@ -171,6 +282,46 @@ async function checkWhitelistStatus() {
     let whitelistStatus = await checkForWhitelistStatus(moduleNameToCheckWhitelistStatus);
     document.getElementById('isWhitelistedResponse').innerHTML = whitelistStatus;
 }
+
+// // Get Listing Details
+
+function checkListingDetailsForModule(moduleName) {
+    return new Promise(resolve => {
+        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).listings(moduleName, (error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
+async function checkListingDetails() {
+    let moduleNameToListingDetails = document.getElementById('moduleNameToListingDetails').value;
+    let moduleNameHash = web3.sha3(moduleNameToListingDetails);
+    let checkListingDetailsForModuleResponse = await checkListingDetailsForModule(moduleNameHash);
+    if (0 != checkListingDetailsForModuleResponse[0].toString()) {
+        let applicationExpiry = checkListingDetailsForModuleResponse[0].toString();             // Expiration date of apply stage
+        document.getElementById('applicationExpiry').innerHTML = new Date(applicationExpiry*1000);
+        let whitelisted = checkListingDetailsForModuleResponse[1];                              // Indicates registry status
+        document.getElementById('whitelisted').innerHTML = whitelisted;
+        let owner = checkListingDetailsForModuleResponse[2];                                    // Owner of Listing
+        document.getElementById('owner').innerHTML = owner;
+        let unstakedDeposit = checkListingDetailsForModuleResponse[3];              // Number of tokens in the listing not locked in a challenge
+        document.getElementById('unstakedDeposit').innerHTML = web3.fromWei(unstakedDeposit, "ether");
+        let challengeID = checkListingDetailsForModuleResponse[4];                  // Corresponds to a PollID in PLCRVoting
+        document.getElementById('challengeID').innerHTML = challengeID;
+        document.getElementById('checkListingDetailsForModuleResponseInfo').style.display = 'inline-block';
+        document.getElementById('checkListingDetailsForModuleResponseNoInfo').style.display = 'none';
+    } else {
+        document.getElementById('checkListingDetailsForModuleResponseNoInfo').style.display = 'inline-block';
+        document.getElementById('checkListingDetailsForModuleResponseInfo').style.display = 'none';
+    }
+}
+
+// Check ifAppliedForListing
 
 function ifAppliedForListing(moduleName) {
     return new Promise(resolve => {
@@ -233,24 +384,6 @@ async function checkIfChallengeCanBeResolved() {
     document.getElementById('ifChallengeCanBeResolvedResponse').innerHTML = ifChallengeCanBeResolvedResponse;
 }
 
-// Get Listing Details
+// Check whether the module can be whitelisted canBeWhitelisted
 
-function checkListingDetailsForModule(moduleName) {
-    return new Promise(resolve => {
-        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).listings(moduleName, (error, result) => {
-            if (!error) {
-                console.log(result);
-                resolve(result);
-            } else {
-                resolve(error);
-            }
-        });
-    });
-}
 
-async function checkListingDetails() {
-    let moduleNameToListingDetails = document.getElementById('moduleNameToListingDetails').value;
-    let moduleNameHash = web3.sha3(moduleNameToListingDetails);
-    let checkListingDetailsForModuleResponse = await checkListingDetailsForModule(moduleNameHash);
-    document.getElementById('checkListingDetailsForModuleResponse').innerHTML = checkListingDetailsForModuleResponse;
-}

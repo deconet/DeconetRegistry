@@ -123,112 +123,234 @@
     <hr />
 
     <div class="grid-container">
-            <div class="primary callout">
-                <div class="grid-x grid-padding-x">
-                    <div class="large-12 cell">
-                        <h1>Deco.Network Modules Registry</h1>
-                    </div>
-                    <div class="large-2 medium-2 cell">
-                        <label>Registry Address</label>
-                        <blockquote>
-                            <p><em id="registryAddress">0xfe48bbb9a3af03145ee67ec849c282a42025cbdc</em></p>
-                        </blockquote>
-                    </div>
-                </div>
-            </div>
+        <div class="primary callout">
             <div class="grid-x grid-padding-x">
                 <div class="large-12 cell">
-                    <h2>Apply to the Module Registry Listing</h2>
+                    <h1>Deco.Network Modules Registry</h1>
                 </div>
-                <div class="large-4 medium-4 cell">
-                    <label>Module Name</label>
-                    <input type="text" id="moduleName" placeholder="My Awsesome Module" />
-                </div>
-                <div class="large-4 medium-4 cell">
-                    <label>Tokens</label>
-                    <input type="number" id="tokensPledged" placeholder="20" />
-                </div>
-                <div class="large-4 medium-4 cell">
-                    <label>Module Details</label>
-                    <input type="text" id="moduleDetails" placeholder="IPFS Hash, URL etc." />
-                </div>
-                <div class="large-4 medium-4 cell">
-                    <br />
-                    <a id="applyToRegistry" class="button" onclick="applyToRegistry()">Apply</a>
+                <div class="large-2 medium-2 cell">
+                    <label>Registry Address</label>
+                    <blockquote>
+                        <p><em id="registryAddress">0xfe48bbb9a3af03145ee67ec849c282a42025cbdc</em></p>
+                    </blockquote>
                 </div>
             </div>
-            <div id="applicationResponse"></div>
-
-            <hr />
-
-            <div class="grid-x grid-padding-x">
-                <div class="large-12 cell">
-                    <h2>Check Module Whitelist Status</h2>
-                </div>
-                <div class="large-4 medium-4 cell">
-                    <label>Module Name</label>
-                    <input type="text" id="moduleNameToCheckWhitelistStatus" placeholder="My Awsesome Module" />
-                </div>
-                <div class="large-4 medium-4 cell">
-                    <br />
-                    <a id="checkWhitelistStatus" class="button" onclick="checkWhitelistStatus()">Check</a>
-                </div>
-            </div>
-            <div id="isWhitelistedResponse"></div>
-
-            <hr />
-            
-            <div class="grid-x grid-padding-x">
-                <div class="large-12 cell">
-                    <h2>Check if Module was Applied for Listing</h2>
-                </div>
-                <div class="large-4 medium-4 cell">
-                    <label>Module Name</label>
-                    <input type="text" id="moduleNameToCheckAppListing" placeholder="My Awsesome Module" />
-                </div>
-                <div class="large-4 medium-4 cell">
-                    <br />
-                    <a id="ifAppliedForListing" class="button" onclick="checkIfAppliedForListing()">Check</a>
-                </div>
-            </div>
-            <div id="ifAppliedForListingResponse"></div>
-
-            <hr />
-
-            <div class="grid-x grid-padding-x">
-                <div class="large-12 cell">
-                    <h2>Check if application/Module Name has an Unresolved Challenge</h2>
-                </div>
-                <div class="large-4 medium-4 cell">
-                    <label>Module Name</label>
-                    <input type="text" id="moduleNameToCheckExistingChallenge" placeholder="My Awsesome Module" />
-                </div>
-                <div class="large-4 medium-4 cell">
-                    <br />
-                    <a id="ifChallengeExists" class="button" onclick="checkIfChallengeExists()">Check</a>
-                </div>
-            </div>
-            <div id="ifChallengeExistsResponse"></div>
-
-            <hr />
-
-            <div class="grid-x grid-padding-x">
-                <div class="large-12 cell">
-                    <h2>Check the Module's Listing Details</h2>
-                </div>
-                <div class="large-4 medium-4 cell">
-                    <label>Module Name</label>
-                    <input type="text" id="moduleNameToListingDetails" placeholder="My Awsesome Module" />
-                </div>
-                <div class="large-4 medium-4 cell">
-                    <br />
-                    <a id="checkListingDetails" class="button" onclick="checkListingDetails()">Check</a>
-                </div>
-            </div>
-            <div id="checkListingDetailsForModuleResponse"></div>
-
-            <hr />
         </div>
+        <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+                <h2>Apply to the Module Registry Listing</h2>
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Module Name</label>
+                <input type="text" id="moduleName" placeholder="My Awsesome Module" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Tokens</label>
+                <input type="number" id="tokensPledged" placeholder="20" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Module Details</label>
+                <input type="text" id="moduleDetails" placeholder="IPFS Hash, URL etc." />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <br />
+                <a id="applyToRegistry" class="button" onclick="applyToRegistry()">Submit Application</a>
+            </div>
+        </div>
+        <div id="applicationResponse"></div>
+
+        <hr />
+
+        <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+                <h2>Increase your Unstaked Deposit</h2>
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Module Name</label>
+                <input type="text" id="moduleNameToIncreaseDeposit" placeholder="My Awsesome Module in Application" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Amount</label>
+                <input type="number" id="tokenAmountToIncreaseDeposit" placeholder="50" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <br />
+                <a id="increaseUnstakedDeposit" class="button" onclick="increaseUnstakedDeposit()">Increase My Unstaked Deposit!</a>
+            </div>
+        </div>
+        <div id="increaseUnstakedDepositResponse"></div>
+
+        <hr />
+
+        <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+                <h2>Withraw your Unstaked Deposit</h2>
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Module Name</label>
+                <input type="text" id="moduleNameToWithdrawDeposit" placeholder="My Awsesome Module in Application" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Amount</label>
+                <input type="number" id="tokenAmountToWithdraw" placeholder="50" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <br />
+                <a id="withdrawDeposit" class="button" onclick="withdrawDeposit()">Withdraw My Deposit!</a>
+            </div>
+        </div>
+        <div id="withdrawDepositResponse"></div>
+
+        <hr />
+
+        <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+                <h2>Exit the Module From Whitelist Registry</h2>
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Module Name</label>
+                <input type="text" id="moduleNameToExitWhitelist" placeholder="My Awsesome Module to Exit Whitelisting" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <br />
+                <a id="ExitWhitelist" class="button" onclick="ExitWhitelist()">Withdraw My Deposit!</a>
+            </div>
+        </div>
+        <div id="exitWhitelistResponse"></div>
+
+        <hr />
+
+        <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+                <h2>Challenge the Module from Listing</h2>
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Module Name</label>
+                <input type="text" id="moduleNameToChallenge" placeholder="My Awsesome Module" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Details regarding the Challenge</label>
+                <input type="text" id="moduleDataToChallenge" placeholder="IPFS Hash, URL etc." />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <br />
+                <a id="createChallenge" class="button" onclick="createChallenge()">Challenge!</a>
+            </div>
+        </div>
+        <div id="doChallengeResponse"></div>
+
+        <hr />
+
+        <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+                <h2>Check the Module's Listing Details</h2>
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Module Name</label>
+                <input type="text" id="moduleNameToListingDetails" placeholder="My Awsesome Module" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <br />
+                <a id="checkListingDetails" class="button" onclick="checkListingDetails()">Check</a>
+            </div>
+        </div>
+        <div id="checkListingDetailsForModuleResponse">
+            <div id="checkListingDetailsForModuleResponseInfo" class="grid-container" style="display: none;">
+                <div class="primary callout">
+                    <div class="grid-y grid-padding-x">
+                        <div class="large-12 cell">
+                            <h3>Module Listing Information</h1>
+                        </div>
+                        <div class="large-2 medium-2 cell">
+                            <label>Application Expiry Date & Time</label>
+                            <blockquote>
+                                <p><em id="applicationExpiry">Loading..</em></p>
+                            </blockquote>
+                        </div>
+                        <div class="large-2 medium-2 cell">
+                            <label>Is Whitelisted?</label>
+                            <blockquote>
+                                <p><em id="whitelisted">Loading..</em></p>
+                            </blockquote>
+                        </div>
+                        <div class="large-2 medium-2 cell">
+                            <label>Owner of Listing</label>
+                            <blockquote>
+                                <p><em id="owner">Loading..</em></p>
+                            </blockquote>
+                        </div>
+                        <div class="large-2 medium-2 cell">
+                            <label>Number of Tokens Staked (Unstaked Deposit)</label>
+                            <blockquote>
+                                <p><em id="unstakedDeposit">Loading..</em></p>
+                            </blockquote>
+                        </div>
+                        <div class="large-2 medium-2 cell">
+                            <label>Corresponding PollID (if Challenged)</label>
+                            <blockquote>
+                                <p><em id="challengeID">Loading..</em></p>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="checkListingDetailsForModuleResponseNoInfo" style="display: none;">Module Doesn't Exist!</div>
+        </div>
+
+        <hr />
+        
+        <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+                <h2>Check Module Whitelist Status</h2>
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Module Name</label>
+                <input type="text" id="moduleNameToCheckWhitelistStatus" placeholder="My Awsesome Module" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <br />
+                <a id="checkWhitelistStatus" class="button" onclick="checkWhitelistStatus()">Check</a>
+            </div>
+        </div>
+        <div id="isWhitelistedResponse"></div>
+
+        <hr />
+        
+        <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+                <h2>Check if Module was Applied for Listing</h2>
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Module Name</label>
+                <input type="text" id="moduleNameToCheckAppListing" placeholder="My Awsesome Module" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <br />
+                <a id="ifAppliedForListing" class="button" onclick="checkIfAppliedForListing()">Check</a>
+            </div>
+        </div>
+        <div id="ifAppliedForListingResponse"></div>
+
+        <hr />
+
+        <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+                <h2>Check if application/Module Name has an Unresolved Challenge</h2>
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Module Name</label>
+                <input type="text" id="moduleNameToCheckExistingChallenge" placeholder="My Awsesome Module" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <br />
+                <a id="ifChallengeExists" class="button" onclick="checkIfChallengeExists()">Check</a>
+            </div>
+        </div>
+        <div id="ifChallengeExistsResponse"></div>
+
+        <hr />
+
+        
     </div>
 </body>
 
