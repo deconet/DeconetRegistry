@@ -1,64 +1,63 @@
 $(document).foundation()
 
-// MetaMask injects the web3 library for us.
+// Inject our version (1.0.0-beta.33) of web3.js into the DApp.
 window.addEventListener('load', function () {
-    // Checking if Web3 has been injected by the browser (Mist/MetaMask)
-    if (typeof web3 !== 'undefined') {
-        // Use Mist/MetaMask's provider
-        window.web3 = new Web3(web3.currentProvider);
-        console.log('Got MetaMask! Hurray');
+    // Checking if Web3 provider is available (Mist/MetaMask)
+    if (typeof Web3.givenProvider !== 'undefined') {
+        web3 = new Web3(Web3.givenProvider || web3.currentProvider);
+        console.log('Using Web3 Version:', web3.version);
+        if(web3._provider.isMetaMask) {
+            // Check if Metamask is available
+            console.log('Got MetaMask! Hurray');
+            startApp();
+        }
     } else {
         console.log('Please Use Metamask extension to transact in ETH.');
         document.getElementById('meta-mask-required').innerHTML = 'You need <a href="https://metamask.io/">MetaMask</a> browser plugin to run this example'
         // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
+        // web3 = new Web3(new Web3.providers.WebsocketProvider('wss://mainnet.infura.io/ws'));
     }
-    startApp();
 })
 
 function checkNetwork() {
-    let networkDetails = {};
-    web3.version.getNetwork((err, netId) => {
-        networkDetails = {"id" : netId, "name" : ""};
+    web3.eth.net.getNetworkType((err, netId) => {
         switch (netId) {
-            case "1":   console.log('This is The Mainnet');
-                        //document.getElementById('networkDescription').innerHTML = '<p>This is The Mainnet.</p>';
-                        networkDetails.name = "Mainnet";
-                        break
-            case "2":   console.log('This is the Deprecated Morden Test Network, now Ethereum Classic testnet');
-                        //document.getElementById('networkDescription').innerHTML = '<p>This is the Deprecated Morden Test Network, now Ethereum Classic testnet</p>';
-                        networkDetails.name = "Ethereum Classic Testnet";
-                        break
-            case "3":   console.log('This is the Ropsten Test Network.');
-                        //document.getElementById('networkDescription').innerHTML = '<p>This is the Ropsten Test Network.</p>';
-                        networkDetails.name = "Ropsten";
-                        break
-            case "4":   console.log('This is the Rinkeby Test Network.');
-                        //document.getElementById('networkDescription').innerHTML = '<p>This is the Rinkeby Test Network.</p>';
-                        networkDetails.name = "Rinkeby";
-                        break
-            case "42":  console.log('This is the Kovan Test Network.');
-                        //document.getElementById('networkDescription').innerHTML = '<p>This is the Kovan Test Network.</p>';
-                        networkDetails.name = "Kovan";
-                        break
-            default:    console.log('This is an unknown network.');
-                        //document.getElementById('networkDescription').innerHTML = '<p>This is an unknown network.</p>';
-                        networkDetails.name = "Unknown";
+            case "main":    console.log('The Mainnet');
+                            break
+            case "ropsten": console.log('Ropsten Test Network');
+                            break
+            case "kovan":   console.log('Kovan Test Network');
+                            break
+            case "rinkeby": console.log('Rinkeby Test Network');
+                            break
+            default:        console.log('This is an Unknown Network');
         }
-        console.log(networkDetails);
-        if (networkDetails.id != "3") {
-            alert("Please connect to Ropsten Testnet to continue!");
+        if (netId != "ropsten") {
+            alert("Please connect to Ropsten Testnet to Continue!");
         } else {
             console.log("Connected to Ropsten Testnet! Yeah!!");
         }
     });
 }
 
-function getETHBalance(walletAddress) {
+function initDApp() {
+    window.DeconetTokenContract = new web3.eth.Contract(DeconetTokenContractABI, DeconetTokenContractAddress, {
+        gasPrice: '20000000000'                 // default gas price in wei, 20 gwei in this case
+    });
+    window.RegistryContract = new web3.eth.Contract(RegistryContractABI, RegistryContractAddress, {
+        gasPrice: '20000000000'                 // default gas price in wei, 20 gwei in this case
+    });
+    window.ParameterizerContract = new web3.eth.Contract(ParameterizerContractABI, ParameterizerContractAddress, {
+        gasPrice: '20000000000'                 // default gas price in wei, 20 gwei in this case
+    });
+}
+
+function getETHBalance() {
     return new Promise(resolve => {
         web3.eth.getBalance(walletAddress, (error, result) => {
             if (!error) {
-                console.log(web3.fromWei(result, "ether"));
-                resolve(web3.fromWei(result, "ether"));
+                console.log(web3.utils.fromWei(result, "ether"));
+                resolve(web3.utils.fromWei(result, "ether"));
             } else {
                 resolve(error);
             }
@@ -66,12 +65,12 @@ function getETHBalance(walletAddress) {
     });
 }
 
-function getDCOBalance(walletAddress) {
+function getDCOBalance() {
     return new Promise(resolve => {
-        web3.eth.contract(DeconetTokenContractABI).at(DeconetTokenContractAddress).balanceOf(walletAddress, (error, result) => {
+        DeconetTokenContract.methods.balanceOf(walletAddress).call((error, result) => {
             if (!error) {
-                console.log(web3.fromWei(result, "ether"));
-                resolve(web3.fromWei(result, "ether"));
+                console.log(web3.utils.fromWei(result, "ether"));
+                resolve(web3.utils.fromWei(result, "ether"));
             } else {
                 resolve(error);
             }
@@ -81,7 +80,7 @@ function getDCOBalance(walletAddress) {
 
 function checkDCOSpendAllowance() {
     return new Promise(resolve => {
-        web3.eth.contract(DeconetTokenContractABI).at(DeconetTokenContractAddress).allowance(web3.eth.coinbase, RegistryContractAddress, (error, result) => {
+        DeconetTokenContract.methods.allowance(walletAddress, RegistryContractAddress).call((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -92,21 +91,35 @@ function checkDCOSpendAllowance() {
     });
 }
 
+function getCoinbase() {
+    return new Promise(resolve => {
+        web3.eth.getCoinbase((error, result) => {
+            if (!error) {
+                console.log("Coinbase: "+result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
 async function fetchAccountDetails() {
     // Fetch the Account Details
-    let walletAddress = web3.eth.coinbase;
+    window.walletAddress = await getCoinbase();
     document.getElementById('accountAddress').innerHTML = walletAddress;
-    let walletETHBalance = await getETHBalance(walletAddress);
+    let walletETHBalance = await getETHBalance();
     document.getElementById('etherBalance').innerHTML = walletETHBalance;
-    let walletDCOBalance = await getDCOBalance(walletAddress);
+    let walletDCOBalance = await getDCOBalance();
     document.getElementById('tokenBalance').innerHTML = walletDCOBalance;
     let allowanceValue = await checkDCOSpendAllowance();
-    console.log("Allowance Value: " + web3.fromWei(allowanceValue, "ether"));
+    console.log("Allowance Value: " + web3.utils.fromWei(allowanceValue, "ether"));
 }
 
 function startApp() {
     // Check For correct Network
     checkNetwork();
+    initDApp();
     fetchAccountDetails();
 }
 
@@ -118,7 +131,7 @@ async function checkTokenBalance() {
 
 function doDCOSpendApproval(tokenValue) {
     return new Promise(resolve => {
-        web3.eth.contract(DeconetTokenContractABI).at(DeconetTokenContractAddress).approve(RegistryContractAddress, tokenValue, (error, result) => {
+        DeconetTokenContract.methods.approve(RegistryContractAddress, tokenValue).call((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -131,7 +144,7 @@ function doDCOSpendApproval(tokenValue) {
 
 function applyForListing(moduleName, tokenPledged, moduleDetails) {
     return new Promise(resolve => {
-        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).apply(moduleName, tokenPledged, moduleDetails, (error, result) => {
+        RegistryContract.methods.apply(moduleName, tokenPledged, moduleDetails).call((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -146,7 +159,7 @@ async function applyToRegistry() {
     let moduleName = document.getElementById('moduleName').value;
     let tokensPledged = document.getElementById('tokensPledged').value;
     let moduleDetails = document.getElementById('moduleDetails').value;
-    let tokensPledgedInDecoWei = web3.toWei(tokensPledged, "ether");
+    let tokensPledgedInDecoWei = web3.utils.toWei(tokensPledged, "ether");
     console.log(tokensPledgedInDecoWei);
     let tokenSpendApproval = await doDCOSpendApproval(tokensPledgedInDecoWei);
     let applyResponse = await applyForListing(moduleName, tokensPledgedInDecoWei, moduleDetails);
@@ -157,7 +170,7 @@ async function applyToRegistry() {
 
 function checkMinimumTokensRequiredToChallenge() {
     return new Promise(resolve => {
-        web3.eth.contract(ParameterizerContractABI).at(ParameterizerContractAddress).get("minDeposit", (error, result) => {
+        ParameterizerContract.methods.get("minDeposit").call((error, result) => {
             if (!error) {
                 console.log(result.toString());
                 resolve(result);
@@ -170,7 +183,7 @@ function checkMinimumTokensRequiredToChallenge() {
 
 function doChallenge(moduleName, challengeData) {
     return new Promise(resolve => {
-        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).challenge(moduleName, challengeData, (error, result) => {
+        RegistryContract.methods.challenge(moduleName, challengeData).call((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -194,7 +207,7 @@ async function createChallenge() {
 
 function doDeposit(moduleName, tokenAmount) {
     return new Promise(resolve => {
-        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).deposit(moduleName, tokenAmount, (error, result) => {
+        RegistryContract.methods.deposit(moduleName, tokenAmount).call((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -219,7 +232,7 @@ async function increaseUnstakedDeposit() {
 
 function doWithdraw(moduleName, tokenAmount) {
     return new Promise(resolve => {
-        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).withdraw(moduleName, tokenAmount, (error, result) => {
+        RegistryContract.methods.withdraw(moduleName, tokenAmount).call((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -244,7 +257,7 @@ async function withdrawDeposit() {
 
 function doExit(moduleName) {
     return new Promise(resolve => {
-        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).exit(moduleName, (error, result) => {
+        RegistryContract.methods.exit(moduleName).call((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -266,7 +279,7 @@ async function exitWhitelist() {
 
 function checkForWhitelistStatus(moduleName) {
     return new Promise(resolve => {
-        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).isWhitelisted(moduleName, (error, result) => {
+        RegistryContract.methods.isWhitelisted(moduleName).call((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -287,7 +300,7 @@ async function checkWhitelistStatus() {
 
 function checkListingDetailsForModule(moduleName) {
     return new Promise(resolve => {
-        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).listings(moduleName, (error, result) => {
+        RegistryContract.methods.listings(moduleName).call((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -300,7 +313,7 @@ function checkListingDetailsForModule(moduleName) {
 
 async function checkListingDetails() {
     let moduleNameToListingDetails = document.getElementById('moduleNameToListingDetails').value;
-    let moduleNameHash = web3.sha3(moduleNameToListingDetails);
+    let moduleNameHash = web3.utils.sha3(moduleNameToListingDetails);
     let checkListingDetailsForModuleResponse = await checkListingDetailsForModule(moduleNameHash);
     if (0 != checkListingDetailsForModuleResponse[0].toString()) {
         let applicationExpiry = checkListingDetailsForModuleResponse[0].toString();             // Expiration date of apply stage
@@ -310,7 +323,7 @@ async function checkListingDetails() {
         let owner = checkListingDetailsForModuleResponse[2];                                    // Owner of Listing
         document.getElementById('owner').innerHTML = owner;
         let unstakedDeposit = checkListingDetailsForModuleResponse[3];              // Number of tokens in the listing not locked in a challenge
-        document.getElementById('unstakedDeposit').innerHTML = web3.fromWei(unstakedDeposit, "ether");
+        document.getElementById('unstakedDeposit').innerHTML = web3.utils.fromWei(unstakedDeposit, "ether");
         let challengeID = checkListingDetailsForModuleResponse[4];                  // Corresponds to a PollID in PLCRVoting
         document.getElementById('challengeID').innerHTML = challengeID;
         document.getElementById('checkListingDetailsForModuleResponseInfo').style.display = 'inline-block';
@@ -325,7 +338,7 @@ async function checkListingDetails() {
 
 function ifAppliedForListing(moduleName) {
     return new Promise(resolve => {
-        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).appWasMade(moduleName, (error, result) => {
+        RegistryContract.methods.appWasMade(moduleName).call((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -346,7 +359,7 @@ async function checkIfAppliedForListing() {
 
 function checkExistingChallenge(moduleName) {
     return new Promise(resolve => {
-        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).challengeExists(moduleName, (error, result) => {
+        RegistryContract.methods.challengeExists(moduleName).call((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -367,7 +380,7 @@ async function checkIfChallengeExists() {
 
 function ifChallengeCanBeResolved(moduleName) {
     return new Promise(resolve => {
-        web3.eth.contract(RegistryContractABI).at(RegistryContractAddress).challengeCanBeResolved(moduleName, (error, result) => {
+        RegistryContract.methods.challengeCanBeResolved(moduleName).call((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
