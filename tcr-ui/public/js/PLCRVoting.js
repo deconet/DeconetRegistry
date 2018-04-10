@@ -1,684 +1,655 @@
 // PLCRVoting
 
-var PLCRVotingContractAddress = '0xc0f25a15cd926d101f9a3b749958677fd543d730';
+var PLCRVotingContractAddress = "0x343a6302f8e26a9316c54528a27e35dfd1714a17";
 
 var PLCRVotingContractABI = [
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "INITIAL_POLL_NONCE",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "name": "voteTokenBalance",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "pollMap",
-      "outputs": [
-        {
-          "name": "commitEndDate",
-          "type": "uint256"
-        },
-        {
-          "name": "revealEndDate",
-          "type": "uint256"
-        },
-        {
-          "name": "voteQuorum",
-          "type": "uint256"
-        },
-        {
-          "name": "votesFor",
-          "type": "uint256"
-        },
-        {
-          "name": "votesAgainst",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "pollNonce",
-      "outputs": [
-        {
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [],
-      "name": "token",
-      "outputs": [
-        {
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "name": "_tokenAddr",
-          "type": "address"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "voter",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "name": "pollID",
-          "type": "uint256"
-        },
-        {
-          "indexed": true,
-          "name": "numTokens",
-          "type": "uint256"
-        }
-      ],
-      "name": "VoteCommitted",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "voter",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "name": "pollID",
-          "type": "uint256"
-        },
-        {
-          "indexed": true,
-          "name": "numTokens",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "choice",
-          "type": "uint256"
-        }
-      ],
-      "name": "VoteRevealed",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "voteQuorum",
-          "type": "uint256"
-        },
-        {
-          "indexed": true,
-          "name": "commitDuration",
-          "type": "uint256"
-        },
-        {
-          "indexed": false,
-          "name": "revealDuration",
-          "type": "uint256"
-        },
-        {
-          "indexed": true,
-          "name": "pollID",
-          "type": "uint256"
-        }
-      ],
-      "name": "PollCreated",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "voter",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "name": "numTokens",
-          "type": "uint256"
-        }
-      ],
-      "name": "VotingRightsGranted",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "name": "voter",
-          "type": "address"
-        },
-        {
-          "indexed": true,
-          "name": "numTokens",
-          "type": "uint256"
-        }
-      ],
-      "name": "VotingRightsWithdrawn",
-      "type": "event"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_numTokens",
-          "type": "uint256"
-        }
-      ],
-      "name": "requestVotingRights",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_numTokens",
-          "type": "uint256"
-        }
-      ],
-      "name": "withdrawVotingRights",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_pollID",
-          "type": "uint256"
-        }
-      ],
-      "name": "rescueTokens",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_pollID",
-          "type": "uint256"
-        },
-        {
-          "name": "_secretHash",
-          "type": "bytes32"
-        },
-        {
-          "name": "_numTokens",
-          "type": "uint256"
-        },
-        {
-          "name": "_prevPollID",
-          "type": "uint256"
-        }
-      ],
-      "name": "commitVote",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_prevID",
-          "type": "uint256"
-        },
-        {
-          "name": "_nextID",
-          "type": "uint256"
-        },
-        {
-          "name": "_voter",
-          "type": "address"
-        },
-        {
-          "name": "_numTokens",
-          "type": "uint256"
-        }
-      ],
-      "name": "validPosition",
-      "outputs": [
-        {
-          "name": "valid",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_pollID",
-          "type": "uint256"
-        },
-        {
-          "name": "_voteOption",
-          "type": "uint256"
-        },
-        {
-          "name": "_salt",
-          "type": "uint256"
-        }
-      ],
-      "name": "revealVote",
-      "outputs": [],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_voter",
-          "type": "address"
-        },
-        {
-          "name": "_pollID",
-          "type": "uint256"
-        },
-        {
-          "name": "_salt",
-          "type": "uint256"
-        }
-      ],
-      "name": "getNumPassingTokens",
-      "outputs": [
-        {
-          "name": "correctVotes",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": false,
-      "inputs": [
-        {
-          "name": "_voteQuorum",
-          "type": "uint256"
-        },
-        {
-          "name": "_commitDuration",
-          "type": "uint256"
-        },
-        {
-          "name": "_revealDuration",
-          "type": "uint256"
-        }
-      ],
-      "name": "startPoll",
-      "outputs": [
-        {
-          "name": "pollID",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_pollID",
-          "type": "uint256"
-        }
-      ],
-      "name": "isPassed",
-      "outputs": [
-        {
-          "name": "passed",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_pollID",
-          "type": "uint256"
-        }
-      ],
-      "name": "getTotalNumberOfTokensForWinningOption",
-      "outputs": [
-        {
-          "name": "numTokens",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_pollID",
-          "type": "uint256"
-        }
-      ],
-      "name": "pollEnded",
-      "outputs": [
-        {
-          "name": "ended",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_pollID",
-          "type": "uint256"
-        }
-      ],
-      "name": "commitPeriodActive",
-      "outputs": [
-        {
-          "name": "active",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_pollID",
-          "type": "uint256"
-        }
-      ],
-      "name": "revealPeriodActive",
-      "outputs": [
-        {
-          "name": "active",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_voter",
-          "type": "address"
-        },
-        {
-          "name": "_pollID",
-          "type": "uint256"
-        }
-      ],
-      "name": "hasBeenRevealed",
-      "outputs": [
-        {
-          "name": "revealed",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_pollID",
-          "type": "uint256"
-        }
-      ],
-      "name": "pollExists",
-      "outputs": [
-        {
-          "name": "exists",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_voter",
-          "type": "address"
-        },
-        {
-          "name": "_pollID",
-          "type": "uint256"
-        }
-      ],
-      "name": "getCommitHash",
-      "outputs": [
-        {
-          "name": "commitHash",
-          "type": "bytes32"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_voter",
-          "type": "address"
-        },
-        {
-          "name": "_pollID",
-          "type": "uint256"
-        }
-      ],
-      "name": "getNumTokens",
-      "outputs": [
-        {
-          "name": "numTokens",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_voter",
-          "type": "address"
-        }
-      ],
-      "name": "getLastNode",
-      "outputs": [
-        {
-          "name": "pollID",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_voter",
-          "type": "address"
-        }
-      ],
-      "name": "getLockedTokens",
-      "outputs": [
-        {
-          "name": "numTokens",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_voter",
-          "type": "address"
-        },
-        {
-          "name": "_numTokens",
-          "type": "uint256"
-        }
-      ],
-      "name": "getInsertPointForNumTokens",
-      "outputs": [
-        {
-          "name": "prevNode",
-          "type": "uint256"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_terminationDate",
-          "type": "uint256"
-        }
-      ],
-      "name": "isExpired",
-      "outputs": [
-        {
-          "name": "expired",
-          "type": "bool"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "constant": true,
-      "inputs": [
-        {
-          "name": "_user",
-          "type": "address"
-        },
-        {
-          "name": "_pollID",
-          "type": "uint256"
-        }
-      ],
-      "name": "attrUUID",
-      "outputs": [
-        {
-          "name": "UUID",
-          "type": "bytes32"
-        }
-      ],
-      "payable": false,
-      "stateMutability": "pure",
-      "type": "function"
-    }
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "INITIAL_POLL_NONCE",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "voteTokenBalance",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "pollMap",
+    "outputs": [
+      {
+        "name": "commitEndDate",
+        "type": "uint256"
+      },
+      {
+        "name": "revealEndDate",
+        "type": "uint256"
+      },
+      {
+        "name": "voteQuorum",
+        "type": "uint256"
+      },
+      {
+        "name": "votesFor",
+        "type": "uint256"
+      },
+      {
+        "name": "votesAgainst",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "pollNonce",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "token",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "name": "_tokenAddr",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "pollID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "numTokens",
+        "type": "uint256"
+      }
+    ],
+    "name": "_VoteCommitted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "pollID",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "numTokens",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "votesFor",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "votesAgainst",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "name": "choice",
+        "type": "uint256"
+      }
+    ],
+    "name": "_VoteRevealed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "voteQuorum",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "commitEndDate",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "name": "revealEndDate",
+        "type": "uint256"
+      },
+      {
+        "indexed": true,
+        "name": "pollID",
+        "type": "uint256"
+      }
+    ],
+    "name": "_PollCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "numTokens",
+        "type": "uint256"
+      }
+    ],
+    "name": "_VotingRightsGranted",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "name": "numTokens",
+        "type": "uint256"
+      }
+    ],
+    "name": "_VotingRightsWithdrawn",
+    "type": "event"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_numTokens",
+        "type": "uint256"
+      }
+    ],
+    "name": "requestVotingRights",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_numTokens",
+        "type": "uint256"
+      }
+    ],
+    "name": "withdrawVotingRights",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_pollID",
+        "type": "uint256"
+      }
+    ],
+    "name": "rescueTokens",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_pollID",
+        "type": "uint256"
+      },
+      {
+        "name": "_secretHash",
+        "type": "bytes32"
+      },
+      {
+        "name": "_numTokens",
+        "type": "uint256"
+      },
+      {
+        "name": "_prevPollID",
+        "type": "uint256"
+      }
+    ],
+    "name": "commitVote",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_prevID",
+        "type": "uint256"
+      },
+      {
+        "name": "_nextID",
+        "type": "uint256"
+      },
+      {
+        "name": "_voter",
+        "type": "address"
+      },
+      {
+        "name": "_numTokens",
+        "type": "uint256"
+      }
+    ],
+    "name": "validPosition",
+    "outputs": [
+      {
+        "name": "valid",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_pollID",
+        "type": "uint256"
+      },
+      {
+        "name": "_voteOption",
+        "type": "uint256"
+      },
+      {
+        "name": "_salt",
+        "type": "uint256"
+      }
+    ],
+    "name": "revealVote",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_voter",
+        "type": "address"
+      },
+      {
+        "name": "_pollID",
+        "type": "uint256"
+      },
+      {
+        "name": "_salt",
+        "type": "uint256"
+      }
+    ],
+    "name": "getNumPassingTokens",
+    "outputs": [
+      {
+        "name": "correctVotes",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_voteQuorum",
+        "type": "uint256"
+      },
+      {
+        "name": "_commitDuration",
+        "type": "uint256"
+      },
+      {
+        "name": "_revealDuration",
+        "type": "uint256"
+      }
+    ],
+    "name": "startPoll",
+    "outputs": [
+      {
+        "name": "pollID",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_pollID",
+        "type": "uint256"
+      }
+    ],
+    "name": "isPassed",
+    "outputs": [
+      {
+        "name": "passed",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_pollID",
+        "type": "uint256"
+      }
+    ],
+    "name": "getTotalNumberOfTokensForWinningOption",
+    "outputs": [
+      {
+        "name": "numTokens",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_pollID",
+        "type": "uint256"
+      }
+    ],
+    "name": "pollEnded",
+    "outputs": [
+      {
+        "name": "ended",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_pollID",
+        "type": "uint256"
+      }
+    ],
+    "name": "commitPeriodActive",
+    "outputs": [
+      {
+        "name": "active",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_pollID",
+        "type": "uint256"
+      }
+    ],
+    "name": "revealPeriodActive",
+    "outputs": [
+      {
+        "name": "active",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_pollID",
+        "type": "uint256"
+      }
+    ],
+    "name": "pollExists",
+    "outputs": [
+      {
+        "name": "exists",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_voter",
+        "type": "address"
+      },
+      {
+        "name": "_pollID",
+        "type": "uint256"
+      }
+    ],
+    "name": "getCommitHash",
+    "outputs": [
+      {
+        "name": "commitHash",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_voter",
+        "type": "address"
+      },
+      {
+        "name": "_pollID",
+        "type": "uint256"
+      }
+    ],
+    "name": "getNumTokens",
+    "outputs": [
+      {
+        "name": "numTokens",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_voter",
+        "type": "address"
+      }
+    ],
+    "name": "getLastNode",
+    "outputs": [
+      {
+        "name": "pollID",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_voter",
+        "type": "address"
+      }
+    ],
+    "name": "getLockedTokens",
+    "outputs": [
+      {
+        "name": "numTokens",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_voter",
+        "type": "address"
+      },
+      {
+        "name": "_numTokens",
+        "type": "uint256"
+      },
+      {
+        "name": "_pollID",
+        "type": "uint256"
+      }
+    ],
+    "name": "getInsertPointForNumTokens",
+    "outputs": [
+      {
+        "name": "prevNode",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_terminationDate",
+        "type": "uint256"
+      }
+    ],
+    "name": "isExpired",
+    "outputs": [
+      {
+        "name": "expired",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_user",
+        "type": "address"
+      },
+      {
+        "name": "_pollID",
+        "type": "uint256"
+      }
+    ],
+    "name": "attrUUID",
+    "outputs": [
+      {
+        "name": "UUID",
+        "type": "bytes32"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "pure",
+    "type": "function"
+  }
 ];
