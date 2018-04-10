@@ -1,6 +1,6 @@
 /* global artifacts */
 
-const Token = artifacts.require('./lib/tokens/contracts/eip20/EIP20.sol');
+const Token = artifacts.require('tokens/eip20/EIP20.sol');
 
 const fs = require('fs');
 
@@ -16,6 +16,7 @@ module.exports = (deployer, network) => {
       0,
       tokenHolder.amount.length - parseInt(config.token.decimals, 10),
     );
+    // eslint-disable-next-line
     console.log(`Allocating ${displayAmt} ${config.token.symbol} tokens to ` + `${tokenHolder.address}.`);
 
     await token.transfer(tokenHolder.address, tokenHolder.amount);
@@ -30,7 +31,7 @@ module.exports = (deployer, network) => {
     )
       .then(async () => giveTokensTo(config.token.tokenHolders));
   } else {
-    console.log('skipping optional token deploy and using the token at address ' +
-      `${config.token.address} on network ${network}.`);
+    // eslint-disable-next-line
+    console.log('skipping optional token deploy and using the token at address ' + `${config.token.address} on network ${network}.`);
   }
 };

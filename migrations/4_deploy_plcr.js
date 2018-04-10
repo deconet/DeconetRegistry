@@ -1,9 +1,9 @@
 /* global artifacts */
 
-const Token = artifacts.require('./lib/tokens/contracts/eip20/EIP20.sol');
-const DLL = artifacts.require('./lib/dll/contracts/DLL.sol');
-const AttributeStore = artifacts.require('./lib/attrstore/contracts/AttributeStore.sol');
-const PLCRVoting = artifacts.require('./PLCRVoting.sol');
+const Token = artifacts.require('EIP20.sol');
+const DLL = artifacts.require('dll/DLL.sol');
+const AttributeStore = artifacts.require('attrstore/AttributeStore.sol');
+const PLCRVoting = artifacts.require('PLCRVoting.sol');
 
 const fs = require('fs');
 
@@ -34,7 +34,7 @@ module.exports = (deployer, network, accounts) => {
     );
   })
     .then(async () => {
-      if (network === 'test') {
+      if (network === 'test' || network === 'coverage') {
         await approvePLCRFor(accounts);
       }
     }).catch((err) => { throw err; });

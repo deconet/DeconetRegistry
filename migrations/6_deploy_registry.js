@@ -1,10 +1,10 @@
 /* global artifacts */
 
-const Registry = artifacts.require('./Registry.sol');
-const Token = artifacts.require('./lib/tokens/contracts/eip20/EIP20.sol');
-const Parameterizer = artifacts.require('./Parameterizer.sol');
-const DLL = artifacts.require('./lib/dll/contracts/DLL.sol');
-const AttributeStore = artifacts.require('./lib/attrstore/contracts/AttributeStore.sol');
+const Registry = artifacts.require('Registry.sol');
+const Token = artifacts.require('EIP20.sol');
+const Parameterizer = artifacts.require('Parameterizer.sol');
+const DLL = artifacts.require('dll/DLL.sol');
+const AttributeStore = artifacts.require('attrstore/AttributeStore.sol');
 const PLCRVoting = artifacts.require('PLCRVoting.sol');
 
 const fs = require('fs');
@@ -35,10 +35,11 @@ module.exports = (deployer, network, accounts) => {
       tokenAddress,
       PLCRVoting.address,
       Parameterizer.address,
+      config.name,
     );
   })
     .then(async () => {
-      if (network === 'test') {
+      if (network === 'test' || network === 'coverage') {
         await approveRegistryFor(accounts);
       }
     }).catch((err) => { throw err; });

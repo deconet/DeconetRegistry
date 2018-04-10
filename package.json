@@ -1,10 +1,11 @@
 {
-    "name": "eth-tcr",
-    "version": "0.0.1",
-    "description": "Token Curated Registries implementation for Token Holders who participate in the network through voting and help curate the quality of the list",
+    "name": "deconetregistry",
+    "version": "0.0.2",
+    "description": "The Token Curated Registry implementation for Deconet Token Holders who participate in the network through voting and help curate the quality of the list of the best modules",
     "scripts": {
         "setup": "truffle install",
         "compile": "truffle compile",
+        "coverage": "solidity-coverage",
         "deploy-rinkeby": "truffle migrate --network rinkeby",
         "deploy-mainnet": "truffle migrate --network mainnet",
         "test": "npm run lint ./ && truffle test",
@@ -30,6 +31,7 @@
     "devDependencies": {
         "eslint": "4.15.0",
         "eslint-config-airbnb-base": "12.1.0",
-        "eslint-plugin-import": "2.8.0"
+        "eslint-plugin-import": "2.8.0",
+        "solidity-coverage": "^0.4.15"
     }
 }
