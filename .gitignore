@@ -1,3 +1,4 @@
 node_modules/*
+tcr-ui/node_modules/*
 secrets.json
 *.swp

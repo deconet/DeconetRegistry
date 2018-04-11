@@ -40,14 +40,19 @@ function checkNetwork() {
     });
 }
 
-function initDApp() {
+async function initDApp() {
+    let coinbaseAccount = await getCoinbase();
+    window.walletAddress = coinbaseAccount;
     window.DeconetTokenContract = new web3.eth.Contract(DeconetTokenContractABI, DeconetTokenContractAddress, {
+        from: coinbaseAccount,
         gasPrice: '20000000000'                 // default gas price in wei, 20 gwei in this case
     });
     window.RegistryContract = new web3.eth.Contract(RegistryContractABI, RegistryContractAddress, {
+        from: coinbaseAccount,
         gasPrice: '20000000000'                 // default gas price in wei, 20 gwei in this case
     });
     window.ParameterizerContract = new web3.eth.Contract(ParameterizerContractABI, ParameterizerContractAddress, {
+        from: coinbaseAccount,
         gasPrice: '20000000000'                 // default gas price in wei, 20 gwei in this case
     });
 }
@@ -105,8 +110,6 @@ function getCoinbase() {
 }
 
 async function fetchAccountDetails() {
-    // Fetch the Account Details
-    window.walletAddress = await getCoinbase();
     document.getElementById('accountAddress').innerHTML = walletAddress;
     let walletETHBalance = await getETHBalance();
     document.getElementById('etherBalance').innerHTML = walletETHBalance;
@@ -116,11 +119,30 @@ async function fetchAccountDetails() {
     console.log("Allowance Value: " + web3.utils.fromWei(allowanceValue, "ether"));
 }
 
-function startApp() {
+function subscribeToEvents() {
+    RegistryContract.getPastEvents('_Application', {
+        fromBlock: 0,
+        toBlock: 'latest'
+    }, function(error, events) {
+        console.log(events);
+    }).then(function(events) {
+        document.getElementById('_Application').innerHTML = JSON.stringify(events[0].returnValues);
+    });
+    
+    // RegistryContract.events._Application({fromBlock: 0}, function(error, event) {
+    //     console.log(event);
+    // });
+}
+
+async function startApp() {
     // Check For correct Network
-    checkNetwork();
-    initDApp();
-    fetchAccountDetails();
+    await checkNetwork();
+    // Configure the ABIs
+    await initDApp();
+    // Get the Required Account Details
+    await fetchAccountDetails();
+    // Subscribe To Events
+    await subscribeToEvents();
 }
 
 async function checkTokenBalance() {
@@ -131,7 +153,7 @@ async function checkTokenBalance() {
 
 function doDCOSpendApproval(tokenValue) {
     return new Promise(resolve => {
-        DeconetTokenContract.methods.approve(RegistryContractAddress, tokenValue).call((error, result) => {
+        DeconetTokenContract.methods.approve(RegistryContractAddress, tokenValue).send((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -144,7 +166,7 @@ function doDCOSpendApproval(tokenValue) {
 
 function applyForListing(moduleName, tokenPledged, moduleDetails) {
     return new Promise(resolve => {
-        RegistryContract.methods.apply(moduleName, tokenPledged, moduleDetails).call((error, result) => {
+        RegistryContract.methods.apply(moduleName, tokenPledged, moduleDetails).send((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -155,18 +177,21 @@ function applyForListing(moduleName, tokenPledged, moduleDetails) {
     });
 }
 
+// Application to the Deconet Modules Registry 
 async function applyToRegistry() {
     let moduleName = document.getElementById('moduleName').value;
+    let listingHash = web3.utils.sha3(moduleName);
+    console.log("ListingHash: "+listingHash);
     let tokensPledged = document.getElementById('tokensPledged').value;
     let moduleDetails = document.getElementById('moduleDetails').value;
     let tokensPledgedInDecoWei = web3.utils.toWei(tokensPledged, "ether");
     console.log(tokensPledgedInDecoWei);
     let tokenSpendApproval = await doDCOSpendApproval(tokensPledgedInDecoWei);
-    let applyResponse = await applyForListing(moduleName, tokensPledgedInDecoWei, moduleDetails);
+    let applyResponse = await applyForListing(listingHash, tokensPledgedInDecoWei, moduleDetails);
     document.getElementById('applicationResponse').innerHTML = applyResponse;
 }
 
-// Create a challenge for a given moduleName
+// Create A Challenge for a given moduleName
 
 function checkMinimumTokensRequiredToChallenge() {
     return new Promise(resolve => {
@@ -183,7 +208,7 @@ function checkMinimumTokensRequiredToChallenge() {
 
 function doChallenge(moduleName, challengeData) {
     return new Promise(resolve => {
-        RegistryContract.methods.challenge(moduleName, challengeData).call((error, result) => {
+        RegistryContract.methods.challenge(moduleName, challengeData).send((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -196,10 +221,11 @@ function doChallenge(moduleName, challengeData) {
 
 async function createChallenge() {
     let moduleNameToChallenge = document.getElementById('moduleNameToChallenge').value;
-    let moduleDataToChallenge = document.getElementById('moduleDataToChallenge').value;
+    let listingHashToChallenge = web3.utils.sha3(moduleNameToChallenge);
+    let detailsForChallenge = document.getElementById('moduleDataToChallenge').value;
     let requiredTokensToChallengeInDecoWei = await checkMinimumTokensRequiredToChallenge();
     let tokenSpendApproval = await doDCOSpendApproval(requiredTokensToChallengeInDecoWei);
-    let doChallengeResponse = await doChallenge(moduleNameToChallenge, moduleDataToChallenge);
+    let doChallengeResponse = await doChallenge(listingHashToChallenge, detailsForChallenge);
     document.getElementById('doChallengeResponse').innerHTML = doChallengeResponse;
 }
 
@@ -207,7 +233,7 @@ async function createChallenge() {
 
 function doDeposit(moduleName, tokenAmount) {
     return new Promise(resolve => {
-        RegistryContract.methods.deposit(moduleName, tokenAmount).call((error, result) => {
+        RegistryContract.methods.deposit(moduleName, tokenAmount).send((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -220,11 +246,12 @@ function doDeposit(moduleName, tokenAmount) {
 
 async function increaseUnstakedDeposit() {
     let moduleNameToIncreaseUnstakedDeposit = document.getElementById('moduleNameToIncreaseDeposit').value;
+    let listingHashToIncreaseUnstakedDeposit = web3.utils.sha3(moduleNameToIncreaseUnstakedDeposit);
     let tokenAmountToDeposit = document.getElementById('tokenAmountToIncreaseDeposit').value;
-    let tokenAmountToDepositInDecoWei = web3.toWei(tokenAmountToDeposit, "ether");
+    let tokenAmountToDepositInDecoWei = web3.utils.toWei(tokenAmountToDeposit, "ether");
     let tokenSpendApproval = await doDCOSpendApproval(tokenAmountToDepositInDecoWei);
     console.log("Token Spend Approval Response: "+ tokenSpendApproval);
-    let increaseUnstakedDepositResponse = await doDeposit(moduleNameToIncreaseUnstakedDeposit, tokenAmountToDepositInDecoWei);
+    let increaseUnstakedDepositResponse = await doDeposit(listingHashToIncreaseUnstakedDeposit, tokenAmountToDepositInDecoWei);
     document.getElementById('increaseUnstakedDepositResponse').innerHTML = increaseUnstakedDepositResponse;
 }
 
@@ -232,7 +259,7 @@ async function increaseUnstakedDeposit() {
 
 function doWithdraw(moduleName, tokenAmount) {
     return new Promise(resolve => {
-        RegistryContract.methods.withdraw(moduleName, tokenAmount).call((error, result) => {
+        RegistryContract.methods.withdraw(moduleName, tokenAmount).send((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -245,11 +272,12 @@ function doWithdraw(moduleName, tokenAmount) {
 
 async function withdrawDeposit() {
     let moduleNameToWithdrawDeposit = document.getElementById('moduleNameToWithdrawDeposit').value;
+    let listingHashToWithdrawDeposit = web3.utils.sha3(moduleNameToWithdrawDeposit);
     let tokenAmountToWithdraw = document.getElementById('tokenAmountToWithdraw').value;
-    let tokenAmountToWithdrawInDecoWei = web3.toWei(tokenAmountToWithdraw, "ether");
+    let tokenAmountToWithdrawInDecoWei = web3.utils.toWei(tokenAmountToWithdraw, "ether");
     // Check Parameterizer MinDeposit
     // console.log("Token Spend Approval Response: "+ tokenSpendApproval);
-    let withdrawDepositResponse = await doWithdraw(moduleNameToWithdrawDeposit, tokenAmountToWithdrawInDecoWei);
+    let withdrawDepositResponse = await doWithdraw(listingHashToWithdrawDeposit, tokenAmountToWithdrawInDecoWei);
     document.getElementById('withdrawDepositResponse').innerHTML = withdrawDepositResponse;
 }
 
@@ -257,7 +285,7 @@ async function withdrawDeposit() {
 
 function doExit(moduleName) {
     return new Promise(resolve => {
-        RegistryContract.methods.exit(moduleName).call((error, result) => {
+        RegistryContract.methods.exit(moduleName).send((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -270,8 +298,9 @@ function doExit(moduleName) {
 
 async function exitWhitelist() {
     let moduleNameToExitWhitelist = document.getElementById('moduleNameToExitWhitelist').value;
+    let listingHashToExitWhitelist = web3.utils.sha3(moduleNameToExitWhitelist);
     // Check if module application owner
-    let exitWhitelistResponse = await doExit(moduleNameToExitWhitelist);
+    let exitWhitelistResponse = await doExit(listingHashToExitWhitelist);
     document.getElementById('exitWhitelistResponse').innerHTML = exitWhitelistResponse;
 }
 
@@ -292,7 +321,8 @@ function checkForWhitelistStatus(moduleName) {
 
 async function checkWhitelistStatus() {
     let moduleNameToCheckWhitelistStatus = document.getElementById('moduleNameToCheckWhitelistStatus').value;
-    let whitelistStatus = await checkForWhitelistStatus(moduleNameToCheckWhitelistStatus);
+    let listingHashToCheckWhitelistStatus = web3.utils.sha3(moduleNameToCheckWhitelistStatus);
+    let whitelistStatus = await checkForWhitelistStatus(listingHashToCheckWhitelistStatus);
     document.getElementById('isWhitelistedResponse').innerHTML = whitelistStatus;
 }
 
@@ -313,8 +343,8 @@ function checkListingDetailsForModule(moduleName) {
 
 async function checkListingDetails() {
     let moduleNameToListingDetails = document.getElementById('moduleNameToListingDetails').value;
-    let moduleNameHash = web3.utils.sha3(moduleNameToListingDetails);
-    let checkListingDetailsForModuleResponse = await checkListingDetailsForModule(moduleNameHash);
+    let listingHashToListingDetails = web3.utils.sha3(moduleNameToListingDetails);
+    let checkListingDetailsForModuleResponse = await checkListingDetailsForModule(listingHashToListingDetails);
     if (0 != checkListingDetailsForModuleResponse[0].toString()) {
         let applicationExpiry = checkListingDetailsForModuleResponse[0].toString();             // Expiration date of apply stage
         document.getElementById('applicationExpiry').innerHTML = new Date(applicationExpiry*1000);
@@ -350,8 +380,9 @@ function ifAppliedForListing(moduleName) {
 }
 
 async function checkIfAppliedForListing() {
-    let moduleName = document.getElementById('moduleNameToCheckAppListing').value;
-    let ifAppliedForListingResponse = await ifAppliedForListing(moduleName);
+    let moduleNameToCheckAppListing = document.getElementById('moduleNameToCheckAppListing').value;
+    let listingHashToCheckAppListing = web3.utils.sha3(moduleNameToCheckAppListing);
+    let ifAppliedForListingResponse = await ifAppliedForListing(listingHashToCheckAppListing);
     document.getElementById('ifAppliedForListingResponse').innerHTML = ifAppliedForListingResponse;
 }
 
@@ -372,7 +403,8 @@ function checkExistingChallenge(moduleName) {
 
 async function checkIfChallengeExists() {
     let moduleNameToCheckExistingChallenge = document.getElementById('moduleNameToCheckExistingChallenge').value;
-    let ifChallengeExistsResponse = await checkExistingChallenge(moduleNameToCheckExistingChallenge);
+    let listingHashToCheckExistingChallenge = web3.utils.sha3(moduleNameToCheckExistingChallenge);
+    let ifChallengeExistsResponse = await checkExistingChallenge(listingHashToCheckExistingChallenge);
     document.getElementById('ifChallengeExistsResponse').innerHTML = ifChallengeExistsResponse;
 }
 
@@ -393,7 +425,8 @@ function ifChallengeCanBeResolved(moduleName) {
 
 async function checkIfChallengeCanBeResolved() {
     let moduleNameToCheckChallengeResolution = document.getElementById('moduleNameToCheckChallengeResolution').value;
-    let ifChallengeCanBeResolvedResponse = await ifChallengeCanBeResolved(moduleNameToCheckChallengeResolution);
+    let listingHashToCheckChallengeResolution = web3.utils.sha3(moduleNameToCheckChallengeResolution);
+    let ifChallengeCanBeResolvedResponse = await ifChallengeCanBeResolved(listingHashToCheckChallengeResolution);
     document.getElementById('ifChallengeCanBeResolvedResponse').innerHTML = ifChallengeCanBeResolvedResponse;
 }
 
