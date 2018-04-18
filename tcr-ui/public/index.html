@@ -350,6 +350,61 @@
 
         <hr />
 
+        <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+                <h2>Check if an Application/Module Name can be Whitelisted</h2>
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Module Name</label>
+                <input type="text" id="checkCanBeWhitelistedByModuleName" placeholder="My Awsesome Module" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <br />
+                <a id="ifChallengeExists" class="button" onclick="checkIfChallengeExists()">Check</a>
+            </div>
+        </div>
+        <div id="canBeWhitelistedResponse"></div>
+
+        <hr />
+
+        <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+                <h2>Update the Status for the Challenge</h2>
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Module Name</label>
+                <input type="text" id="updateStatusByModuleName" placeholder="My Awsesome Module" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <br />
+                <a id="updateStatus" class="button" onclick="updateStatusForApplication()">Check</a>
+            </div>
+        </div>
+        <div id="updateStatusResponse"></div>
+
+        <hr />
+
+        <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+                <h2>Voter can Claim reward for each completed vote</h2>
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Challenge ID</label>
+                <input type="text" id="challengeIDToClaimReward" placeholder="Challenge ID" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Challenge Data</label>
+                <input type="text" id="saltToClaimReward" placeholder="Challenge Data" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <br />
+                <a id="voterCanClaimReward" class="button" onclick="voterCanClaimReward()">Claim Reward</a>
+            </div>
+        </div>
+        <div id="claimRewardResponse"></div>
+
+        <hr />
+
         <div id="_Application"></div>
 
     </div>

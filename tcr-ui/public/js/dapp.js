@@ -128,10 +128,6 @@ function subscribeToEvents() {
     }).then(function(events) {
         document.getElementById('_Application').innerHTML = JSON.stringify(events[0].returnValues);
     });
-    
-    // RegistryContract.events._Application({fromBlock: 0}, function(error, event) {
-    //     console.log(event);
-    // });
 }
 
 async function startApp() {
@@ -304,7 +300,7 @@ async function exitWhitelist() {
     document.getElementById('exitWhitelistResponse').innerHTML = exitWhitelistResponse;
 }
 
-// check ForWhitelistStatus
+// check For Whitelist Status
 
 function checkForWhitelistStatus(moduleName) {
     return new Promise(resolve => {
@@ -326,7 +322,7 @@ async function checkWhitelistStatus() {
     document.getElementById('isWhitelistedResponse').innerHTML = whitelistStatus;
 }
 
-// // Get Listing Details
+// Get Listing Details
 
 function checkListingDetailsForModule(moduleName) {
     return new Promise(resolve => {
@@ -430,6 +426,68 @@ async function checkIfChallengeCanBeResolved() {
     document.getElementById('ifChallengeCanBeResolvedResponse').innerHTML = ifChallengeCanBeResolvedResponse;
 }
 
-// Check whether the module can be whitelisted canBeWhitelisted
+// Determines whether the given listingHash be whitelisted. 
 
+function checkCanBeWhitelisted(moduleName) {
+    return new Promise(resolve => {
+        RegistryContract.methods.canBeWhitelisted(moduleName).call((error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
 
+async function determineCanBeWhitelisted() {
+    let moduleNameToCheckCanBeWhitelisted = document.getElementById('checkCanBeWhitelistedByModuleName').value;
+    let listingHashToCheckCanBeWhitelisted = web3.utils.sha3(moduleNameToCheckCanBeWhitelisted);
+    let canBeWhitelistedResponse = await checkCanBeWhitelisted(listingHashToCheckCanBeWhitelisted);
+    document.getElementById('canBeWhitelistedResponse').innerHTML = canBeWhitelistedResponse;
+}
+
+// Updates a listingHash's status from 'application' to 'listing' or resolves a challenge if one exists.
+
+function updateStatusByModuleName(moduleName) {
+    return new Promise(resolve => {
+        RegistryContract.methods.updateStatus(moduleName).send((error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
+async function updateStatusForApplication() {
+    let moduleNameToUpdateStatus = document.getElementById('updateStatusByModuleName').value;
+    let listingHashToUpdateStatus = web3.utils.sha3(moduleNameToUpdateStatus);
+    let updateStatusResponse = await updateStatusByModuleName(listingHashToUpdateStatus);
+    document.getElementById('updateStatusResponse').innerHTML = updateStatusResponse;
+}
+
+// Called by a voter to claim their reward for each completed vote. updateStatus() must have been called earlier
+
+function claimRewardByChallengeID(challengeID, salt) {
+    return new Promise(resolve => {
+        RegistryContract.methods.claimReward(challengeID, salt).send((error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
+async function voterCanClaimReward() {
+    let challengeIDToClaimReward = document.getElementById('challengeIDToClaimReward').value;
+    let saltToClaimReward = document.getElementById('saltToClaimReward').value;
+    let claimRewardResponse = await claimRewardByChallengeID(challengeIDToClaimReward, saltToClaimReward);
+    document.getElementById('claimRewardResponse').innerHTML = claimRewardResponse;
+}

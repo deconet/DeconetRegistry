@@ -1,9 +1,10 @@
 {
-  "name": "deconetdapp",
+  "name": "tcr-ui",
   "version": "1.0.0",
   "description": "Deconet DApp for Token Curated Registry of Software Modules",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "test"
   },
   "keywords": [
