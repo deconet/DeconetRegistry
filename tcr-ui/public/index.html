@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="css/dapp.css">
 
     <script src="/js/DecoNetToken.js"></script>
+    <script src="/js/PLCRVoting.js"></script>
     <script src="/js/Parameterizer.js"></script>
     <script src="/js/Registry.js"></script>
     <script src="/js/vendor/jquery.js"></script>
@@ -393,8 +394,12 @@
                 <input type="text" id="challengeIDToClaimReward" placeholder="Challenge ID" />
             </div>
             <div class="large-4 medium-4 cell">
-                <label>Challenge Data</label>
+                <label>Option Selected while Voting</label>
                 <input type="text" id="saltToClaimReward" placeholder="Challenge Data" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Secret Key/Pin you used while Voting</label>
+                <input type="number" id="scretKeyToClaimReward" placeholder="159" />
             </div>
             <div class="large-4 medium-4 cell">
                 <br />
@@ -402,6 +407,42 @@
             </div>
         </div>
         <div id="claimRewardResponse"></div>
+
+        <hr />
+
+        <div class="grid-x grid-padding-x">
+            <div class="large-12 cell">
+                <h2>Vote for Modules which are under Application/Challenged Stage</h2>
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Poll ID</label>
+                <input type="text" id="challengeIDToVote" placeholder="Poll ID" />
+            </div>
+            <div class="large-6 medium-6 cell">
+                <label>Choose Your Vote Option</label>
+                <input type="radio" name="PLCRVoting" value="Y" id="support" required>
+                <label for="support">Support Whitelisting</label>
+                <input type="radio" name="PLCRVoting" value="N" id="reject" required>
+                <label for="reject">Reject Whitelisting</label>
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Secret Key/Pin to obscure your vote until you Reveal</label>
+                <input type="number" id="scretKeyToCommitVote" placeholder="159" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>Number of DCO to be Committed for Vote</label>
+                <input type="number" id="tokenAmountToCommitVote" placeholder="10" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <label>The Poll ID where you've voted the maximum amount of DCO Tokens (Leave Blank if voting for first time)</label>
+                <input type="number" id="previousPollID" placeholder="0" />
+            </div>
+            <div class="large-4 medium-4 cell">
+                <br />
+                <a id="usersCanCommitVote" class="button" onclick="usersCanCommitVote()">Commit Vote</a>
+            </div>
+        </div>
+        <div id="usersCanCommitVoteResponse"></div>
 
         <hr />
 

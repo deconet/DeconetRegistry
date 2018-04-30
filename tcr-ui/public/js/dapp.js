@@ -55,6 +55,10 @@ async function initDApp() {
         from: coinbaseAccount,
         gasPrice: '20000000000'                 // default gas price in wei, 20 gwei in this case
     });
+    window.PLCRVotingContract = new web3.eth.Contract(PLCRVotingContractABI, PLCRVotingContractAddress, {
+        from: coinbaseAccount,
+        gasPrice: '20000000000'                 // default gas price in wei, 20 gwei in this case
+    });
 }
 
 function getETHBalance() {
@@ -147,9 +151,22 @@ async function checkTokenBalance() {
     document.getElementById('balanceResponse').innerHTML = walletDCOBalance;
 }
 
-function doDCOSpendApproval(tokenValue) {
+function doDCOSpendApprovalToRegistryContract(tokenValue) {
     return new Promise(resolve => {
         DeconetTokenContract.methods.approve(RegistryContractAddress, tokenValue).send((error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
+function doDCOSpendApprovalToPLCRVotingContract(tokenValue) {
+    return new Promise(resolve => {
+        DeconetTokenContract.methods.approve(PLCRVotingContractAddress, tokenValue).send((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
@@ -182,7 +199,7 @@ async function applyToRegistry() {
     let moduleDetails = document.getElementById('moduleDetails').value;
     let tokensPledgedInDecoWei = web3.utils.toWei(tokensPledged, "ether");
     console.log(tokensPledgedInDecoWei);
-    let tokenSpendApproval = await doDCOSpendApproval(tokensPledgedInDecoWei);
+    let tokenSpendApproval = await doDCOSpendApprovalToRegistryContract(tokensPledgedInDecoWei);
     let applyResponse = await applyForListing(listingHash, tokensPledgedInDecoWei, moduleDetails);
     document.getElementById('applicationResponse').innerHTML = applyResponse;
 }
@@ -220,7 +237,7 @@ async function createChallenge() {
     let listingHashToChallenge = web3.utils.sha3(moduleNameToChallenge);
     let detailsForChallenge = document.getElementById('moduleDataToChallenge').value;
     let requiredTokensToChallengeInDecoWei = await checkMinimumTokensRequiredToChallenge();
-    let tokenSpendApproval = await doDCOSpendApproval(requiredTokensToChallengeInDecoWei);
+    let tokenSpendApproval = await doDCOSpendApprovalToRegistryContract(requiredTokensToChallengeInDecoWei);
     let doChallengeResponse = await doChallenge(listingHashToChallenge, detailsForChallenge);
     document.getElementById('doChallengeResponse').innerHTML = doChallengeResponse;
 }
@@ -245,7 +262,7 @@ async function increaseUnstakedDeposit() {
     let listingHashToIncreaseUnstakedDeposit = web3.utils.sha3(moduleNameToIncreaseUnstakedDeposit);
     let tokenAmountToDeposit = document.getElementById('tokenAmountToIncreaseDeposit').value;
     let tokenAmountToDepositInDecoWei = web3.utils.toWei(tokenAmountToDeposit, "ether");
-    let tokenSpendApproval = await doDCOSpendApproval(tokenAmountToDepositInDecoWei);
+    let tokenSpendApproval = await doDCOSpendApprovalToRegistryContract(tokenAmountToDepositInDecoWei);
     console.log("Token Spend Approval Response: "+ tokenSpendApproval);
     let increaseUnstakedDepositResponse = await doDeposit(listingHashToIncreaseUnstakedDeposit, tokenAmountToDepositInDecoWei);
     document.getElementById('increaseUnstakedDepositResponse').innerHTML = increaseUnstakedDepositResponse;
@@ -490,4 +507,53 @@ async function voterCanClaimReward() {
     let saltToClaimReward = document.getElementById('saltToClaimReward').value;
     let claimRewardResponse = await claimRewardByChallengeID(challengeIDToClaimReward, saltToClaimReward);
     document.getElementById('claimRewardResponse').innerHTML = claimRewardResponse;
+}
+
+function commitVoteByChallengeID(challengeIDToVote, secretHashForVoting, tokenPledgedForVote, previousPollID) {
+    return new Promise(resolve => {
+        PLCRVotingContract.methods.commitVote(challengeIDToVote, secretHashForVoting, tokenPledgedForVote, previousPollID).send((error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
+async function usersCanCommitVote() {
+    let challengeIDToVote = document.getElementById('challengeIDToVote').value;
+    let voteOption = document.querySelector('input[name="PLCRVoting"]:checked').value;
+    let secretPinForVote = document.getElementById('scretKeyToCommitVote').value;
+    let tokenPledgedForVote = document.getElementById('tokenAmountToCommitVote').value;
+    let previousPollID = document.getElementById('previousPollID').value;
+    
+    if (previousPollID === '') {
+        console.log("No Previous Poll ID");
+        previousPollID = 0;
+    } else {
+        console.log("Previous Poll ID exists");
+    }
+
+    let secretHashForVoting = 0x0;
+    if(voteOption === "Y") {
+        console.log("I Support Whitelisting this Module!");
+        secretHashForVoting = web3.utils.sha3("1", secretPinForVote);
+    } else if(voteOption === "N") {
+        console.log("I'm against Whitelisting this Module!");
+        secretHashForVoting = web3.utils.sha3("0", secretPinForVote);
+    } else {
+        console.log("Select a Valid Option!");
+        alert("Select a Valid Option!");
+    }
+
+    let tokenAmountToGetVotingRightsInDecoWei = web3.utils.toWei(tokenPledgedForVote, "ether");
+    let tokenSpendApproval = await doDCOSpendApprovalToPLCRVotingContract(tokenAmountToGetVotingRightsInDecoWei);
+    console.log("Token Spend Approval Response: "+ tokenSpendApproval);
+
+    // Now we also need to get Voting Rights before the actual voting can continue
+
+    let usersCanCommitVoteResponse = await commitVoteByChallengeID(challengeIDToVote, secretHashForVoting, tokenAmountToGetVotingRightsInDecoWei, previousPollID);
+    document.getElementById('usersCanCommitVoteResponse').innerHTML = usersCanCommitVoteResponse;
 }
