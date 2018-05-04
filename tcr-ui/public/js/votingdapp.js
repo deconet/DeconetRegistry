@@ -5,8 +5,32 @@ async function startApp() {
     await initDApp();
     // Get the Required Account Details
     await fetchAccountDetails();
+    // Get my current Voting Rights
+    await getMyVotingRights();
     // Subscribe To Voting Events
     // await subscribeToVotingEvents();
+}
+
+// Get my current Voting Rights
+
+async function getMyVotingRights() {
+    let walletETHBalance = await getVotingTokenBalance(walletAddress);
+    document.getElementById('myVotingRights').innerHTML = walletETHBalance;
+}
+
+// Get Voting Token Balance
+
+function getVotingTokenBalance(voterAddress) {
+    return new Promise(resolve => {
+        PLCRVotingContract.methods.voteTokenBalance(voterAddress).call((error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
 }
 
 // Get Voting Rights
@@ -43,6 +67,8 @@ async function voterCanClaimReward() {
     document.getElementById('claimRewardResponse').innerHTML = claimRewardResponse;
 }
 
+// Called by a voter to commit his vote
+
 function commitVoteByChallengeID(challengeIDToVote, secretHashForVoting, tokenPledgedForVote, previousPollID) {
     return new Promise(resolve => {
         PLCRVotingContract.methods.commitVote(challengeIDToVote, secretHashForVoting, tokenPledgedForVote, previousPollID).send((error, result) => {
@@ -55,8 +81,6 @@ function commitVoteByChallengeID(challengeIDToVote, secretHashForVoting, tokenPl
         });
     });
 }
-
-// Called by a voter to commit his vote
 
 async function usersCanCommitVote() {
     let challengeIDToVote = document.getElementById('challengeIDToVote').value;
