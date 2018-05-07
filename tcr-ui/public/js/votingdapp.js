@@ -24,6 +24,21 @@ function getVotingTokenBalance(voterAddress) {
     return new Promise(resolve => {
         PLCRVotingContract.methods.voteTokenBalance(voterAddress).call((error, result) => {
             if (!error) {
+                console.log(web3.utils.fromWei(result, "ether"));
+                resolve(web3.utils.fromWei(result, "ether"));
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
+// Approve to spend the tokens
+
+function doDCOSpendApprovalToPLCRVotingContract(tokenValue) {
+    return new Promise(resolve => {
+        DeconetTokenContract.methods.approve(PLCRVotingContractAddress, tokenValue).send((error, result) => {
+            if (!error) {
                 console.log(result);
                 resolve(result);
             } else {
@@ -35,14 +50,48 @@ function getVotingTokenBalance(voterAddress) {
 
 // Get Voting Rights
 
+function requestVotingRights(tokensToRequestVoting) {
+    return new Promise(resolve => {
+        PLCRVotingContract.methods.requestVotingRights(tokensToRequestVoting).send((error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
 async function getVotingRights() {
-    let balanceAddress = '';
+    let tokenToGetVotingRights = document.getElementById('tokenAmountToGetVotingRights').value;
+    let tokenToGetVotingRightsInDecoWei = web3.utils.toWei(tokenToGetVotingRights, "ether");
+    let tokenSpendApproval = await doDCOSpendApprovalToPLCRVotingContract(tokenToGetVotingRightsInDecoWei);
+    let getVotingRightsResponse = await requestVotingRights(tokenToGetVotingRightsInDecoWei);
+    document.getElementById('getVotingRightsResponse').innerHTML = getVotingRightsResponse;
 }
 
 // Revoke Voting Rights
 
+function withdrawVotingRights(tokensToRevokeVoting) {
+    return new Promise(resolve => {
+        PLCRVotingContract.methods.withdrawVotingRights(tokensToRevokeVoting).send((error, result) => {
+            if (!error) {
+                console.log(result);
+                resolve(result);
+            } else {
+                resolve(error);
+            }
+        });
+    });
+}
+
 async function revokeVotingRights() {
-    let balanceAddress = '';
+    let tokenToRevokeVotingRights = document.getElementById('tokenAmountToRevokeVotingRights').value;
+    let tokenToRevokeVotingRightsInDecoWei = web3.utils.toWei(tokenToRevokeVotingRights, "ether");
+    let tokenSpendApproval = await doDCOSpendApprovalToPLCRVotingContract(tokenToRevokeVotingRightsInDecoWei);
+    let revokeVotingRightsResponse = await withdrawVotingRights(tokenToRevokeVotingRightsInDecoWei);
+    document.getElementById('revokeVotingRightsResponse').innerHTML = revokeVotingRightsResponse;
 }
 
 // Called by a voter to claim their reward for each completed vote. updateStatus() must have been called earlier
@@ -109,11 +158,6 @@ async function usersCanCommitVote() {
     }
 
     let tokenAmountToGetVotingRightsInDecoWei = web3.utils.toWei(tokenPledgedForVote, "ether");
-    let tokenSpendApproval = await doDCOSpendApprovalToPLCRVotingContract(tokenAmountToGetVotingRightsInDecoWei);
-    console.log("Token Spend Approval Response: "+ tokenSpendApproval);
-
-    // Now we also need to get Voting Rights before the actual voting can continue
-
     let usersCanCommitVoteResponse = await commitVoteByChallengeID(challengeIDToVote, secretHashForVoting, tokenAmountToGetVotingRightsInDecoWei, previousPollID);
     document.getElementById('usersCanCommitVoteResponse').innerHTML = usersCanCommitVoteResponse;
 }

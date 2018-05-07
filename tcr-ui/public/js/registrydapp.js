@@ -26,22 +26,11 @@ async function checkTokenBalance() {
     document.getElementById('balanceResponse').innerHTML = walletDCOBalance;
 }
 
+// Approve to spend the tokens
+
 function doDCOSpendApprovalToRegistryContract(tokenValue) {
     return new Promise(resolve => {
         DeconetTokenContract.methods.approve(RegistryContractAddress, tokenValue).send((error, result) => {
-            if (!error) {
-                console.log(result);
-                resolve(result);
-            } else {
-                resolve(error);
-            }
-        });
-    });
-}
-
-function doDCOSpendApprovalToPLCRVotingContract(tokenValue) {
-    return new Promise(resolve => {
-        DeconetTokenContract.methods.approve(PLCRVotingContractAddress, tokenValue).send((error, result) => {
             if (!error) {
                 console.log(result);
                 resolve(result);
