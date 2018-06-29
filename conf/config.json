@@ -16,7 +16,7 @@
     "name": "The Deconet Modules Registry",
     "token": {
       "address": "0xd7cf6f49a404129d4291a79ac2ea13df3ef516ec",
-      "deployToken": false,
+      "deployToken": true,
       "decimals": "18",
       "name": "Deconet Token",
       "symbol": "DCO",
