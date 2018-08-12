@@ -1,8 +1,8 @@
-pragma solidity ^0.4.20;
+pragma solidity ^0.4.11;
 
 import "tokens/eip20/EIP20Interface.sol";
 import "./Parameterizer.sol";
-import "plcrvoting/PLCRVoting.sol";
+import "plcr-revival/PLCRVoting.sol";
 import "zeppelin/math/SafeMath.sol";
 
 contract Registry {
@@ -11,10 +11,10 @@ contract Registry {
     // EVENTS
     // ------
 
-    event _Application(bytes32 indexed listingHash, uint deposit, uint appEndDate, string data);
-    event _Challenge(bytes32 indexed listingHash, uint challengeID, string data, uint commitEndDate, uint revealEndDate);
-    event _Deposit(bytes32 indexed listingHash, uint added, uint newTotal);
-    event _Withdrawal(bytes32 indexed listingHash, uint withdrew, uint newTotal);
+    event _Application(bytes32 indexed listingHash, uint deposit, uint appEndDate, string data, address indexed applicant);
+    event _Challenge(bytes32 indexed listingHash, uint challengeID, string data, uint commitEndDate, uint revealEndDate, address indexed challenger);
+    event _Deposit(bytes32 indexed listingHash, uint added, uint newTotal, address indexed owner);
+    event _Withdrawal(bytes32 indexed listingHash, uint withdrew, uint newTotal, address indexed owner);
     event _ApplicationWhitelisted(bytes32 indexed listingHash);
     event _ApplicationRemoved(bytes32 indexed listingHash);
     event _ListingRemoved(bytes32 indexed listingHash);
@@ -22,7 +22,7 @@ contract Registry {
     event _TouchAndRemoved(bytes32 indexed listingHash);
     event _ChallengeFailed(bytes32 indexed listingHash, uint indexed challengeID, uint rewardPool, uint totalTokens);
     event _ChallengeSucceeded(bytes32 indexed listingHash, uint indexed challengeID, uint rewardPool, uint totalTokens);
-    event _RewardClaimed(uint indexed challengeID, uint reward);
+    event _RewardClaimed(uint indexed challengeID, uint reward, address indexed voter);
 
     using SafeMath for uint;
 
@@ -54,27 +54,19 @@ contract Registry {
     PLCRVoting public voting;
     Parameterizer public parameterizer;
     string public name;
-    string public version = "1";
-
-    // ------------
-    // CONSTRUCTOR:
-    // ------------
 
     /**
-    @dev Contructor         Sets the addresses for token, voting, and parameterizer
-    @param _tokenAddr       Address of the TCR's intrinsic ERC20 token
-    @param _plcrAddr        Address of a PLCR voting contract for the provided token
-    @param _paramsAddr      Address of a Parameterizer contract 
+    @dev Initializer. Can only be called once.
+    @param _token The address where the ERC20 token contract is deployed
     */
-    function Registry(
-        address _tokenAddr,
-        address _plcrAddr,
-        address _paramsAddr,
-        string _name
-    ) public {
-        token = EIP20Interface(_tokenAddr);
-        voting = PLCRVoting(_plcrAddr);
-        parameterizer = Parameterizer(_paramsAddr);
+    function init(address _token, address _voting, address _parameterizer, string _name) public {
+        require(_token != 0 && address(token) == 0);
+        require(_voting != 0 && address(voting) == 0);
+        require(_parameterizer != 0 && address(parameterizer) == 0);
+
+        token = EIP20Interface(_token);
+        voting = PLCRVoting(_voting);
+        parameterizer = Parameterizer(_parameterizer);
         name = _name;
     }
 
@@ -105,7 +97,7 @@ contract Registry {
         // Transfers tokens from user to Registry contract
         require(token.transferFrom(listing.owner, this, _amount));
 
-        _Application(_listingHash, _amount, listing.applicationExpiry, _data);
+        emit _Application(_listingHash, _amount, listing.applicationExpiry, _data, msg.sender);
     }
 
     /**
@@ -121,7 +113,7 @@ contract Registry {
         listing.unstakedDeposit += _amount;
         require(token.transferFrom(msg.sender, this, _amount));
 
-        _Deposit(_listingHash, _amount, listing.unstakedDeposit);
+        emit _Deposit(_listingHash, _amount, listing.unstakedDeposit, msg.sender);
     }
 
     /**
@@ -139,7 +131,7 @@ contract Registry {
         listing.unstakedDeposit -= _amount;
         require(token.transfer(msg.sender, _amount));
 
-        _Withdrawal(_listingHash, _amount, listing.unstakedDeposit);
+        emit _Withdrawal(_listingHash, _amount, listing.unstakedDeposit, msg.sender);
     }
 
     /**
@@ -158,7 +150,7 @@ contract Registry {
 
         // Remove listingHash & return tokens
         resetListing(_listingHash);
-        _ListingWithdrawn(_listingHash);
+        emit _ListingWithdrawn(_listingHash);
     }
 
     // -----------------------
@@ -174,17 +166,17 @@ contract Registry {
     */
     function challenge(bytes32 _listingHash, string _data) external returns (uint challengeID) {
         Listing storage listing = listings[_listingHash];
-        uint deposit = parameterizer.get("minDeposit");
+        uint minDeposit = parameterizer.get("minDeposit");
 
         // Listing must be in apply stage or already on the whitelist
         require(appWasMade(_listingHash) || listing.whitelisted);
         // Prevent multiple challenges
         require(listing.challengeID == 0 || challenges[listing.challengeID].resolved);
 
-        if (listing.unstakedDeposit < deposit) {
+        if (listing.unstakedDeposit < minDeposit) {
             // Not enough tokens, listingHash auto-delisted
             resetListing(_listingHash);
-            _TouchAndRemoved(_listingHash);
+            emit _TouchAndRemoved(_listingHash);
             return 0;
         }
 
@@ -195,10 +187,11 @@ contract Registry {
             parameterizer.get("revealStageLen")
         );
 
+        uint oneHundred = 100; // Kludge that we need to use SafeMath
         challenges[pollID] = Challenge({
             challenger: msg.sender,
-            rewardPool: ((100 - parameterizer.get("dispensationPct")) * deposit) / 100,
-            stake: deposit,
+            rewardPool: ((oneHundred.sub(parameterizer.get("dispensationPct"))).mul(minDeposit)).div(100),
+            stake: minDeposit,
             resolved: false,
             totalTokens: 0
         });
@@ -207,14 +200,14 @@ contract Registry {
         listing.challengeID = pollID;
 
         // Locks tokens for listingHash during challenge
-        listing.unstakedDeposit -= deposit;
+        listing.unstakedDeposit -= minDeposit;
 
         // Takes tokens from challenger
-        require(token.transferFrom(msg.sender, this, deposit));
+        require(token.transferFrom(msg.sender, this, minDeposit));
 
         var (commitEndDate, revealEndDate,) = voting.pollMap(pollID);
 
-        _Challenge(_listingHash, pollID, _data, commitEndDate, revealEndDate);
+        emit _Challenge(_listingHash, pollID, _data, commitEndDate, revealEndDate, msg.sender);
         return pollID;
     }
 
@@ -225,11 +218,23 @@ contract Registry {
     */
     function updateStatus(bytes32 _listingHash) public {
         if (canBeWhitelisted(_listingHash)) {
-          whitelistApplication(_listingHash);
+            whitelistApplication(_listingHash);
         } else if (challengeCanBeResolved(_listingHash)) {
-          resolveChallenge(_listingHash);
+            resolveChallenge(_listingHash);
         } else {
-          revert();
+            revert();
+        }
+    }
+
+    /**
+    @dev                  Updates an array of listingHashes' status from 'application' to 'listing' or resolves
+                          a challenge if one exists.
+    @param _listingHashes The listingHashes whose status are being updated
+    */
+    function updateStatuses(bytes32[] _listingHashes) public {
+        // loop through arrays, revealing each individual vote values
+        for (uint i = 0; i < _listingHashes.length; i++) {
+            updateStatus(_listingHashes[i]);
         }
     }
 
@@ -261,7 +266,23 @@ contract Registry {
 
         require(token.transfer(msg.sender, reward));
 
-        _RewardClaimed(_challengeID, reward);
+        emit _RewardClaimed(_challengeID, reward, msg.sender);
+    }
+
+    /**
+    @dev                 Called by a voter to claim their rewards for each completed vote. Someone
+                         must call updateStatus() before this can be called.
+    @param _challengeIDs The PLCR pollIDs of the challenges rewards are being claimed for
+    @param _salts        The salts of a voter's commit hashes in the given polls
+    */
+    function claimRewards(uint[] _challengeIDs, uint[] _salts) public {
+        // make sure the array lengths are the same
+        require(_challengeIDs.length == _salts.length);
+
+        // loop through arrays, claiming each individual vote reward
+        for (uint i = 0; i < _challengeIDs.length; i++) {
+            claimReward(_challengeIDs[i], _salts[i]);
+        }
     }
 
     // --------
@@ -364,7 +385,7 @@ contract Registry {
     @param _voter       The voter whose claim status to query for the provided challengeID
     */
     function tokenClaims(uint _challengeID, address _voter) public view returns (bool) {
-      return challenges[_challengeID].tokenClaims[_voter];
+        return challenges[_challengeID].tokenClaims[_voter];
     }
 
     // ----------------
@@ -396,7 +417,7 @@ contract Registry {
             // Unlock stake so that it can be retrieved by the applicant
             listings[_listingHash].unstakedDeposit += reward;
 
-            _ChallengeFailed(_listingHash, challengeID, challenges[challengeID].rewardPool, challenges[challengeID].totalTokens);
+            emit _ChallengeFailed(_listingHash, challengeID, challenges[challengeID].rewardPool, challenges[challengeID].totalTokens);
         }
         // Case: challenge succeeded or nobody voted
         else {
@@ -404,7 +425,7 @@ contract Registry {
             // Transfer the reward to the challenger
             require(token.transfer(challenges[challengeID].challenger, reward));
 
-            _ChallengeSucceeded(_listingHash, challengeID, challenges[challengeID].rewardPool, challenges[challengeID].totalTokens);
+            emit _ChallengeSucceeded(_listingHash, challengeID, challenges[challengeID].rewardPool, challenges[challengeID].totalTokens);
         }
     }
 
@@ -415,7 +436,7 @@ contract Registry {
     @param _listingHash The listingHash of an application/listingHash to be whitelisted
     */
     function whitelistApplication(bytes32 _listingHash) private {
-        if (!listings[_listingHash].whitelisted) { _ApplicationWhitelisted(_listingHash); }
+        if (!listings[_listingHash].whitelisted) { emit _ApplicationWhitelisted(_listingHash); }
         listings[_listingHash].whitelisted = true;
     }
 
@@ -428,9 +449,9 @@ contract Registry {
 
         // Emit events before deleting listing to check whether is whitelisted
         if (listing.whitelisted) {
-            _ListingRemoved(_listingHash);
+            emit _ListingRemoved(_listingHash);
         } else {
-            _ApplicationRemoved(_listingHash);
+            emit _ApplicationRemoved(_listingHash);
         }
 
         // Deleting listing to prevent reentry
